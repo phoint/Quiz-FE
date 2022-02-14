@@ -13,7 +13,10 @@
  
 # Maven
 ### Maven ###
+
 /target/
+target/
+log/
 !.mvn/wrapper/maven-wrapper.jar
 target/
 pom.xml.tag
