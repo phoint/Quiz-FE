@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns="http://www.w3.org/1999/html">
+
+<div th:replace="admin/fragments/start-frag :: start-head"></div>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <div th:replace="admin/fragments/start-frag :: start-nav"></div>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <div th:replace="admin/fragments/start-frag :: start-side"></div>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">Admin</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a th:href="@{admin/start}">Home</a></li>
+                                <li class="breadcrumb-item active">Admin Page</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <div class="widget-user-header bg-primary">
+                                    <h3 class="widget-user-username">Alexander Pierce</h3>
+                                    <h5 class="widget-user-desc">Quiz &amp; Manager</h5>
+                                </div>
+                                <div class="widget-user-image">
+                                    <img class="img-circle elevation-2" src="dist/img/user2-160x160.jpg"
+                                        alt="User Avatar">
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-sm-6 border-right">
+                                            <div class="description-block">
+                                                <div class="small-box bg-warning">
+                                                    <div class="inner">
+                                                        <h3>100</h3>
+
+                                                        <p>User Registrations</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="ion ion-person-add"></i>
+                                                    </div>
+                                                    <a href="#" class="small-box-footer">More info <i
+                                                            class="fas fa-arrow-circle-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-6">
+                                            <div class="description-block">
+                                                <div class="small-box bg-danger">
+                                                    <div class="inner">
+                                                        <h3>10</h3>
+
+                                                        <p>Quiz</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="ion ion-pie-graph"></i>
+                                                    </div>
+                                                    <a href="#" class="small-box-footer">More info <i
+                                                            class="fas fa-arrow-circle-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <!-- <div class="col-sm-4">
+                                            <div class="description-block">
+                                                <h5 class="description-header">35</h5>
+                                                <span class="description-text">PRODUCTS</span>
+                                            </div>
+                                        </div> -->
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 d-flex justify-content-around align-items-center flex-wrap my-2">
+                            <a href="#" class="position-relative w-25 mx-2">
+                                <img src="dist/img/photo1.png" alt="Photo 1" class="img-fluid">
+                                <div class="ribbon-wrapper ribbon-lg">
+                                    <div class="ribbon bg-success text-lg">
+                                        New
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" class="position-relative w-25">
+                                <img src="dist/img/photo2.png" alt="Photo 2" class="img-fluid">
+                                <div class="ribbon-wrapper ribbon-xl">
+                                    <div class="ribbon bg-warning text-lg">
+                                        2000/01/01
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" class="position-relative w-25" style="min-height: 180px;">
+                                <img src="dist/img/photo3.jpg" alt="Photo 3" class="img-fluid">
+                                <div class="ribbon-wrapper ribbon-xl">
+                                    <div class="ribbon bg-danger text-xl">
+                                        22/01/2022
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+
+                                    <p class="card-text">
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
+                                        content.
+                                    </p>
+
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+
+                            <div class="card card-primary card-outline">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+
+                                    <p class="card-text">
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
+                                        content.
+                                    </p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div><!-- /.card -->
+                        </div>
+                        <!-- /.col-md-6 -->
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="m-0">Featured</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title">Special title treatment</h6>
+
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h5 class="m-0">Featured</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title">Special title treatment</h6>
+
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.col-md-6 -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Main Footer -->
+        <div th:replace="admin/fragments/start-frag :: start-footer"></div>
+    </div>
+    <!-- The Modal Create Quiz -->
+    <div th:replace="admin/fragments/start-frag :: create-quiz"></div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script th:src="@{/resources/admin/plugins/jquery/jquery.min.js}"></script>
+    <!-- Bootstrap 4 -->
+    <script th:src="@{/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <!-- AdminLTE App -->
+    <script th:src="@{/resources/admin/dist/js/adminlte.min.js}"></script>
+</body>
+
+</html>
