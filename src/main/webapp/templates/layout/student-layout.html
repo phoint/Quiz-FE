@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns="http://www.w3.org/1999/html">
+<!-- Basic -->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Mobile Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Site Metas -->
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Site Icons -->
+<link rel="shortcut icon" th:href="@{images/favicon.ico}"
+	type="image/x-icon">
+<link rel="apple-touch-icon" th:href="@{images/apple-touch-icon.png}">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}">
+<!-- Site CSS -->
+<link rel="stylesheet" th:href="@{/resources/css/style.css}">
+<!-- Responsive CSS -->
+<link rel="stylesheet" th:href="@{/resources/css/responsive.css}">
+<!-- Custom CSS -->
+<link rel="stylesheet" th:href="@{/resources/css/custom.css}">
+<!-- Header CSS -->
+<link rel="stylesheet" th:href="@{/resources/css/my-css/header.css}">
+
+<link rel="stylesheet"
+	th:href="@{/resources/fontawesome/css/all.min.css}">
+
+
+<link rel="stylesheet"
+	th:href="@{/resources/css/my-css/custom-index.css}">
+
+<!-- <link rel="stylesheet" href="css/iziModal.css"> -->
+
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+</head>
+<body>
+	<!-- Start Main Top -->
+	<div th:replace="fragments/student/header :: header"></div>
+	<!-- End Main Top -->
+
+	<div layout:fragment="main"></div>
+
+	<!-- Start Footer  -->
+	<div th:replace="fragments/student/footer :: footer"></div>
+	<!-- End Footer  -->
+	<!-- Start copyright  -->
+	<div class="footer-copyright">
+		<p class="footer-company">
+			All Rights Reserved. &copy; 2021 <a href="#">DHMobile</a> Design By :
+			<a href="https://html.design/">A Result From Google Search</a>
+		</p>
+	</div>
+	<!-- End copyright  -->
+
+	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+	<!-- Start Log In Modal-->
+	<div th:replace="fragments/student/modal/login-modal :: login-modal"></div>
+	<!-- Finish  Log In  Modal-->
+
+	<!-- Start Sign Up Modal-->
+	<div
+		th:replace="fragments/student/modal/register-modal :: register-modal"></div>
+	<!-- Finish Sign Up Modal-->
+
+	<!-- Start Forgot Pass Modal-->
+	<div
+		th:replace="fragments/student/modal/forgot-password-modal :: forgot-password-modal"></div>
+
+	<!-- Finish Forgot Pass Modal-->
+	<!-- ALL JS FILES -->
+	<script th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/resources/js/popper.min.js}"></script>
+	<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+	<script th:src="@{/resources/js/my-js/common-const.js}"></script>
+	<!-- ALL PLUGINS -->
+	<script th:src="@{/resources/jquery.superslides.min.js}"></script>
+	<script th:src="@{/resources/js/bootstrap-select.js}"></script>
+	<script th:src="@{/resources/js/inewsticker.js}"></script>
+	<script th:src="@{/resources/js/bootsnav.js}"></script>
+	<script th:src="@{/resources/js/images-loded.min.js}"></script>
+	<script th:src="@{/resources/js/isotope.min.js}"></script>
+	<script th:src="@{/resources/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/resources/js/baguetteBox.min.js}"></script>
+	<script th:src="@{/resources/js/form-validator.min.js}"></script>
+	<script th:src="@{/resources/js/contact-form-script.js}"></script>
+	<script th:src="@{/resources/js/custom.js}"></script>
+	<script th:src="@{/resources/js/my-js/slider-home-page.js}"></script>
+	<script th:src="@{/resources/js/jquery.serialize-object.min.js}"></script>
+	<script th:src="@{/resources/js/my-js/register.js}"></script>
+	<script th:src="@{/resources/js/my-js/login.js}"></script>
+
+</body>
+
+</html>

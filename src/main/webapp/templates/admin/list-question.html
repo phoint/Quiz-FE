@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns="http://www.w3.org/1999/html">
+
+<div th:replace="admin/fragments/start-frag :: start-head"></div>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <div th:replace="admin/fragments/start-frag :: start-nav"></div>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <div th:replace="admin/fragments/start-frag :: start-side"></div>
+        
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-9">
+                            <div class="card">
+                                <div class="card-body bg-gradient-gray-dark">
+                                    <form action="#" method="post">
+                                        <fieldset class="border p-2 d-flex justify-content-center align-items-center">
+                                            <legend class="w-auto">Name Question</legend>
+                                            <input placeholder=" Title" type="text" id="fname" name="fname" />
+                                            <textarea placeholder=" Content" name="des" id="des" cols="50"
+                                                rows="1"></textarea>
+                                            <input placeholder="Slug" type="text" id="Slug" name="Slug" />
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn"><i
+                                                        class="fas fa-arrow-right text-muted"></i></button>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="col-sm-3">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">
+                                    <a class="btn btn-sm bg-teal" aria-hidden="true">
+                                        <i class="fa fa-plus-circle"></i> Add Question
+                                    </a>
+                                </li>
+                                <!-- <li class="breadcrumb-item active">
+                                    <a class="btn btn-sm bg-teal" aria-hidden="true">
+                                        <i class="ion-ios-download-outline"></i> Save Question
+                                    </a>
+                                </li> -->
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="card bg-gradient-gray">
+                                <div class="card-header ">
+                                    <h3 class="card-title">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            data-toggle="tooltip" title="Collapse">
+                                            <i class="fas fa-minus"></i></button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                                class="fas fa-expand"></i></button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove"
+                                            data-toggle="tooltip" title="Hide">
+                                            <i class="fas fa-times"></i></button>
+                                    </h3>
+                                    <h5 class="m-0 float-sm-right">
+                                        <a class="btn-sm btn-light" href="http://">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <a class="btn-sm btn-light" href="http://">
+                                            <i class="far fa-copy"></i>
+                                        </a>
+                                        <a class="btn-sm btn-light" href="http://">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div class="card-body row">
+                                    <!-- Question -->
+                                    <h6 class="card-title d-flex align-items-center mb-2 col-12">
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 150px;height: 100px;" class="mr-2" />
+
+                                        Q...............................?
+                                    </h6>
+                                    <!-- Answers -->
+                                    <small>Answers</small>
+                                    <p class="col-12 d-flex flex-wrap card-outline card-gray">
+                                    <div class="w-50 d-flex">
+                                        <div class="rounded-circle bg-gradient-light mx-1"
+                                            style="width:15px;height:15px;">
+                                        </div>
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 100px;height: 90px;" class="mr-2" />
+                                        <div class="callout bg-gradient-gray w-75">
+                                            <h5>I am a success callout!</h5>
+                                            <p>This is a green callout.</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 d-flex">
+                                        <div class="rounded-circle bg-gradient-gray mx-1"
+                                            style="width:15px;height:15px;">
+                                        </div>
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 100px;height: 90px;" class="mr-2" />
+                                        <div class="callout bg-gradient-gray w-75">
+                                            <h5>I am a success callout!</h5>
+                                            <p>This is a green callout.</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 d-flex">
+                                        <div class="rounded-circle bg-gradient-gray mx-1"
+                                            style="width:15px;height:15px;">
+                                        </div>
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 100px;height: 90px;" class="mr-2" />
+                                        <div class="callout bg-gradient-gray w-75">
+                                            <h5>I am a success callout!</h5>
+                                            <p>This is a green callout.</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 d-flex">
+                                        <div class="rounded-circle bg-gradient-gray mx-1"
+                                            style="width:15px;height:15px;">
+                                        </div>
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 100px;height: 90px;" class="mr-2" />
+                                        <div class="callout bg-gradient-gray w-75">
+                                            <h5>I am a success callout!</h5>
+                                            <p>This is a green callout.</p>
+                                        </div>
+                                    </div>
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <a class="btn-sm btn-light text-dark">
+                                        <i class="ion-ios-stopwatch-outline"></i> 30 seconds
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="card bg-gradient-gray-dark">
+                                <div class="card-header ">
+                                    <h3 class="card-title">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            data-toggle="tooltip" title="Collapse">
+                                            <i class="fas fa-minus"></i></button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                                class="fas fa-expand"></i></button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove"
+                                            data-toggle="tooltip" title="Hide">
+                                            <i class="fas fa-times"></i></button>
+                                    </h3>
+                                    <h5 class="m-0 float-sm-right">
+                                        <a class="btn-sm btn-light" href="http://">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <a class="btn-sm btn-light" href="http://">
+                                            <i class="far fa-copy"></i>
+                                        </a>
+                                        <a class="btn-sm btn-light" href="http://">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div class="card-body row">
+                                    <!-- Question -->
+                                    <h6 class="card-title d-flex align-items-center mb-2 col-12">
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 150px;height: 100px;" class="mr-2" />
+
+                                        Q...............................?
+                                    </h6>
+                                    <!-- Answers -->
+                                    <small>Answers</small>
+                                    <p class="col-12 d-flex flex-wrap card-outline card-gray-dark">
+                                    <div class="w-50 d-flex">
+                                        <div class="rounded-circle bg-teal mx-1" style="width:15px;height:15px;">
+                                        </div>
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 100px;height: 90px;" class="mr-2" />
+                                        <div class="callout callout-success bg-gradient-gray-dark w-50">
+                                            <h5>I am a success callout!</h5>
+                                            <p>This is a green callout.</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 d-flex">
+                                        <div class="rounded-circle bg-gradient-gray-dark mx-1"
+                                            style="width:15px;height:15px;">
+                                        </div>
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 100px;height: 90px;" class="mr-2" />
+                                        <div class="callout callout-success bg-gradient-gray-dark w-50">
+                                            <h5>I am a success callout!</h5>
+                                            <p>This is a green callout.</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 d-flex">
+                                        <div class="rounded-circle bg-gradient-gray-dark mx-1"
+                                            style="width:15px;height:15px;">
+                                        </div>
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 100px;height: 90px;" class="mr-2" />
+                                        <div class="callout callout-success bg-gradient-gray-dark w-50">
+                                            <h5>I am a success callout!</h5>
+                                            <p>This is a green callout.</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 d-flex">
+                                        <div class="rounded-circle bg-gradient-gray-dark mx-1"
+                                            style="width:15px;height:15px;">
+                                        </div>
+                                        <img src="dist/img/photo3.jpg" alt="" srcset=""
+                                            style="width: 100px;height: 90px;" class="mr-2" />
+                                        <div class="callout callout-success bg-gradient-gray-dark w-50">
+                                            <h5>I am a success callout!</h5>
+                                            <p>This is a green callout.</p>
+                                        </div>
+                                    </div>
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <a class="btn-sm btn-light text-dark">
+                                        <i class="ion-ios-stopwatch-outline"></i> 30 seconds
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+            <div class="p-3">
+                <h5>Title</h5>
+                <p>Sidebar content</p>
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+
+        <!-- Main Footer -->
+        <div th:replace="admin/fragments/start-frag :: start-footer"></div>
+    </div>
+    <!-- The Modal Create Quiz -->
+    <div th:replace="admin/fragments/start-frag :: create-quiz"></div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script th:src="@{/resources/admin/plugins/jquery/jquery.min.js}"></script>
+    <!-- Bootstrap 4 -->
+    <script th:src="@{/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <!-- AdminLTE App -->
+    <script th:src="@{/resources/admin/dist/js/adminlte.min.js}"></script>
+</body>
+
+</html>
