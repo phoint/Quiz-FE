@@ -33,4 +33,17 @@ public class UserService implements IUserService {
 		return userResponse.getBody();
 	}
 
+	@Override
+	public boolean existsResetPasswordToken(String token) {
+		try {
+			UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(API.Public.EXISTS_RESET_PASSWORD_TOKEN)
+					// Add query parameter
+					.queryParam("token", token);
+			return Boolean.valueOf(restTemplate.getForObject(builder.toUriString(), String.class));
+		} catch (Exception e) {
+			System.err.println(e);
+			return false;
+		}
+	}
+
 }

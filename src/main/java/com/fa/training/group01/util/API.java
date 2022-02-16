@@ -12,6 +12,7 @@ public class API {
 	public static class Public {
 		public static final String REGISTER = "/register";
 		public static final String AUTH_TOKEN = "/login";
+		public static final String EXISTS_RESET_PASSWORD_TOKEN="/exists-reset-password-token";
 	}
 
 	@UtilityClass

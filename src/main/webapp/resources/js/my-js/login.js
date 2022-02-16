@@ -1,6 +1,6 @@
 $(document).ready(function () {
   var form = $("#login-form");
-  var formMessage = $(".form-message");
+  var formMessage = form.find(".form-message");
   $(form).submit(function (e) {
     e.preventDefault();
     var formMessage = $(".form-message");

@@ -7,4 +7,6 @@ public interface IUserService {
 	User getByEmail(String email);
 
 	User getByAuthenciation(AuthenciationToken authenciationToken);
+	
+	boolean existsResetPasswordToken(String token);
 }
