@@ -20,6 +20,16 @@ public class QuizService implements IQuizService {
 	public Quiz save(Quiz quiz) {
 		return quizDAO.save(quiz);
 	}
+	
+	@Override
+	public void addPart(Quiz quiz) {
+		quizDAO.addPart(quiz);
+	}
+	
+	@Override
+	public Quiz update(Quiz quiz) {
+		return quizDAO.update(quiz);
+	}
 
 	@Override
 	public List<Quiz> findAll() {

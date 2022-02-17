@@ -1,9 +1,6 @@
 package com.fa.training.group01.controller.admin;
 
-import java.net.URI;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,11 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fa.training.group01.domain_model.Part;
 import com.fa.training.group01.domain_model.Quiz;
+import com.fa.training.group01.service.impl.PartService;
 import com.fa.training.group01.service.impl.QuizService;
 
 @Controller
@@ -33,6 +30,8 @@ public class QuizController {
 
 	@Autowired
 	private QuizService quizService;
+	@Autowired
+	private PartService partService;
 
 	@GetMapping(value = "/quizzes")
 	public String showQuizPage(Model theModel, Quiz quiz) {
@@ -64,10 +63,20 @@ public class QuizController {
 		return "admin/parts-management";
 	}
 
+	@PostMapping(value = "/new-quiz", params = { "id" })
+	public String saveQuiz(@ModelAttribute("quiz") Quiz quiz) {
+		quizService.update(quiz);
+		partService.updateAll(quiz.getParts());
+		return "admin/parts-management";
+	}
+
 	@RequestMapping(value = "/new-quiz", params = { "addPart", "id" })
 	public String addPart(@ModelAttribute("quiz") Quiz quiz,
-			BindingResult bindingResult) {
-		quiz.getParts().add(new Part());
+			BindingResult bindingResult, @RequestParam("id") int quizId) {
+		Part newPart = partService.save(new Part());
+
+		quiz.getParts().add(newPart);
+		quizService.addPart(quiz);
 		System.out.println(quiz);
 		return "admin/parts-management";
 	}
@@ -77,6 +86,7 @@ public class QuizController {
 			BindingResult bindingResult,
 			@RequestParam("removePart") int partIndex) {
 		quiz.getParts().remove(partIndex);
+		quizService.addPart(quiz);
 		System.out.println(quiz);
 		return "admin/parts-management";
 	}
