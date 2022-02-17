@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
-import com.fa.training.group01.model.QuizModel;
+import com.fa.training.group01.domain_model.Quiz;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,11 +30,11 @@ public class AdminController {
 	
 	@GetMapping({"","/start"})
 	public String startPage() {
-		ResponseEntity<EntityModel<QuizModel>> response = template.exchange("http://localhost:9090/quizzes/1", HttpMethod.GET, null, new ParameterizedTypeReference<EntityModel<QuizModel>>() {});		
-		EntityModel<QuizModel> quiz = response.getBody();
-		System.out.println(quiz.getLink(LinkRelation.of("self")));
-		System.out.println(quiz.getContent());
-		return "admin/start-admin";
+//		ResponseEntity<EntityModel<Quiz>> response = template.exchange("http://localhost:9090/quizzes/1", HttpMethod.GET, null, new ParameterizedTypeReference<EntityModel<Quiz>>() {});		
+//		EntityModel<Quiz> quiz = response.getBody();
+//		System.out.println(quiz.getLink(LinkRelation.of("self")));
+//		System.out.println(quiz.getContent());
+		return "admin/dashboard";
 	}
 	
 	@RequestMapping(value = "/user",method =RequestMethod.GET )
@@ -57,8 +57,8 @@ public class AdminController {
 		return "admin/create-question";
 	}
 	
-	@PostMapping(value="/new-quiz")
-	public String createQuiz() {
-		return "redirect:admin/createQ";
-	}
+//	@PostMapping(value="/new-quiz")
+//	public String createQuiz() {
+//		return "redirect:admin/createQ";
+//	}
 }
