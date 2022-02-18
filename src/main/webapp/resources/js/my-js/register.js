@@ -22,12 +22,13 @@ boolean isSuccess: is a success message */
   }
   $("#register-form").submit(function (e) {
     e.preventDefault();
-    var formMessage = $(".form-message");
     var form = $(this);
+    var formMessage = form.find(".form-message");
     var submitBtn = $(this).find(":submit");
     // all error elements of the form
     var errorEles = $(form.find(".error"));
     var data = JSON.stringify(form.serializeObject());
+    console.log(api.host + api.student_role.user.register);
     $.ajax({
       crossDomain: true,
       type: "post",
@@ -54,10 +55,12 @@ boolean isSuccess: is a success message */
         }
       },
       error: function (xhr, status, error) {
+        console.log(xhr.responseText);
         var response = xhr.responseJSON;
         console.log(response);
         if (xhr.status === 422) {
           $.each(form.serializeArray(), function (i, field) {
+            
             var input = $("input[name=" + field.name + "]");
             var errorEle = input.next();
             if (response.hasOwnProperty(field.name)) {
@@ -66,13 +69,9 @@ boolean isSuccess: is a success message */
               errorEle.text("");
             }
           });
-        } else {
-          showFormMessage(
-            formMessage,
-            "Đã có lỗi khi gửi dữ liệu tới server",
-            false
-          );
+          return;
         }
+        showFormMessage(formMessage,"");
       },
       complete: function () {
         submitBtn.prop("disabled", false);

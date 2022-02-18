@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fa.training.group01.domain_model.User;
 import com.fa.training.group01.payload.LoginRequest;
@@ -17,6 +19,7 @@ import com.fa.training.group01.security.CustomUserDetails;
 import com.fa.training.group01.service.IAuthService;
 import com.fa.training.group01.service.IUserService;
 import com.fa.training.group01.util.RestTemplateUtil;
+import com.fa.training.group01.util.UrlUtil;
 
 @Controller
 public class HomeController {
@@ -34,7 +37,7 @@ public class HomeController {
 		return "student/index";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = UrlUtil.Public.PathName.LOGIN, method = RequestMethod.POST)
 	@ResponseBody
 	public String login(@ModelAttribute LoginRequest loginRequest) {
 		try {
@@ -50,6 +53,17 @@ public class HomeController {
 			System.err.println(e);
 			return "failed";
 		}
-
 	}
+
+	@RequestMapping(value = UrlUtil.Public.PathName.RESET_PASSWORD, method = RequestMethod.GET)
+	public ModelAndView resetPasswordPage(@RequestParam(value = "token", required = false) String token) {
+		ModelAndView mav = new ModelAndView();
+		if (!userService.existsResetPasswordToken(token)) {
+			mav.setViewName(UrlUtil.REDIRECT_PREFIX + "/");
+			return mav;
+		}
+		mav.setViewName("student/reset-password");
+		return mav;
+	}
+
 }

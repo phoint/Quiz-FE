@@ -1,6 +1,6 @@
 $(document).ready(function () {
   var form = $("#login-form");
-  var formMessage = $(".form-message");
+  var formMessage = form.find(".form-message");
   $(form).submit(function (e) {
     e.preventDefault();
     var formMessage = $(".form-message");
@@ -90,8 +90,7 @@ $(document).ready(function () {
         { scope: "email,public_profile", return_scopes: true }
       );
     },
-    false
-  );
+    false);
   async function loginFacebook(accessToken) {
     var submitBtn = $(form).find(".login-btn");
     submitBtn.prop("disabled", true);
