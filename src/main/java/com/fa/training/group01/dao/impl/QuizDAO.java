@@ -73,12 +73,13 @@ public class QuizDAO implements IQuizDAO {
 
 		template.exchange(quizURI.expand(quiz.getId()).getHref(),
 				HttpMethod.PUT, request, String.class);
+		
+		header.remove("Content-type");
 	}
 
 	@Override
 	public Quiz update(Quiz quiz) {
 		Link quizURI = Link.of(API.HOST + API.Quiz.QUIZ);
-		header.remove("Content-type");
 		HttpEntity<Quiz> request = new HttpEntity<Quiz>(quiz, header);
 		ResponseEntity<EntityModel<Quiz>> responseEntity = template.exchange(
 				quizURI.getHref(), HttpMethod.PUT, request,

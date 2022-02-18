@@ -9,6 +9,7 @@ public class API {
 	public static final String USER_MODULE = "/user";
 	public static final String QUIZ_MODULE = "/quizzes";
 	public static final String PART_MODULE = "/parts";
+	public static final String SECTION_MODULE = "/sections";
 
 	@UtilityClass
 	public static class Public {
@@ -36,8 +37,8 @@ public class API {
 	
 	@UtilityClass
 	public static class Section {
-		public static final String SECTION = "/section/{sectionId}";
-		public static final String QUESTION = "/section/{sectionId}/questions";
+		public static final String SECTION = "/sections/{sectionId}";
+		public static final String QUESTION = "/sections/{sectionId}/questions";
 	}
 
 	@UtilityClass
