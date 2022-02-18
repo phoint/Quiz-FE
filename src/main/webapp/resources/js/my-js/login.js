@@ -90,8 +90,7 @@ $(document).ready(function () {
         { scope: "email,public_profile", return_scopes: true }
       );
     },
-    false
-  );
+    false);
   async function loginFacebook(accessToken) {
     var submitBtn = $(form).find(".login-btn");
     submitBtn.prop("disabled", true);

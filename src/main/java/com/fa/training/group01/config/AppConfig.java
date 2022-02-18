@@ -14,6 +14,7 @@ import org.springframework.hateoas.config.HypermediaRestTemplateConfigurer;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -40,6 +41,8 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Autowired
 	private ApplicationContext applicationContext;
+	@Autowired
+	private ResponseErrorHandler responseErrorHandler;
 
 	@Bean
 	public SpringResourceTemplateResolver templateResolver() {
@@ -95,10 +98,17 @@ public class AppConfig implements WebMvcConfigurer {
 		restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
 		// restTemplate.getInterceptors().add(loggingRequestInterceptor);
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setObjectMapper(new ObjectMapper());
+		converter.setObjectMapper(objectMapper());
 		restTemplate.getMessageConverters().add(converter);
 
+		restTemplate.setErrorHandler(responseErrorHandler);
+
 		return restTemplate;
+	}
+
+	@Bean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper();
 	}
 
 	/**

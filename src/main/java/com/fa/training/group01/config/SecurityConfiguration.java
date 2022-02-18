@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,8 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().antMatchers("/user/**")
-				.hasAnyRole(Role.STUDENT.name).antMatchers("/admin/**").hasAnyRole(Role.ADMIN.name).anyRequest()
-				.authenticated().and().formLogin().disable().logout()
+				.hasAnyRole(Role.RoleName.STUDENT).antMatchers(Role.RoleName.ADMIN).hasAnyRole(Role.ADMIN.getOnlyName())
+				.anyRequest().authenticated().and().formLogin().disable().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
 				.addLogoutHandler(authLogoutHandler).deleteCookies("remember-me", "JSESSIONID").permitAll().and()
 				.rememberMe().key("uniqueAndSecret").and().csrf().disable().cors();
