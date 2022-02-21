@@ -14,6 +14,8 @@ public interface IPartService {
 	void updateAll(List<Part> parts);
 
 	Part findById(int id);
+	
+	List<Part> findAllByQuiz(int quizId);
 
 	// List<Part> findAll();
 //
