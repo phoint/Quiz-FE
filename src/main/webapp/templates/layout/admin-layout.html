@@ -1,218 +1,124 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	xmlns="http://www.w3.org/1999/html">
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  xmlns="http://www.w3.org/1999/html">
 <!-- Basic -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-
 <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
-
 <!-- Font Awesome Icons : All-->
 <link rel="stylesheet"
-	th:href="@{/resources/admin/plugins/fontawesome-free/css/all.min.css}">
+  th:href="@{/resources/admin/plugins/fontawesome-free/css/all.min.css}">
 <!-- Theme style : All-->
 <link rel="stylesheet"
-	th:href="@{/resources/admin/dist/css/adminlte.min.css}">
+  th:href="@{/resources/admin/dist/css/adminlte.min.css}">
 <!-- Google Font: Source Sans Pro -All -->
 <link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+  rel="stylesheet">
 <!-- Ionicons<1>/iCheck for checkboxes and radio inputs : list -->
 <link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <link rel="stylesheet"
-	th:href="@{/resources/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+  th:href="@{/resources/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
 <!-- <1>/summernote -->
 <link rel="stylesheet"
-	th:href="@{/resources/admin/plugins/summernote/summernote-bs4.css}">
+  th:href="@{/resources/admin/plugins/summernote/summernote-bs4.css}">
 <!-- Table : user,quiz -->
 <link rel="stylesheet"
-	href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+  href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 <link rel="stylesheet"
-	href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
+  href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet"
-	href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+  href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
-	<div class="wrapper">
-		<!-- Start Navigation Bar -->
-		<div th:replace="fragments/admin/nav :: nav"></div>
-		<!-- End Navigation Bar -->
-
-		<!-- Start Main Sidebar -->
-		<div th:replace="fragments/admin/sidebar :: sidebar"></div>
-		<!-- End Main Sidebar -->
-
-		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<div th:replace="fragments/admin/header :: header"></div>
-			<!-- /.content-header -->
-
-			<div layout:fragment="main"></div>
-		</div>
-
-		<!-- Start Footer  -->
-		<div th:replace="fragments/admin/footer :: footer"></div>
-		<!-- End Footer  -->
-
-	</div>
-	<!-- The Modal Create Quiz -->
-	<div th:replace="fragments/admin/modal/create-quiz :: create-quiz"></div>
-	<!-- End Modal Create Quiz -->
-
-	<!-- The Modal Edit Quiz -->
-	<div th:replace="fragments/admin/modal/edit-quiz :: edit-quiz"></div>
-	<!-- End Modal Edit Quiz -->
-
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark">
-		<!-- Control sidebar content goes here -->
-		<div class="p-3">
-			<h5>Title</h5>
-			<p>Sidebar content</p>
-		</div>
-	</aside>
-	<!-- /.control-sidebar -->
-
-	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-	<!-- REQUIRED SCRIPTS -->
-	<!-- jQuery -->
-	<script th:src="@{/resources/admin/plugins/jquery/jquery.min.js}"></script>
-	<!-- Bootstrap 4 -->
-	<script
-		th:src="@{/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<!-- AdminLTE App -->
-	<script th:src="@{/resources/admin/dist/js/adminlte.min.js}"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script th:src="@{/resources/admin/dist/js/demo.js}"></script>
-	<!-- Tables -->
-	<script
-		src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-	<script
-		src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
-	<script
-		src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-	<script>
-		$(document).ready(function() {
+  <div class="wrapper">
+    <!-- Start Navigation Bar -->
+    <div th:replace="fragments/admin/nav :: nav"></div>
+    <!-- End Navigation Bar -->
+    <!-- Start Main Sidebar -->
+    <div th:replace="fragments/admin/sidebar :: sidebar"></div>
+    <!-- End Main Sidebar -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div th:replace="fragments/admin/header :: header"></div>
+      <!-- /.content-header -->
+      <div layout:fragment="main"></div>
+    </div>
+    <!-- Start Footer  -->
+    <div th:replace="fragments/admin/footer :: footer"></div>
+    <!-- End Footer  -->
+  </div>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+      <h5>Title</h5>
+      <p>Sidebar content</p>
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <a href="#" id="back-to-top" title="Back to top"
+    style="display: none;">&uarr;</a>
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script th:src="@{/resources/admin/plugins/jquery/jquery.min.js}"></script>
+  <!-- Bootstrap 4 -->
+  <script
+    th:src="@{/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- AdminLTE App -->
+  <script th:src="@{/resources/admin/dist/js/adminlte.min.js}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script th:src="@{/resources/admin/dist/js/demo.js}"></script>
+  <!-- Tables -->
+  <script
+    src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <script
+    src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+  <script
+    src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+  <script>
 			$(document).ready(function() {
-				var table = $('#example').DataTable({
-					rowReorder : {
-						selector : 'td:nth-child(2)'
-					},
-					responsive : true
+				$(document).ready(function() {
+					var table = $('#example').DataTable({
+						rowReorder : {
+							selector : 'td:nth-child(2)'
+						},
+						responsive : true
+					});
 				});
 			});
-		});
-	</script>
-
-	<!-- Summernote -->
-	<script
-		th:src="@{/resources/admin/plugins/summernote/summernote-bs4.min.js}"></script>
-	<script>
-		$(function() {
-			// Summernote
-			$('.textarea').summernote()
-		})
-	</script>
-	<!-- ToolTip -->
-	<script>
-		$(document).ready(function() {
-			$('[data-toggle="tooltip"]').tooltip();
-		});
-	</script>
-	<!-- Add/Remove answers -->
-	<script>
-		function creatAwer() {
-			var coverAw = document.getElementById("coverAw");
-			var answer = coverAw.querySelectorAll(".answer");
-			htmlContent = answer[1].innerHTML;
-			// console.log("add:" + answer.length);
-			if (answer.length > 4) {
-
-				alert("The maximum answer is five!!!");
-				return;
-			}
-			$('#coverAw').append(
-					'<div class="card card-outline card-teal w-25 answer">'
-							+ htmlContent + '</div>');
-		};
-		function removeAwer(e) {
-			var answer = coverAw.querySelectorAll(".answer");
-			// console.log("remove:" + answer.length);
-			if (answer.length < 3) {
-				alert("The minimum answer is two!!!");
-				return;
-			}
-			// const btnRemove = e;
-			// const parent = btnRemove.parentElement;
-			// const grandparent = parent.parentElement;
-			// const oldgrandparent = grantparent.parentElement;
-			// oldgrantparent.remove();
-			const oldgrantparent = e.closest(".card");
-			oldgrantparent.remove();
-		}
-	</script>
-	<!-- form-validation -->
-	<script>
-		// Disable form submissions if there are invalid fields
-		(function() {
-			'use strict';
-			window.addEventListener('load',
-					function() {
-						// Get the forms we want to add validation styles to
-						var forms = document
-								.getElementsByClassName('needs-validation');
-						// Loop over them and prevent submission
-						var validation = Array.prototype.filter.call(forms,
-								function(form) {
-									form.addEventListener('submit', function(
-											event) {
-										if (form.checkValidity() === false) {
-											event.preventDefault();
-											event.stopPropagation();
-										}
-										form.classList.add('was-validated');
-									}, false);
-								});
-					}, false);
-		})();
-	</script>
-    <!-- Add/Remove answers -->
+		</script>
+  <!-- Summernote -->
+  <script
+    th:src="@{/resources/admin/plugins/summernote/summernote-bs4.min.js}"></script>
   <script>
-      function creatPart() {
-        var coverAw = document.getElementById("coverAw");
-        var answer = coverAw.querySelectorAll(".answer");
-        htmlContent = answer[1].innerHTML;
-        // console.log("add:" + answer.length);
-        if (answer.length > 4) {
-
-          alert("The maximum answer is five!!!");
-          return;
-        }
-        $('#coverAw').append(
-            '<div class="card card-outline card-teal w-25 answer">'
-                + htmlContent + '</div>');
-      };
-      function removePart(e) {
-        var answer = coverAw.querySelectorAll(".answer");
-        // console.log("remove:" + answer.length);
-        if (answer.length < 3) {
-          alert("The minimum answer is two!!!");
-          return;
-        }
-        // const btnRemove = e;
-        // const parent = btnRemove.parentElement;
-        // const grandparent = parent.parentElement;
-        // const oldgrandparent = grantparent.parentElement;
-        // oldgrantparent.remove();
-        const oldgrantparent = e.closest(".card");
-        oldgrantparent.remove();
-      }
-    </script>
+			$(function() {
+				// Summernote
+				$('.textarea').summernote()
+			})
+		</script>
+  <!-- ToolTip -->
+  <script>
+			$(document).ready(function() {
+				$('[data-toggle="tooltip"]').tooltip();
+			});
+		</script>
+<!-- Pass input Attribute to create question modal -->
+<script>
+$('#createQuestion').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var sectionId = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('Create new question in Section ' + sectionId)
+  modal.find('.modal-body #section-id').val(sectionId)
+})
+</script>
 </body>
-
 </html>

@@ -45,8 +45,8 @@
                       <tr th:each="quiz : ${quizzes}">
                         <td th:text="${quiz.title}"></td>
                         <td><a class="btn btn-outline-primary"
-                          th:href="@{/admin/edit-quiz(id=${quiz.id})}">Edit</a>| <a
-                          class="btn btn-danger"
+                          th:href="@{/admin/edit-quiz(id=${quiz.id})}">Edit</a>|
+                          <a class="btn btn-danger"
                           onclick="return confirm('Are you sure?');"
                           href="#">Delete</a></td>
                       </tr>
@@ -72,5 +72,9 @@
       <!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+    <!-- The Modal Edit Quiz -->
+    <div th:replace="fragments/admin/modal/edit-quiz :: edit-quiz"></div>
+    <!-- End Modal Edit Quiz -->
+  </th:block>
 </body>
 </html>

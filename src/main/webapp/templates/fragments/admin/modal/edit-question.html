@@ -1,4 +1,4 @@
-<div th:fragment="create-question(part,question)" class="modal" data-backdrop="static" id="createQuestion"
+<div th:fragment="edit-question(part,question)" class="modal" data-backdrop="static" th:attr="id='editQuestion'+${question.id}"
   xmlns:th="http://www.thymeleaf.org">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -10,9 +10,14 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="container-fluid">
-          <form action="#" th:action="@{/admin/new-question}" th:object="${question}" method="post">
+          <form action="#" th:action="@{/admin/edit-question}" th:object="${question}" method="post">
             <input type="hidden" name="partId" th:value="${part.id}"/>
-            <input type="hidden" id="section-id" th:field="*{sectionId}"/>
+            <input type="hidden" name="partId" th:value="*{id}"/>
+            <input type="hidden" name="partId" th:value="*{content}"/>
+            <input type="hidden" name="partId" th:value="*{answers[0].content}"/>
+            <input type="hidden" name="partId" th:value="*{answers[1].content}"/>
+            <input type="hidden" name="partId" th:value="*{answers[2].content}"/>
+            <input type="hidden" name="partId" th:value="*{answers[3].content}"/>
             <input type="hidden" th:field="*{title}" value="none"/>
             <div class="row">
               <div class="col-lg-12">
