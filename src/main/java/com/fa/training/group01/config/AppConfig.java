@@ -1,6 +1,8 @@
 package com.fa.training.group01.config;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -8,19 +10,35 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
 import org.springframework.hateoas.config.HypermediaRestTemplateConfigurer;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+
+import com.fa.training.group01.util.API;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 
@@ -33,6 +51,8 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Autowired
 	private ApplicationContext applicationContext;
+	@Autowired
+	private ResponseErrorHandler responseErrorHandler;
 
 	@Bean
 	public SpringResourceTemplateResolver templateResolver() {
@@ -80,7 +100,30 @@ public class AppConfig implements WebMvcConfigurer {
 	// define bean for RestTemplate ... this is used to make client REST calls
 	@Bean
 	public RestTemplate restTemplate() {
-		return new RestTemplate();
+		RestTemplate restTemplate = new RestTemplate();
+		// SET Default URL
+		DefaultUriBuilderFactory defaultUriBuilderFactory = new DefaultUriBuilderFactory(API.HOST);
+		restTemplate.setUriTemplateHandler(defaultUriBuilderFactory);
+
+		restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+		// restTemplate.getInterceptors().add(loggingRequestInterceptor);
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setObjectMapper(objectMapper());
+		restTemplate.getMessageConverters().add(converter);
+
+		restTemplate.setErrorHandler(responseErrorHandler);
+
+		return restTemplate;
+	}
+
+	@Bean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper();
+	}
+	
+	@Bean
+	public HttpHeaders getHeader() {
+		return new HttpHeaders();
 	}
 
 	/**
@@ -90,7 +133,9 @@ public class AppConfig implements WebMvcConfigurer {
 	@Bean
 	@Autowired
 	RestTemplate hypermediaRestTemplate(HypermediaRestTemplateConfigurer configurer) {
-		return configurer.registerHypermediaTypes(new RestTemplate());
+		RestTemplate template = configurer.registerHypermediaTypes(new RestTemplate());
+		
+		return template;
 	}
 
 	// add resource handler for loading css, images, etc

@@ -4,7 +4,9 @@ const api=Object.freeze(
         host:'http://localhost:9090',
         student_role:{
             user:{
-                register:'user/register'
+                register:'/register',
+                forgotPassword:'/forgot-password',
+                resetPassword:'/reset-password'
             }
         },admin_role:{
             user:{

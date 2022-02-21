@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/admin-layout.html}">
+<head>
+<title>Dashboard</title>
+</head>
+<body>
+
+	<!-- Main content -->
+	<th:block layout:fragment="main">
+		<div class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card card-widget widget-user">
+							<!-- Add the bg color to the header using any of the bg-* classes -->
+							<div class="widget-user-header bg-primary">
+								<h3 class="widget-user-username">Alexander Pierce</h3>
+								<h5 class="widget-user-desc">Quiz &amp; Manager</h5>
+							</div>
+							<div class="widget-user-image">
+								<img class="img-circle elevation-2"
+									src="dist/img/user2-160x160.jpg" alt="User Avatar">
+							</div>
+							<div class="card-footer">
+								<div class="row">
+									<div class="col-sm-6 border-right">
+										<div class="description-block">
+											<div class="small-box bg-warning">
+												<div class="inner">
+													<h3>100</h3>
+
+													<p>User Registrations</p>
+												</div>
+												<div class="icon">
+													<i class="ion ion-person-add"></i>
+												</div>
+												<a href="#" class="small-box-footer">More info <i
+													class="fas fa-arrow-circle-right"></i></a>
+											</div>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<div class="col-sm-6">
+										<div class="description-block">
+											<div class="small-box bg-danger">
+												<div class="inner">
+													<h3>10</h3>
+
+													<p>Quiz</p>
+												</div>
+												<div class="icon">
+													<i class="ion ion-pie-graph"></i>
+												</div>
+												<a href="#" class="small-box-footer">More info <i
+													class="fas fa-arrow-circle-right"></i></a>
+											</div>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<!-- <div class="col-sm-4">
+                                            <div class="description-block">
+                                                <h5 class="description-header">35</h5>
+                                                <span class="description-text">PRODUCTS</span>
+                                            </div>
+                                        </div> -->
+									<!-- /.col -->
+								</div>
+								<!-- /.row -->
+							</div>
+						</div>
+					</div>
+					<div
+						class="col-lg-12 d-flex justify-content-around align-items-center flex-wrap my-2">
+						<a href="#" class="position-relative w-25 mx-2"> <img
+							src="dist/img/photo1.png" alt="Photo 1" class="img-fluid">
+							<div class="ribbon-wrapper ribbon-lg">
+								<div class="ribbon bg-success text-lg">New</div>
+							</div>
+						</a> <a href="#" class="position-relative w-25"> <img
+							src="dist/img/photo2.png" alt="Photo 2" class="img-fluid">
+							<div class="ribbon-wrapper ribbon-xl">
+								<div class="ribbon bg-warning text-lg">2000/01/01</div>
+							</div>
+						</a> <a href="#" class="position-relative w-25"
+							style="min-height: 180px;"> <img src="dist/img/photo3.jpg"
+							alt="Photo 3" class="img-fluid">
+							<div class="ribbon-wrapper ribbon-xl">
+								<div class="ribbon bg-danger text-xl">22/01/2022</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-6">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+
+								<p class="card-text">Some quick example text to build on the
+									card title and make up the bulk of the card's content.</p>
+
+								<a href="#" class="card-link">Card link</a> <a href="#"
+									class="card-link">Another link</a>
+							</div>
+						</div>
+
+						<div class="card card-primary card-outline">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+
+								<p class="card-text">Some quick example text to build on the
+									card title and make up the bulk of the card's content.</p>
+								<a href="#" class="card-link">Card link</a> <a href="#"
+									class="card-link">Another link</a>
+							</div>
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col-md-6 -->
+					<div class="col-lg-6">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="m-0">Featured</h5>
+							</div>
+							<div class="card-body">
+								<h6 class="card-title">Special title treatment</h6>
+
+								<p class="card-text">With supporting text below as a natural
+									lead-in to additional content.</p>
+								<a href="#" class="btn btn-primary">Go somewhere</a>
+							</div>
+						</div>
+
+						<div class="card card-primary card-outline">
+							<div class="card-header">
+								<h5 class="m-0">Featured</h5>
+							</div>
+							<div class="card-body">
+								<h6 class="card-title">Special title treatment</h6>
+
+								<p class="card-text">With supporting text below as a natural
+									lead-in to additional content.</p>
+								<a href="#" class="btn btn-primary">Go somewhere</a>
+							</div>
+						</div>
+					</div>
+					<!-- /.col-md-6 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
+		</div>
+		<!-- /.content -->
+	</th:block>
+</body>
+
+</html>

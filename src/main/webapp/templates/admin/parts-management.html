@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layout/admin-layout.html}">
+<head>
+<title>Quizzes</title>
+</head>
+<body>
+  <!-- Main content -->
+  <th:block layout:fragment="main">
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <form action="#" th:action="@{/admin/new-quiz(id=${quiz.id})}"
+          th:object="${quiz}" method="post">
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="card card-outline card-teal shadow">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <small>Title-</small> <input type="text"
+                        th:field="*{title}" class="form-control"
+                        placeholder="Title" /> <input type="hidden"
+                        th:field="*{id}" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <button class="border-0 btn btn-light"
+                        name="addPart" type="submit">
+                        <i class="ion-android-add-circle"></i>
+                      </button>
+                    </div>
+                    <div class="col-12">
+                      <small>Part-</small>
+                      <div id="coverAw"
+                        th:each="part,partStat : *{parts}"
+                        class="d-flex justify-content-center flex-wrap">
+                        <div
+                          class="card card-outline card-teal w-100 answer">
+                          <div class="card-body pad d-flex flex-nowrap">
+                            <input type="text"
+                              th:field="*{parts[__${partStat.index}__].content}"
+                              placeholder="Place some text here"
+                              style="width: 80%; font-size: 14px; line-height: 14px; border: 1px solid rgb(221, 221, 221); padding: 10px;" />
+                            <input type="hidden"
+                              th:field="*{parts[__${partStat.index}__].id}" />
+                            <!-- tools box -->
+                            <div class="card-tools">
+                              <a target="_blank"
+                                th:href="${#mvc.url('PC#editPart').arg(0,'__${part.id}__').build()}"
+                                class="btn btn-tool btn-sm"
+                                data-toggle="tooltip" title="Info">
+                                <i class="fas fa-minus"></i>
+                              </a>
+                              <button type="submit" name="removePart"
+                                th:value="${partStat.index}"
+                                class="btn btn-tool btn-sm"
+                                data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                      <div>
+                        <button class="btn btn-sm bg-teal">Cancel</button>
+                        <button type="submit"
+                          class="btn btn-sm bg-primary">
+                          <i class="ion-ios-download"></i> Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </th:block>
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script th:src="@{/resources/admin/plugins/jquery/jquery.min.js}"></script>
+  <!-- Bootstrap 4 -->
+  <script
+    th:src="@{/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- AdminLTE App -->
+  <script th:src="@{/resources/admin/dist/js/adminlte.min.js}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script th:src="@{/resources/admin/dist/js/demo.js}"></script>
+  <!-- Summernote -->
+  <script
+    th:src="@{/resources/admin/plugins/summernote/summernote-bs4.min.js}"></script>
+  <script>
+			$(function() {
+				// Summernote
+				$('.textarea').summernote()
+			})
+		</script>
+  <!-- ToolTip -->
+  <script>
+			$(document).ready(function() {
+				$('[data-toggle="tooltip"]').tooltip();
+			});
+		</script>
+</body>
+</html>

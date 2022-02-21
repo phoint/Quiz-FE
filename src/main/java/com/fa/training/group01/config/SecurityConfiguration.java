@@ -7,23 +7,29 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fa.training.group01.domain_model.Role;
+import com.fa.training.group01.security.AuthLogoutHandler;
 import com.fa.training.group01.security.RestAuthenticationFailureHandler;
 import com.fa.training.group01.security.RestAuthenticationSuccessHandler;
+import com.fa.training.group01.util.UrlUtil;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	private static final String[] PUBLIC_MATCHERS = { "/login", "/index","/" };
-	
+	private static final String[] PUBLIC_MATCHERS = { UrlUtil.Public.PathName.HOME, UrlUtil.Public.PathName.LOGIN,
+			UrlUtil.Public.PathName.RESET_PASSWORD };
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private AuthLogoutHandler authLogoutHandler;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -37,17 +43,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().antMatchers("/user/**")
-//		.hasAnyRole(Role.STUDENT.name).antMatchers("/admin/**").hasAnyRole(Role.ADMIN.name).anyRequest()
-//		.authenticated().and().formLogin().disable().logout()
+		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().antMatchers("/user/**")
+				.hasAnyRole(Role.RoleName.STUDENT).antMatchers(Role.RoleName.ADMIN).hasAnyRole(Role.ADMIN.getOnlyName())
+				.anyRequest().authenticated().and().formLogin().disable().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+				.addLogoutHandler(authLogoutHandler).deleteCookies("remember-me", "JSESSIONID").permitAll().and()
+				.rememberMe().key("uniqueAndSecret").and().csrf().disable().cors();
+
+//		http.authorizeRequests().anyRequest().permitAll().and().formLogin().disable().logout()
 //		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
 //		.deleteCookies("remember-me", "JSESSIONID").permitAll().and().rememberMe().key("uniqueAndSecret").and()
 //		.csrf().disable().cors();
-		
-		http.authorizeRequests().anyRequest().permitAll().and().formLogin().disable().logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
-		.deleteCookies("remember-me", "JSESSIONID").permitAll().and().rememberMe().key("uniqueAndSecret").and()
-		.csrf().disable().cors();
 
 	}
 

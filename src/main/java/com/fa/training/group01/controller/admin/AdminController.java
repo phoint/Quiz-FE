@@ -2,19 +2,11 @@ package com.fa.training.group01.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.LinkRelation;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
-
-import com.fa.training.group01.model.QuizModel;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,11 +22,11 @@ public class AdminController {
 	
 	@GetMapping({"","/start"})
 	public String startPage() {
-		ResponseEntity<EntityModel<QuizModel>> response = template.exchange("http://localhost:9090/quizzes/1", HttpMethod.GET, null, new ParameterizedTypeReference<EntityModel<QuizModel>>() {});		
-		EntityModel<QuizModel> quiz = response.getBody();
-		System.out.println(quiz.getLink(LinkRelation.of("self")));
-		System.out.println(quiz.getContent());
-		return "admin/start-admin";
+//		ResponseEntity<EntityModel<Quiz>> response = template.exchange("http://localhost:9090/quizzes/1", HttpMethod.GET, null, new ParameterizedTypeReference<EntityModel<Quiz>>() {});		
+//		EntityModel<Quiz> quiz = response.getBody();
+//		System.out.println(quiz.getLink(LinkRelation.of("self")));
+//		System.out.println(quiz.getContent());
+		return "admin/dashboard";
 	}
 	
 	@RequestMapping(value = "/user",method =RequestMethod.GET )
@@ -57,8 +49,8 @@ public class AdminController {
 		return "admin/create-question";
 	}
 	
-	@PostMapping(value="/new-quiz")
-	public String createQuiz() {
-		return "redirect:admin/createQ";
-	}
+//	@PostMapping(value="/new-quiz")
+//	public String createQuiz() {
+//		return "redirect:admin/createQ";
+//	}
 }

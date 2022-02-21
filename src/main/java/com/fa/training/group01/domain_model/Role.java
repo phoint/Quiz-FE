@@ -11,7 +11,11 @@ public enum Role {
 	public final String name;
 
 	private Role(String name) {
-		this.name = name;
+		this.name = "ROLE_" + name;
+	}
+
+	public String getOnlyName() {
+		return name.substring(4);
 	}
 
 	@JsonCreator
@@ -25,8 +29,8 @@ public enum Role {
 	}
 
 	public static class RoleName {
-		public static final String STUDENT = "ROLE_STUDENT";
-		public static final String ADMIN = "ROLE_ADMIN";
+		public static final String STUDENT = "STUDENT";
+		public static final String ADMIN = "ADMIN";
 	}
 
 }
