@@ -1,6 +1,8 @@
 package com.fa.training.group01.config;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -8,12 +10,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
 import org.springframework.hateoas.config.HypermediaRestTemplateConfigurer;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ViewResolver;
@@ -110,6 +120,11 @@ public class AppConfig implements WebMvcConfigurer {
 	public ObjectMapper objectMapper() {
 		return new ObjectMapper();
 	}
+	
+	@Bean
+	public HttpHeaders getHeader() {
+		return new HttpHeaders();
+	}
 
 	/**
 	 * Use the {@link HypermediaRestTemplateConfigurer} to configure a
@@ -118,7 +133,9 @@ public class AppConfig implements WebMvcConfigurer {
 	@Bean
 	@Autowired
 	RestTemplate hypermediaRestTemplate(HypermediaRestTemplateConfigurer configurer) {
-		return configurer.registerHypermediaTypes(new RestTemplate());
+		RestTemplate template = configurer.registerHypermediaTypes(new RestTemplate());
+		
+		return template;
 	}
 
 	// add resource handler for loading css, images, etc
