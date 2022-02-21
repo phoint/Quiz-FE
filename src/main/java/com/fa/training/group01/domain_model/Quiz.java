@@ -6,10 +6,11 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class Quiz {
-	private Integer id;
+@EqualsAndHashCode(callSuper = false)
+public class Quiz extends GenericModel {
 	private String title;
 	private String content;
 	@JsonIgnore
