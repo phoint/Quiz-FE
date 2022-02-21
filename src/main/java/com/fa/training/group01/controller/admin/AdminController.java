@@ -29,10 +29,10 @@ public class AdminController {
 		return "admin/dashboard";
 	}
 	
-	@RequestMapping(value = "/user",method =RequestMethod.GET )
-	public String userPage() {
-		return "admin/user-admin";
-	}
+//	@RequestMapping(value = "/user",method =RequestMethod.GET )
+//	public String userPage() {
+//		return "admin/user-admin";
+//	}
 	
 	@RequestMapping(value = "/quiz",method =RequestMethod.GET )
 	public String quizPage() {

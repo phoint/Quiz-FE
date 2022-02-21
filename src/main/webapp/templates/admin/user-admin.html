@@ -6,399 +6,105 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	xmlns="http://www.w3.org/1999/html">
-
-<div th:replace="admin/fragments/start-frag :: start-head"></div>
-
+	xmlns="http://www.w3.org/1999/html"
+	layout:decorate="~{/layout/admin-layout.html}">
+<head>
+<title>Quản lý tài khoản</title>
+</head>
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
+	<th:block layout:fragment="main">
+		<div class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<!-- Pop-up Create -->
+					<div class="col-lg-12">
 
-       <!-- Navbar -->
-        <div th:replace="admin/fragments/start-frag :: start-nav"></div>
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
-        <div th:replace="admin/fragments/start-frag :: start-side"></div>
-
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Users</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a th:href="@{admin/start}">Home</a></li>
-                                <li class="breadcrumb-item active">Users Page</li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <!-- Pop-up Create -->
-                        <div class="col-lg-12">
-                            <button type="button" class="btn btn-sm card card-body m-0 p-2 shadow" data-toggle="modal"
-                                data-target="#createModal">
-                                Create New
-                            </button>
-                            <!-- The Modal Create User -->
-                            <div class="modal" id="createModal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h3 class="modal-title">Create User</h3>
-                                            <button type="button" class="close" data-dismiss="modal">x</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            <form action="/action_page.php" class="needs-validation" novalidate>
-                                                <div class="form-group">
-                                                    <label for="uname">Email:</label>
-                                                    <input type="text" class="form-control" id="email"
-                                                        placeholder="Enter email" name="email" required>
-                                                    <div class="valid-feedback">Valid.</div>
-                                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="pwd">Full Name:</label>
-                                                    <input type="password" class="form-control" id="fname"
-                                                        placeholder="Enter full name" name="fname" required>
-                                                    <div class="valid-feedback">Valid.</div>
-                                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="pwd">Password:</label>
-                                                    <input type="password" class="form-control" id="pswd"
-                                                        placeholder="Enter password" name="pswd" required>
-                                                    <div class="valid-feedback">Valid.</div>
-                                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                                </div>
-                                                <div class="form-group form-inline">
-                                                    <label for="gender">Role:</label>
-                                                    <select class="form-control mx-2" name="role" id="role" required>
-                                                        <option disabled class="text-secondary">Select Role
-                                                        </option>
-                                                        <option value="Normal">ROLE_ADMIN</option>
-                                                        <option value="Lock">ROLE_STUDENT</option>
-                                                    </select>
-                                                </div>
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer d-flex justify-content-between align-baseline">
-                                                    <button type="reset" class="btn btn-danger"
-                                                        data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                </div>
-
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Table -->
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body shadow">
-
-                                    <div class="show-item table">
-                                        <table id="example" class="display table table-hover table-striped nowrap"
-                                            style="width: 100%;">
-                                            <thead>
-                                                <tr class="text-light btn-primary">
-                                                    <th>Email</th>
-                                                    <th>Password</th>
-                                                    <th>Full-Name</th>
-                                                    <th>Active</th>
-                                                    <th>Role-Id</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>
-                                                        <a class="btn btn-outline-primary" href="#" data-toggle="modal"
-                                                            data-target="#editModal">Update</a>|
-                                                        <a class="btn btn-danger"
-                                                            onclick="return confirm('Are you sure?');"
-                                                            href="#">Delete</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Garrett Winters</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>63</td>
-                                                    <td>2011/07/25</td>
-                                                    <td>$170,750</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Ashton Cox</td>
-                                                    <td>Junior Technical Author</td>
-                                                    <td>San Francisco</td>
-                                                    <td>66</td>
-                                                    <td>2009/01/12</td>
-                                                    <td>$86,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cedric Kelly</td>
-                                                    <td>Senior Javascript Developer</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>22</td>
-                                                    <td>2012/03/29</td>
-                                                    <td>$433,060</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Airi Satou</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>33</td>
-                                                    <td>2008/11/28</td>
-                                                    <td>$162,700</td>
-                                                </tr>
-                                                <!----->
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>$320,800</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Garrett Winters</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>63</td>
-                                                    <td>2011/07/25</td>
-                                                    <td>$170,750</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Ashton Cox</td>
-                                                    <td>Junior Technical Author</td>
-                                                    <td>San Francisco</td>
-                                                    <td>66</td>
-                                                    <td>2009/01/12</td>
-                                                    <td>$86,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cedric Kelly</td>
-                                                    <td>Senior Javascript Developer</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>22</td>
-                                                    <td>2012/03/29</td>
-                                                    <td>$433,060</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Airi Satou</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>33</td>
-                                                    <td>2008/11/28</td>
-                                                    <td>$162,700</td>
-                                                </tr>
-                                                <!----->
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>$320,800</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Garrett Winters</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>63</td>
-                                                    <td>2011/07/25</td>
-                                                    <td>$170,750</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Ashton Cox</td>
-                                                    <td>Junior Technical Author</td>
-                                                    <td>San Francisco</td>
-                                                    <td>66</td>
-                                                    <td>2009/01/12</td>
-                                                    <td>$86,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cedric Kelly</td>
-                                                    <td>Senior Javascript Developer</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>22</td>
-                                                    <td>2012/03/29</td>
-                                                    <td>$433,060</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Airi Satou</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>33</td>
-                                                    <td>2008/11/28</td>
-                                                    <td>$162,700</td>
-                                                </tr>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Email</th>
-                                                    <th>Password</th>
-                                                    <th>Full-Name</th>
-                                                    <th>Active</th>
-                                                    <th>Role-Id</th>
-                                                    <th></th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
-
-        <!-- Main Footer -->
-         <div th:replace="admin/fragments/start-frag :: start-footer"></div>
-        <!-- The Modal Edit User -->
-        <div class="modal" id="editModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h3 class="modal-title">Edit User</h3>
-                        <button type="button" class="close" data-dismiss="modal">x</button>
-                    </div>
-
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <form action="/action_page.php" class="needs-validation" novalidate>
-                            <div class="form-group">
-                                <label for="uname">Email:</label>
-                                <input type="text" class="form-control" id="email" placeholder="Enter email"
-                                    name="email" required>
-                                <div class="valid-feedback">Valid.</div>
-                                <div class="invalid-feedback">Please fill out this field.</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="pwd">Full Name:</label>
-                                <input type="password" class="form-control" id="fname" placeholder="Enter full name"
-                                    name="fname" required>
-                                <div class="valid-feedback">Valid.</div>
-                                <div class="invalid-feedback">Please fill out this field.</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="pwd">Password:</label>
-                                <input type="password" class="form-control" id="pswd" placeholder="Enter password"
-                                    name="pswd" required>
-                                <div class="valid-feedback">Valid.</div>
-                                <div class="invalid-feedback">Please fill out this field.</div>
-                            </div>
-                            <div class="form-group form-inline">
-                                <label for="gender">Role:</label>
-                                <select class="form-control mx-2" name="role" id="role" required>
-                                    <option disabled class="text-secondary">Select Role
-                                    </option>
-                                    <option value="Normal">ROLE_ADMIN</option>
-                                    <option value="Lock">ROLE_STUDENT</option>
-                                </select>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="modal-footer d-flex justify-content-between align-baseline">
-                                <button type="reset" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- The Modal Create Quiz -->
-    <div th:replace="admin/fragments/start-frag :: create-quiz"></div>
-    <!-- ./wrapper -->
-
-    <!-- REQUIRED SCRIPTS -->
-
-    <!-- jQuery -->
-    <script th:src="@{/resources/admin/plugins/jquery/jquery.min.js}"></script>
-    <!-- Bootstrap 4 -->
-    <script th:src="@{/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-    <!-- AdminLTE App -->
-    <script th:src="@{/resources/admin/dist/js/adminlte.min.js}"></script>
-    <!-- Tables -->
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(document).ready(function () {
-                var table = $('#example').DataTable({
-                    rowReorder: {
-                        selector: 'td:nth-child(2)'
-                    },
-                    responsive: true
-                });
-            });
-        });
-    </script>
-    <!-- form-validation -->
-    <script>
-        // Disable form submissions if there are invalid fields
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                // Get the forms we want to add validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
+						<!-- The Modal Create User -->
+					</div>
+					<!-- Table -->
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<div class="clearfix">
+									<button type="button"
+										class="btn btn-sm card card-body m-0 p-2 shadow float-left"
+										data-toggle="modal" data-target="#createModal">Create
+										New</button>
+									<div class="float-right">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">Search</span>
+											</div>
+											<input type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-body shadow">
+								<div class="show-item table">
+									<table id="example"
+										class="display table table-hover table-striped nowrap"
+										style="width: 100%;">
+										<thead>
+											<tr class="text-light btn-primary">
+												<th>ID</th>
+												<th>Email</th>
+												<th>Full-Name</th>
+												<th>Active</th>
+												<th>Role</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Tiger Nixon</td>
+												<td>Tiger Nixon</td>
+												<td>Edinburgh</td>
+												<td>61</td>
+												<td>2011/04/25</td>
+												<td><a class="btn btn-outline-primary"
+													href="javascript:void(0)" data-toggle="modal"
+													data-target="#editModal">Update</a> <a
+													class="btn btn-danger"
+													onclick="return confirm('Are you sure?');" href="#">Delete</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="card-footer bg-white d-flex justify-content-end">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item"><a class="page-link" href="#"
+											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+												<span class="sr-only">Previous</span>
+										</a></li>
+										<li class="page-item"><a class="page-link" href="#">1</a></li>
+										<li class="page-item"><a class="page-link" href="#">2</a></li>
+										<li class="page-item"><a class="page-link" href="#">3</a></li>
+										<li class="page-item"><a class="page-link" href="#"
+											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+												<span class="sr-only">Next</span>
+										</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
+		</div>
+		<!-- /.content -->
+	</th:block>
+	<th:block layout:fragment="additional-fragments">
+		<div
+			th:replace="fragments/admin/user-admin/create-user-modal :: create-user-modal"></div>
+		<div
+			th:replace="fragments/admin/user-admin/edit-user-modal :: edit-user-modal"></div>
+	</th:block>
 </body>
 
 </html>

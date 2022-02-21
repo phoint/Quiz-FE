@@ -50,6 +50,7 @@
 </th:block>
 </head>
 <body>
+	
 	<!-- Start Main Top -->
 	<div th:replace="fragments/student/header :: header"></div>
 	<!-- End Main Top -->
@@ -69,20 +70,21 @@
 	<!-- End copyright  -->
 
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-	<!-- Start Log In Modal-->
-	<div th:replace="fragments/student/modal/login-modal :: login-modal"></div>
-	<!-- Finish  Log In  Modal-->
 
-	<!-- Start Sign Up Modal-->
-	<div
-		th:replace="fragments/student/modal/register-modal :: register-modal"></div>
-	<!-- Finish Sign Up Modal-->
+	<th:block sec:authorize="isAnonymous()">
+		<!-- Start Log In Modal-->
+		<div th:replace="fragments/student/modal/login-modal :: login-modal"></div>
+		<!-- Finish  Log In  Modal-->
+		<!-- Start Sign Up Modal-->
+		<div
+			th:replace="fragments/student/modal/register-modal :: register-modal"></div>
+		<!-- Finish Sign Up Modal-->
 
-	<!-- Start Forgot Pass Modal-->
-	<div
-		th:replace="fragments/student/modal/forgot-password-modal :: forgot-password-modal"></div>
-
-	<!-- Finish Forgot Pass Modal-->
+		<!-- Start Forgot Pass Modal-->
+		<div
+			th:replace="fragments/student/modal/forgot-password-modal :: forgot-password-modal"></div>
+		<!-- Finish Forgot Pass Modal-->
+	</th:block>
 	<!-- ALL JS FILES -->
 	<script th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
 	<script th:src="@{/resources/js/popper.min.js}"></script>

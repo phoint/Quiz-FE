@@ -9,9 +9,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fa.training.group01.domain_model.User;
 import com.fa.training.group01.payload.UpdatePasswordRequest;
+import com.fa.training.group01.payload.jpa.EntityPageResponse;
 import com.fa.training.group01.security.AuthenciationToken;
 import com.fa.training.group01.service.IUserService;
 import com.fa.training.group01.util.API;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -56,6 +58,22 @@ public class UserService implements IUserService {
 			ResponseEntity<String> response = restTemplate.postForEntity(API.USER_MODULE + API.User.UPDATE_PASSWORD,
 					updatePasswordRequest, String.class);
 			return response;
+		} catch (Exception e) {
+			System.err.println(e);
+			return null;
+		}
+	}
+
+	@Override
+	public EntityPageResponse<User> findAll() {
+		try {
+			ResponseEntity<String> response = restTemplate.getForEntity(
+					API.ADMIN_AREA_PATH + API.USER_MODULE + API.User.AdminArea.ACCOUNT_LIST, String.class);
+			EntityPageResponse<User> jsonResponse = objectMapper.readValue(response.getBody(),
+					new TypeReference<EntityPageResponse<User>>() {
+					});
+			System.out.println(jsonResponse);
+			return jsonResponse;
 		} catch (Exception e) {
 			System.err.println(e);
 			return null;
