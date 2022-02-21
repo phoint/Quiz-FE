@@ -54,7 +54,7 @@ public class QuizController {
 		return "redirect:/admin/new-quiz";
 	}
 
-	@GetMapping(value = "/new-quiz", params = { "id" })
+	@GetMapping(value = {"/new-quiz", "/edit-quiz"}, params = { "id" })
 	public String showCreateQuizPage(@RequestParam("id") int id,
 			ModelMap model) {
 		Quiz theQuiz = quizService.findById(id);
@@ -63,14 +63,14 @@ public class QuizController {
 		return "admin/parts-management";
 	}
 
-	@PostMapping(value = "/new-quiz", params = { "id" })
-	public String saveQuiz(@ModelAttribute("quiz") Quiz quiz) {
+	@PostMapping(value = {"/new-quiz", "/edit-quiz"}, params = { "id" })
+	public String saveQuiz(@ModelAttribute("quiz") Quiz quiz, ModelMap model) {
 		quizService.update(quiz);
 		partService.updateAll(quiz.getParts());
 		return "admin/parts-management";
 	}
 
-	@RequestMapping(value = "/new-quiz", params = { "addPart", "id" })
+	@RequestMapping(value = {"/new-quiz", "/edit-quiz"}, params = { "addPart", "id" })
 	public String addPart(@ModelAttribute("quiz") Quiz quiz,
 			BindingResult bindingResult, @RequestParam("id") int quizId) {
 		Part newPart = partService.save(new Part());
@@ -81,7 +81,7 @@ public class QuizController {
 		return "admin/parts-management";
 	}
 
-	@RequestMapping(value = "/new-quiz", params = { "removePart", "id" })
+	@RequestMapping(value = {"/new-quiz", "/edit-quiz"}, params = { "removePart", "id" })
 	public String removePart(@ModelAttribute("quiz") Quiz quiz,
 			BindingResult bindingResult,
 			@RequestParam("removePart") int partIndex) {

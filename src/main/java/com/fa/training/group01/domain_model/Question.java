@@ -5,15 +5,22 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Quiz extends GenericModel {
+public class Question extends GenericModel {
 	private String title;
 	private String content;
+	private int answerIndex;
+
 	@JsonIgnore
-	private List<Part> parts = new ArrayList<Part>();
+	private int sectionId;
+
+	@JsonIgnore
+	private List<Answer> answers = new ArrayList<Answer>();
 
 }

@@ -11,51 +11,96 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <form action="#" th:action="@{/admin/new-quiz(id=${quiz.id})}"
-          th:object="${quiz}" method="post">
+        <form action="#" th:action="@{/admin/edit-part(id=${part.id})}"
+          th:object="${part}" method="post">
           <div class="row">
             <div class="col-lg-8">
               <div class="card card-outline card-teal shadow">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-12">
-                      <small>Title-</small> <input type="text"
-                        th:field="*{title}" class="form-control"
-                        placeholder="Title" />
-                        <input type="hidden" th:field="*{id}"/>
+                      <small>Part-</small> <input type="text"
+                        th:field="*{content}" class="form-control"
+                        placeholder="Content" /> <input type="hidden"
+                        th:field="*{id}" />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-12">
                       <button class="border-0 btn btn-light"
-                        name="addPart" type="submit">
-                        <i class="ion-android-add-circle"></i>
+                        name="addSection" type="submit">
+                        <i class="ion-android-add-circle"></i> New
+                        Section
                       </button>
                     </div>
-                    <div class="col-12">
-                      <small>Part-</small>
-                      <div id="coverAw" th:each="part,partStat : *{parts}"
+                    <div class="col-12" id="part-info">
+                      <small>Section-</small>
+                      <div th:each="section,sectionStat : *{sections}"
                         class="d-flex justify-content-center flex-wrap">
-                        <div 
+                        <div
                           class="card card-outline card-teal w-100 answer">
-                          <div class="card-body pad d-flex flex-nowrap">
-                            <input type="text" th:field="*{parts[__${partStat.index}__].content}"
-                              placeholder="Place some text here"
-                              style="width: 80%; font-size: 14px; line-height: 14px; border: 1px solid rgb(221, 221, 221); padding: 10px;" />
-                              <input type="hidden" th:field="*{parts[__${partStat.index}__].id}"/>
-                            <!-- tools box -->
+                          <div class="card-header">
                             <div class="card-tools">
                               <button type="button"
                                 class="btn btn-tool btn-sm"
-                                data-card-widget="collapse"
-                                data-toggle="tooltip" title="Info">
+                                data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                               </button>
-                              <button type="submit" name="removePart" th:value="${partStat.index}"
+                              <button type="submit" name="removeSection"
+                                th:value="${sectionStat.index}"
                                 class="btn btn-tool btn-sm"
                                 data-toggle="tooltip" title="Remove">
                                 <i class="fas fa-times"></i>
                               </button>
+                            </div>
+                            <div class="card-title">
+                              <textarea class="textarea"
+                                th:field="*{sections[__${sectionStat.index}__].content}"
+                                placeholder="Place some text here"
+                                style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid rgb(221, 221, 221); padding: 10px; display: none;"></textarea>
+                              <!--                             <input type="text" th:field="*{sections[__${sectionStat.index}__].content}" -->
+                              <!--                               placeholder="Place some text here" -->
+                              <!--                               style="width: 80%; font-size: 14px; line-height: 14px; border: 1px solid rgb(221, 221, 221); padding: 10px;" /> -->
+                              <input type="hidden"
+                                th:field="*{sections[__${sectionStat.index}__].id}" />
+                            </div>
+                          </div>
+                          <div class="card-body pad d-flex flex-wrap">
+                            <button class="border-0 btn btn-light"
+                              data-toggle="modal" type="button"
+                              data-target="#createQuestion"
+                              th:attr="data-whatever=${section.id}">
+                              <i class="ion-android-add-circle"></i> New
+                              Question
+                            </button>
+                            <div
+                              class="card card-info card-outline w-100"
+                              th:each="ques,i : ${section.questions}">
+                              <div class="card-header">
+                                <div class="card-title"
+                                  th:utext="${ques.content}"></div>
+                                <div class="card-tools">
+                                  <a href="#"
+                                    class="btn btn-tool btn-link"
+                                    th:text="'#' + ${i.count}">#</a> <a
+                                    data-toggle="modal" type="button"
+                                    th:attr="data-target='#editQuestion'+${ques.id}"
+                                    class="btn btn-tool"> <i
+                                    class="fas fa-pen"></i>
+                                  </a>
+                                  <!-- Edit Question Modal -->
+                                  <div
+                                    th:replace="fragments/admin/modal/edit-question :: edit-question (part = ${part}, question = ${ques})"></div>
+                                  <!-- End Edit Question Modal -->
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <ul>
+                                  <li
+                                    th:each="answer : ${ques.answers}"
+                                    th:utext="${answer.content}" />
+                                </ul>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -81,6 +126,10 @@
       <!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+    <!-- Create Question Modal -->
+    <div
+      th:replace="fragments/admin/modal/create-question :: create-question (part = ${part}, question = ${question})"></div>
+    <!-- End Create Question Modal -->
   </th:block>
   <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->

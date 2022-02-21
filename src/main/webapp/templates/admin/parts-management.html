@@ -21,8 +21,8 @@
                     <div class="col-12">
                       <small>Title-</small> <input type="text"
                         th:field="*{title}" class="form-control"
-                        placeholder="Title" />
-                        <input type="hidden" th:field="*{id}"/>
+                        placeholder="Title" /> <input type="hidden"
+                        th:field="*{id}" />
                     </div>
                   </div>
                   <div class="row">
@@ -34,24 +34,28 @@
                     </div>
                     <div class="col-12">
                       <small>Part-</small>
-                      <div id="coverAw" th:each="part,partStat : *{parts}"
+                      <div id="coverAw"
+                        th:each="part,partStat : *{parts}"
                         class="d-flex justify-content-center flex-wrap">
-                        <div 
+                        <div
                           class="card card-outline card-teal w-100 answer">
                           <div class="card-body pad d-flex flex-nowrap">
-                            <input type="text" th:field="*{parts[__${partStat.index}__].content}"
+                            <input type="text"
+                              th:field="*{parts[__${partStat.index}__].content}"
                               placeholder="Place some text here"
                               style="width: 80%; font-size: 14px; line-height: 14px; border: 1px solid rgb(221, 221, 221); padding: 10px;" />
-                              <input type="hidden" th:field="*{parts[__${partStat.index}__].id}"/>
+                            <input type="hidden"
+                              th:field="*{parts[__${partStat.index}__].id}" />
                             <!-- tools box -->
                             <div class="card-tools">
-                              <button type="button"
+                              <a target="_blank"
+                                th:href="${#mvc.url('PC#editPart').arg(0,'__${part.id}__').build()}"
                                 class="btn btn-tool btn-sm"
-                                data-card-widget="collapse"
                                 data-toggle="tooltip" title="Info">
                                 <i class="fas fa-minus"></i>
-                              </button>
-                              <button type="submit" name="removePart" th:value="${partStat.index}"
+                              </a>
+                              <button type="submit" name="removePart"
+                                th:value="${partStat.index}"
                                 class="btn btn-tool btn-sm"
                                 data-toggle="tooltip" title="Remove">
                                 <i class="fas fa-times"></i>

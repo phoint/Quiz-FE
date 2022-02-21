@@ -10,10 +10,9 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Quiz extends GenericModel {
-	private String title;
+public class Section extends GenericModel {
 	private String content;
-	@JsonIgnore
-	private List<Part> parts = new ArrayList<Part>();
 
+	@JsonIgnore
+	private List<Question> questions = new ArrayList<Question>();
 }

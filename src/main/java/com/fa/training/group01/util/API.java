@@ -9,6 +9,9 @@ public class API {
 	public static final String USER_MODULE = "/user";
 	public static final String QUIZ_MODULE = "/quizzes";
 	public static final String PART_MODULE = "/parts";
+	public static final String SECTION_MODULE = "/sections";
+	public static final String QUESTION_MODULE = "/questions";
+	public static final String ANSWER_MODULE = "/answers";
 
 	@UtilityClass
 	public static class Public {
@@ -42,8 +45,8 @@ public class API {
 
 	@UtilityClass
 	public static class Section {
-		public static final String SECTION = "/section/{sectionId}";
-		public static final String QUESTION = "/section/{sectionId}/questions";
+		public static final String SECTION = "/sections/{sectionId}";
+		public static final String QUESTION = "/sections/{sectionId}/questions";
 	}
 
 	@UtilityClass
@@ -51,5 +54,12 @@ public class API {
 		public static final String QUESTION = "/questions/{questionId}";
 		public static final String ANSWER = "/questions/{questionId}/answers";
 	}
-
+	
+	@UtilityClass
+	public static class Answer {
+		public static final String ANSWER = "/answers/{answerId}";
+	}
+	
+	
+	
 }

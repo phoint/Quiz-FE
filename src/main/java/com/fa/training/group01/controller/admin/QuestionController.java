@@ -22,7 +22,7 @@ import com.fa.training.group01.service.ISectionService;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class PartController {
+public class QuestionController {
 
 	@Autowired
 	IPartService partService;
@@ -37,54 +37,9 @@ public class PartController {
 	IAnswerService answerService;
 	
 
-	@GetMapping(value = "/edit-part", params = { "id" })
-	public String editPart(@RequestParam("id") int id, ModelMap model) {
-
-		Part thePart = partService.findById(id);
-		model.addAttribute("part", thePart);
-		model.addAttribute("question", questionService.createBlank());
-
-		return "admin/edit-parts";
-	}
-
-	@PostMapping(value = "/edit-part", params = { "id" })
-	public String savePart(@ModelAttribute("part") Part part, ModelMap model) {
-		partService.update(part);
-		sectionService.updateAll(part.getSections());
-		model.addAttribute("question", questionService.createBlank());
-		return "admin/edit-parts";
-	}
-
-	@RequestMapping(value = "/edit-part", params = { "id", "addSection" })
-	public String addSection(@ModelAttribute("part") Part part,
-			BindingResult bindingResult, ModelMap model) {
-		Section newSection = sectionService.save(new Section());
-		System.out.println(newSection);
-		part.getSections().add(newSection);
-		partService.addSection(part);
-		
-		model.addAttribute("part", partService.findById(part.getId()));
-		model.addAttribute("question", questionService.createBlank());
-		return "admin/edit-parts";
-	}
-
-	@RequestMapping(value = "/edit-part", params = { "id",
-			"removeSection" })
-	public String removeSection(@ModelAttribute("part") Part part,
-			BindingResult bindingResult, ModelMap model,
-			@RequestParam("removeSection") int sectionIndex) {
-		part.getSections().remove(sectionIndex);
-		partService.addSection(part);
-		System.out.println(part);
-		
-		model.addAttribute("part", partService.findById(part.getId()));
-		model.addAttribute("question", questionService.createBlank());
-		return "admin/edit-parts";
-	}
-
-	@RequestMapping(value = "/edit-part", params = { "id", "addQuestion" })
+	@RequestMapping(value = "/new-question", params = { "addQuestion" })
 	public String addQuestion(@ModelAttribute("question") Question question,
-			BindingResult bindingResult, @RequestParam("id") int partId,
+			BindingResult bindingResult, @RequestParam("partId") int partId,
 			RedirectAttributes rdrAttr, ModelMap model) {
 		System.out.println(question);
 		System.out.println(question.getId());
