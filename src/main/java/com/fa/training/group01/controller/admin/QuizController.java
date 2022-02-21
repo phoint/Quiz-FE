@@ -67,7 +67,6 @@ public class QuizController {
 	public String saveQuiz(@ModelAttribute("quiz") Quiz quiz, ModelMap model) {
 		quizService.update(quiz);
 		partService.updateAll(quiz.getParts());
-		model.clear();
 		return "admin/parts-management";
 	}
 
