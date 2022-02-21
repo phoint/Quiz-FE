@@ -17,14 +17,15 @@ import com.fa.training.group01.model.CurrentUser;
 import com.fa.training.group01.payload.UpdatePasswordRequest;
 import com.fa.training.group01.security.CustomUserDetails;
 import com.fa.training.group01.service.IUserService;
+import com.fa.training.group01.util.UrlUtil;
 
-@Controller
+@Controller()
 @RequestMapping("/user")
 public class UserController {
 	@Autowired
 	private IUserService userService;
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = UrlUtil.StudentArea.User.PathName.PROFILE, method = RequestMethod.GET)
 	public ModelAndView myAccountPage(@CurrentUser CustomUserDetails currentUser) {
 		User user = userService.getByEmail(currentUser.getUsername());
 		ModelAndView mav = new ModelAndView();
@@ -33,22 +34,22 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "update-password", method = RequestMethod.GET)
+	@RequestMapping(value = UrlUtil.StudentArea.User.PathName.UPDATE_PASSWORD, method = RequestMethod.GET)
 	public ModelAndView updatePasswordPage() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("student/update-password");
 		return mav;
 	}
 
-	@RequestMapping(value = "update-password", method = RequestMethod.POST)
+	@RequestMapping(value = UrlUtil.StudentArea.User.PathName.UPDATE_PASSWORD, method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
 		ResponseEntity<String> responseEntity = userService.updatePassword(updatePasswordRequest);
 		if (responseEntity.getStatusCode().equals(HttpStatus.UNPROCESSABLE_ENTITY)) {
-			HttpHeaders headers=new HttpHeaders();
+			HttpHeaders headers = new HttpHeaders();
 			headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
-			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
-					.headers(headers).body(responseEntity.getBody());
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).headers(headers)
+					.body(responseEntity.getBody());
 		}
 		if (responseEntity.getStatusCode().is2xxSuccessful()) {
 			return ResponseEntity.status(HttpStatus.OK).body(responseEntity.getBody());

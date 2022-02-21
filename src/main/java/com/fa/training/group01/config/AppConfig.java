@@ -1,6 +1,8 @@
 package com.fa.training.group01.config;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -27,6 +29,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import com.cloudinary.Cloudinary;
 import com.fa.training.group01.util.API;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -109,6 +112,18 @@ public class AppConfig implements WebMvcConfigurer {
 	@Bean
 	public ObjectMapper objectMapper() {
 		return new ObjectMapper();
+	}
+
+	@Bean
+	public Cloudinary cloudinaryConfig() {
+		Cloudinary cloudinary = null;
+		Map config = new HashMap();
+		config.put("cloud_name", "dzo0uwrzh");
+		config.put("api_key", "356549915555382");
+		config.put("api_secret", "aOWcNN04n2seEgFF8Am55HXmC3s");
+		config.put("secure", true);
+		cloudinary = new Cloudinary(config);
+		return cloudinary;
 	}
 
 	/**

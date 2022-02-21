@@ -36,6 +36,8 @@
 	href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+<th:block layout:fragment="css"></th:block>
+
 </head>
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -60,13 +62,6 @@
 		<!-- End Footer  -->
 
 	</div>
-	<!-- The Modal Create Quiz -->
-	<div th:replace="fragments/admin/modal/create-quiz :: create-quiz"></div>
-	<!-- End Modal Create Quiz -->
-
-	<!-- The Modal Edit Quiz -->
-	<div th:replace="fragments/admin/modal/edit-quiz :: edit-quiz"></div>
-	<!-- End Modal Edit Quiz -->
 
 	<!-- Control Sidebar -->
 	<aside class="control-sidebar control-sidebar-dark">
@@ -78,6 +73,7 @@
 	</aside>
 	<!-- /.control-sidebar -->
 
+	<div layout:fragment="additional-fragments"></div>
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 	<!-- REQUIRED SCRIPTS -->
 	<!-- jQuery -->
@@ -90,12 +86,12 @@
 	<!-- AdminLTE for demo purposes -->
 	<script th:src="@{/resources/admin/dist/js/demo.js}"></script>
 	<!-- Tables -->
-	<script
-		src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-	<script
-		src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
-	<script
-		src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+	<!-- <script
+		src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
+	<!-- <script
+		src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script> -->
+	<!-- <script
+		src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script> -->
 	<script>
 		$(document).ready(function() {
 			$(document).ready(function() {
@@ -147,7 +143,7 @@
 				alert("The minimum answer is two!!!");
 				return;
 			}
-			// const btnRemove = e;
+			// const btnRemove	 = e;
 			// const parent = btnRemove.parentElement;
 			// const grandparent = parent.parentElement;
 			// const oldgrandparent = grantparent.parentElement;
@@ -181,38 +177,39 @@
 					}, false);
 		})();
 	</script>
-    <!-- Add/Remove answers -->
-  <script>
-      function creatPart() {
-        var coverAw = document.getElementById("coverAw");
-        var answer = coverAw.querySelectorAll(".answer");
-        htmlContent = answer[1].innerHTML;
-        // console.log("add:" + answer.length);
-        if (answer.length > 4) {
+	<!-- Add/Remove answers -->
+	<script>
+		function creatPart() {
+			var coverAw = document.getElementById("coverAw");
+			var answer = coverAw.querySelectorAll(".answer");
+			htmlContent = answer[1].innerHTML;
+			// console.log("add:" + answer.length);
+			if (answer.length > 4) {
 
-          alert("The maximum answer is five!!!");
-          return;
-        }
-        $('#coverAw').append(
-            '<div class="card card-outline card-teal w-25 answer">'
-                + htmlContent + '</div>');
-      };
-      function removePart(e) {
-        var answer = coverAw.querySelectorAll(".answer");
-        // console.log("remove:" + answer.length);
-        if (answer.length < 3) {
-          alert("The minimum answer is two!!!");
-          return;
-        }
-        // const btnRemove = e;
-        // const parent = btnRemove.parentElement;
-        // const grandparent = parent.parentElement;
-        // const oldgrandparent = grantparent.parentElement;
-        // oldgrantparent.remove();
-        const oldgrantparent = e.closest(".card");
-        oldgrantparent.remove();
-      }
-    </script>
+				alert("The maximum answer is five!!!");
+				return;
+			}
+			$('#coverAw').append(
+					'<div class="card card-outline card-teal w-25 answer">'
+							+ htmlContent + '</div>');
+		};
+		function removePart(e) {
+			var answer = coverAw.querySelectorAll(".answer");
+			// console.log("remove:" + answer.length);
+			if (answer.length < 3) {
+				alert("The minimum answer is two!!!");
+				return;
+			}
+			// const btnRemove = e;
+			// const parent = btnRemove.parentElement;
+			// const grandparent = parent.parentElement;
+			// const oldgrandparent = grantparent.parentElement;
+			// oldgrantparent.remove();
+			const oldgrantparent = e.closest(".card");
+			oldgrantparent.remove();
+		}
+	</script>
+	<th:block layout:fragment="scripts"></th:block>
 </body>
 
 </html>

@@ -20,6 +20,7 @@ public class RestTemplateErrorHandler implements ResponseErrorHandler {
 
 	@Override
 	public void handleError(ClientHttpResponse response) throws IOException {
+		System.err.println(response);
 	}
 
 }
