@@ -24,6 +24,8 @@ public class API {
 	public static class User {
 		public static class AdminArea {
 			public static final String ACCOUNT_LIST = "/list";
+			public static final String GET_USER = "/get/{id}";
+			public static final String UPDATE_USER = "/update";
 		}
 
 		public static final String ACCOUNT = "/account";
@@ -54,12 +56,10 @@ public class API {
 		public static final String QUESTION = "/questions/{questionId}";
 		public static final String ANSWER = "/questions/{questionId}/answers";
 	}
-	
+
 	@UtilityClass
 	public static class Answer {
 		public static final String ANSWER = "/answers/{answerId}";
 	}
-	
-	
-	
+
 }

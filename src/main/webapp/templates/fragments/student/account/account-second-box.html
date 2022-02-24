@@ -1,0 +1,26 @@
+<header class="row" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:fragment="account-second-box">
+	<div class="col-12">
+		<div class="card d-flex flex-md-row w-100 mb-2">
+			<div class="profile-card p-2">
+				<img class="profile-img"
+					th:src="@{/resources/images/quiz-list/undraw_online_test_gba7.png}"
+					alt="">
+			</div>
+			<div class="pt-2 ">
+				<div>
+					<h2
+						th:text="@{'Username: '+ ${#authentication.getPrincipal().getUsername()}}">Name:
+					</h2>
+				</div>
+				<div>
+					<p>
+						<i class="fas fa-list"></i> 3 Quiz attempts
+					</p>
+				</div>
+				<p>Last attempt:</p>
+			</div>
+		</div>
+	</div>
+</header>

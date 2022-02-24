@@ -1,6 +1,6 @@
 $(document).ready(function () {
-  var form = $("#reset-password-form");
-  var formMessage = $(form).find(".form-message");
+  const form = $("#reset-password-form");
+  let formMessage = $(form).find(".form-message");
   var submitBtn = $(form).find(":submit");
   var searchParams = new URLSearchParams(window.location.search);
   var token = searchParams.get("token");

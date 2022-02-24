@@ -45,6 +45,10 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
 		ResponseEntity<String> responseEntity = userService.updatePassword(updatePasswordRequest);
+
+		if (responseEntity == null) {
+			return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body(null);
+		}
 		if (responseEntity.getStatusCode().equals(HttpStatus.UNPROCESSABLE_ENTITY)) {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
