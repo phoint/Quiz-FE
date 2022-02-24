@@ -11,11 +11,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fa.training.group01.domain_model.User;
 
 import lombok.AllArgsConstructor;
+
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 	private User user;
 	private AuthenciationToken token;
-
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -32,6 +32,10 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public String getUsername() {
 		return user.getEmail();
+	}
+
+	public Integer getId() {
+		return user.getId();
 	}
 
 	@Override
@@ -53,6 +57,5 @@ public class CustomUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-
 
 }

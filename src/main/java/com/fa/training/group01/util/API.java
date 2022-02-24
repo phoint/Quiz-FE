@@ -12,6 +12,8 @@ public class API {
 	public static final String SECTION_MODULE = "/sections";
 	public static final String QUESTION_MODULE = "/questions";
 	public static final String ANSWER_MODULE = "/answers";
+	public static final String QUIZ_TAKEN_MODULE = "/quiz-takens";
+	public static final String ANSWER_TAKEN_MODULE = "/ans-takens";
 
 	@UtilityClass
 	public static class Public {
@@ -30,6 +32,8 @@ public class API {
 	public static class Quiz {
 		public static final String QUIZ = "/quizzes/{quizId}";
 		public static final String PART = "/quizzes/{quizId}/parts";
+		public static final String QUESTION = "/quizzes/{quizId}/questions";
+		public static final String QUIZ_TAKEN = "/quizzes/{quizId}/quiz-takens";
 	}
 	
 	@UtilityClass
@@ -49,11 +53,27 @@ public class API {
 	public static class Question {
 		public static final String QUESTION = "/questions/{questionId}";
 		public static final String ANSWER = "/questions/{questionId}/answers";
+		public static final String QUESTION_TAKEN = "/questions/{questionId}/ans-takens";
 	}
 	
 	@UtilityClass
 	public static class Answer {
 		public static final String ANSWER = "/answers/{answerId}";
+		public static final String ANSWER_TAKEN = "/answers/{answerId}/ans-takens";
+	}
+	
+	@UtilityClass
+	public static class QuizTaken {
+		public static final String TAKEN = "/quiz-takens/{quizTakenId}";
+		public static final String ANSWER_TAKEN = "/quiz-takens/{quizTakenId}/ans-takens";
+		public static final String QUIZ = "/quiz-takens/{quizTakenId}/quiz";
+	}
+
+	@UtilityClass
+	public static class AnswerTaken {
+		public static final String TAKEN = "/ans-takens/{ansTakenId}";
+		public static final String ANSWER_TAKEN = "/ans-takens/{ansTakenId}/answer";
+		public static final String QUESTION_TAKEN = "/ans-takens/{ansTakenId}/question";
 	}
 	
 	

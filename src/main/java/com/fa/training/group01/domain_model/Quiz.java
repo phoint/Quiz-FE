@@ -13,7 +13,11 @@ import lombok.EqualsAndHashCode;
 public class Quiz extends GenericModel {
 	private String title;
 	private String content;
+	
 	@JsonIgnore
 	private List<Part> parts = new ArrayList<Part>();
+	
+	@JsonIgnore
+	private List<Question> questions = new ArrayList<Question>();
 
 }

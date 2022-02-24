@@ -15,4 +15,8 @@ public interface IQuizService {
 	List<Quiz> findAll();
 
 	Quiz findById(int id);
+	
+	Quiz findFullQuiz(int id);
+	
+	int countQuestion(int quizId); 
 }

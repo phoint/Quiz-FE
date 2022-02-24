@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layout/student-layout.html}">
 <head>
-<title>Tài khoản của tôi</title>
+<title>TÃ i khoáº£n cá»§a tÃ´i</title>
 <th:block layout:fragment="css">
 	<!--header_custom CSS-->
 	<link rel="stylesheet"
@@ -11,7 +11,7 @@
 </th:block>
 </head>
 
-<body th:with="boxTitle='Tài khoản của tôi',isUserPage=true">
+<body th:with="boxTitle='TÃ i khoáº£n cá»§a tÃ´i',isUserPage=true">
 	<th:block layout:fragment="main">
 		<main class="container-fluid">
 			<div
@@ -64,31 +64,31 @@
 											</div>
 											<div class="col-md-6 h-75">
 												<div class="form-group mb-3">
-													<label>Họ tên người dùng: </label> <input type="text"
+													<label>Há»� tÃªn ngÆ°á»�i dÃ¹ng: </label> <input type="text"
 														class="form-control" id="name" name="name"
 														placeholder="Your Name" required
-														data-error="Please enter your name" value="Nguyễn Văn An">
+														data-error="Please enter your name" value="Nguyá»…n VÄƒn An">
 													<div class="help-block with-errors"></div>
 												</div>
 											</div>
 											<div class="col-md-6 h-75">
 												<div class="form-group mb-3">
-													<label>Ngày tháng năm sinh:</label> <input type="date"
+													<label>NgÃ y thÃ¡ng nÄƒm sinh:</label> <input type="date"
 														class="form-control" id="dob" name="dob"
 														placeholder="Subject" required
 														data-error="Please enter your Subject" date="1999-11-10">
-													<div class="help-block with-errors">Lỗi ngày tháng</div>
+													<div class="help-block with-errors">Lá»—i ngÃ y thÃ¡ng</div>
 												</div>
 											</div>
 											<div class="col-md-6 h-75">
 												<div class="form-group mb-3">
-													<label>Giới tính:</label>
+													<label>Giá»›i tÃ­nh:</label>
 													<div class="d-flex form-control p-0">
 														<div class="col-md-4">
 															<input type="radio" class="form-control w-25 float-left"
 																id="female" name="gender" placeholder="Subject"
 																checked="checked" data-error="Please enter your Subject"
-																value="Female"> <span class="gender-text pl-2">Nữ</span>
+																value="Female"> <span class="gender-text pl-2">Ná»¯</span>
 														</div>
 														<div class="col-md-4 d-flex">
 															<input type="radio" class="form-control w-25" id="male"
@@ -100,7 +100,7 @@
 															<input type="radio" class="form-control w-25" id="male"
 																name="gender" placeholder="Subject"
 																data-error="Please enter your Subject" value="Other">
-															<span class="gender-text pl-2">Khác</span>
+															<span class="gender-text pl-2">KhÃ¡c</span>
 														</div>
 													</div>
 													<div class="help-block with-errors"></div>
@@ -108,7 +108,7 @@
 											</div>
 											<div class="col-md-12 h-75">
 												<div class="form-group mb-3">
-													<label>Số điện thoại:</label> <input type="text"
+													<label>Sá»‘ Ä‘iá»‡n thoáº¡i:</label> <input type="text"
 														class="form-control" id="subject" name="name"
 														placeholder="Subject" required
 														data-error="Please enter your Subject" value="0358058540">
@@ -118,8 +118,8 @@
 
 											<div class="col-md-12">
 												<div class="submit-button text-center">
-													<button class="btn hvr-hover" id="submit" type="submit">Cập
-														nhật</button>
+													<button class="btn hvr-hover" id="submit" type="submit">Cáº­p
+														nháº­t</button>
 													<div id="msgSubmit" class="h3 text-center hidden"></div>
 													<div class="clearfix"></div>
 												</div>

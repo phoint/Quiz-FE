@@ -48,9 +48,10 @@ public class PartController {
 	}
 
 	@PostMapping(value = "/edit-part", params = { "id" })
-	public String savePart(@ModelAttribute("part") Part part, ModelMap model) {
-		partService.update(part);
+	public String savePart(@ModelAttribute("part") Part part, @RequestParam("id") int partId, ModelMap model) {
 		sectionService.updateAll(part.getSections());
+		partService.update(part);
+		model.addAttribute("part", partService.findById(partId));
 		model.addAttribute("question", questionService.createBlank());
 		return "admin/edit-parts";
 	}
