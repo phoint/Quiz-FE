@@ -78,7 +78,7 @@ public class QuizTakenService implements IQuizTakenService {
 			}
 		}
 		quizTaken.setScored(scored);
-		quizTaken.setMaxScored(maxScored);
+		quizTaken.setMaxScore(maxScored);
 
 		return quizTaken;
 	}

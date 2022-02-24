@@ -18,7 +18,7 @@ public class QuizTaken extends GenericModel {
 	private Counter counter = new Counter(-1);
 	
 	@JsonIgnore
-	private int maxScored;
+	private int maxScore;
 	
 	@JsonIgnore
 	private List<AnswerTaken> answerTaken = new ArrayList<AnswerTaken>();

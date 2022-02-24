@@ -83,10 +83,10 @@
                           <ul th:each="answer : ${question.answers}">
                             <li class="mx-2"><span
                               th:text="${answer.content}"></span><span
-                              th:text="(${answer.id} != ${ansTaken.answer.id})?:'Correct'">Correct</span></li>
+                              th:if="(${answer.id} == ${ansTaken.answer.id})"
+                              th:text="${answer.correct} ? ' - Correct':' - Incorrect'">Correct</span>
+                            </li>
                           </ul>
-                          <div th:text="${answer.id}"></div>
-                          <div th:text="${ansTaken.answer.id}"></div>
                         </div>
                       </div>
                     </div>
@@ -112,36 +112,14 @@
           </div>
         </div>
         <div class="col-4" id="box-siderbar">
-          <div class="box-for p-5 box-siderbar sidebar__inner pager">
-            <div id="getting-started"
-              class="text-center bg-primary-custom p-1 font-weight-bold text-dark h3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Result</h5>
+              <p class="card-text"
+                th:text="'Scored: ' + ${quizTaken.scored} + '/' + ${quizTaken.maxScore}">Some
+                quick example text to build on the card title and make up the
+                bulk of the card's content.</p>
             </div>
-            <ul class="row mt-3 pageNumbers">
-              <!--   <li class="col-2 align-items-center"><a data-page="1" href="javascript:void(0);"
-                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
-                            </li>
-                            <li class="col-2 align-items-center"><a data-page="2" href="javascript:void(0);"
-                                    class="btn btn-circle hvr-hover text-center p-1">10</a>
-                            </li>
-                            <li class="col-2 align-items-center"><a
-                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
-                            </li>
-                            <li class="col-2 align-items-center"><a
-                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
-                            </li>
-                            <li class="col-2 align-items-center"><a
-                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
-                            </li>
-                            <li class="col-2 align-items-center"><a
-                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
-                            </li>
-                            <li class="col-2 align-items-center"><a
-                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
-                            </li>
-                            <li class="col-2 align-items-center"><a
-                                    class="btn btn-circle hvr-hover text-center p-1">100</a>
-                            </li> -->
-            </ul>
           </div>
         </div>
       </div>

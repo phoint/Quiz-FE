@@ -86,9 +86,11 @@ public class QuizTakenController {
 	}
 
 	@RequestMapping(value = "result", params = { "taken" })
-	public String showResult(@RequestParam("taken") int takenId, ModelMap model) {
-		Quiz quiz = quizService.findFullQuiz(5);
-		QuizTaken quizTaken = quizTakenService.findById(2);
+	public String showResult(@RequestParam("taken") int takenId, @RequestParam("id") int quizId, ModelMap model) {
+		Quiz quiz = quizService.findFullQuiz(quizId);
+		QuizTaken quizTaken = quizTakenService.findById(takenId);
+//		Quiz quiz = quizService.findFullQuiz(2);
+//		QuizTaken quizTaken = quizTakenService.findById(1);
 		quizTaken = quizTakenService.calculateScore(quizTaken);
 		
 		model.addAttribute("quizTaken", quizTaken);
