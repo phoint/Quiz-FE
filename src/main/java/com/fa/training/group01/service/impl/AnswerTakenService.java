@@ -22,7 +22,7 @@ public class AnswerTakenService implements IAnswerTakenService {
 
 	@Autowired
 	IAnswerDAO answerDAO;
-	
+
 	@Autowired
 	IQuestionDAO questionDAO;
 
@@ -57,14 +57,21 @@ public class AnswerTakenService implements IAnswerTakenService {
 	void addAnswer(AnswerTaken answerTaken, int answerId) {
 		answerTakenDAO.addChild(answerTaken, answerId, API.AnswerTaken.ANSWER_TAKEN, API.Answer.ANSWER);
 	}
-	
-	Answer findAnswer(int answerTakenId) {
-		return answerDAO.findParent(answerTakenId, API.AnswerTaken.ANSWER_TAKEN, new ParameterizedTypeReference<EntityModel<Answer>>() {
-		});
+
+	Answer findAnswer(Integer answerTakenId) {
+		Answer answer = new Answer();
+		if (answerTakenId != null) {
+			answer = answerDAO.findParent(answerTakenId, API.AnswerTaken.ANSWER_TAKEN,
+					new ParameterizedTypeReference<EntityModel<Answer>>() {
+					});
+
+		}
+		return answer;
 	}
-	
+
 	Question findQuestion(int answerTakenId) {
-		return questionDAO.findParent(answerTakenId, API.AnswerTaken.QUESTION_TAKEN, new ParameterizedTypeReference<EntityModel<Question>>() {
-		});
+		return questionDAO.findParent(answerTakenId, API.AnswerTaken.QUESTION_TAKEN,
+				new ParameterizedTypeReference<EntityModel<Question>>() {
+				});
 	}
 }

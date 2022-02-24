@@ -76,10 +76,9 @@
                     th:with="correctAns=0">
                     <div class="mb-5">
                       <p class="my-3 font-weight-bold">
-                        <b th:text="${question.content}">Question 1</b>
+                        <b th:text="${question.content}">Question 1</b><small th:text="' (' +${question.score} + ' point(s))'"></small>
                       </p>
-                      <div th:each="ansTaken : *{answerTaken}">
-                        <div th:if="(${ansTaken.question.id} == ${question.id})">
+                      <div th:each="ansTaken : *{answerTaken}" th:if="(${ansTaken.question.id} == ${question.id})">
                           <ul th:each="answer : ${question.answers}">
                             <li class="mx-2"><span
                               th:text="${answer.content}"></span><span
@@ -87,7 +86,6 @@
                               th:text="${answer.correct} ? ' - Correct':' - Incorrect'">Correct</span>
                             </li>
                           </ul>
-                        </div>
                       </div>
                     </div>
                   </div>

@@ -52,12 +52,13 @@ public class QuizTakenController {
 	}
 
 	@PostMapping(value = "do-quiz", params = { "id" })
-	public String submitQuiz(@ModelAttribute("quizDone") QuizDone quizDone, @RequestParam("id") int quizId, RedirectAttributes rdrAttr) {
+	public String submitQuiz(@ModelAttribute("quizDone") QuizDone quizDone, @RequestParam("id") int quizId,
+			RedirectAttributes rdrAttr) {
 		System.out.println("Quiz Done: " + quizDone);
 		QuizTaken quizTaken = quizTakenService.save(new QuizTaken());
 
 		List<AnswerTaken> answerTakens = new ArrayList<AnswerTaken>();
-		
+
 		for (UserChoice userChoice : quizDone.getChoices()) {
 			AnswerTaken answerTaken = new AnswerTaken();
 			String answerChosen = userChoice.getAnswerIds();
@@ -71,6 +72,8 @@ public class QuizTakenController {
 			} else {
 				answerTaken = answerTakenService.save(new AnswerTaken());
 				answerTakenService.addInfo(answerTaken, userChoice.getQuestionId(), null);
+				answerTakens.add(answerTaken);
+				
 			}
 			System.out.println(answerTaken);
 		}
@@ -79,22 +82,19 @@ public class QuizTakenController {
 		quizTakenService.addAnswerTaken(quizTaken);
 		quizTakenService.addQuiz(quizTaken, quizId);
 
-
-		rdrAttr.addAttribute("taken", quizTaken.getId());
-		rdrAttr.addFlashAttribute("id", quizId);
+		rdrAttr.addAttribute("taken", quizTaken.getId()).addFlashAttribute("id", quizId);
 		return "redirect:/quiz/result";
 	}
 
-	@RequestMapping(value = "result", params = { "taken" })
-	public String showResult(@RequestParam("taken") int takenId, @RequestParam("id") int quizId, ModelMap model) {
-		Quiz quiz = quizService.findFullQuiz(quizId);
-		QuizTaken quizTaken = quizTakenService.findById(takenId);
-//		Quiz quiz = quizService.findFullQuiz(2);
-//		QuizTaken quizTaken = quizTakenService.findById(1);
+	@RequestMapping(value = "result", params = { "taken"})
+	public String showResult(@RequestParam("taken") int takenId, ModelMap model) {
+//		Quiz quiz = quizService.findFullQuiz(quizId);
+//		QuizTaken quizTaken = quizTakenService.findById(takenId);
+		Quiz quiz = quizService.findFullQuiz(2);
+		QuizTaken quizTaken = quizTakenService.findById(31);
 		quizTaken = quizTakenService.calculateScore(quizTaken);
-		
-		model.addAttribute("quizTaken", quizTaken);
-		model.addAttribute("quiz", quiz);
+
+		model.addAttribute("quizTaken", quizTaken).addAttribute("quiz", quiz);
 		return "/student/quiz-result";
 	}
 }
