@@ -51,9 +51,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //				.rememberMe().key("uniqueAndSecret").and().csrf().disable().cors();
 
 		http.authorizeRequests().anyRequest().permitAll().and().formLogin().disable().logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
-		.deleteCookies("remember-me", "JSESSIONID").permitAll().and().rememberMe().key("uniqueAndSecret").and()
-		.csrf().disable().cors();
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+				.deleteCookies("remember-me", "JSESSIONID").permitAll().and().rememberMe().key("uniqueAndSecret").and()
+				.csrf().disable().cors();
 
 	}
 
