@@ -134,7 +134,7 @@ public class AppConfig implements WebMvcConfigurer {
 	@Autowired
 	RestTemplate hypermediaRestTemplate(HypermediaRestTemplateConfigurer configurer) {
 		RestTemplate template = configurer.registerHypermediaTypes(new RestTemplate());
-		
+		template.setErrorHandler(responseErrorHandler);
 		return template;
 	}
 
