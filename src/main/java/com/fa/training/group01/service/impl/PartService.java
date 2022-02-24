@@ -43,7 +43,7 @@ public class PartService implements IPartService {
 
 	@Override
 	public void addSection(Part part) {
-		partDAO.addChild(part, part.getSections(), API.Part.SECTION,
+		partDAO.addChildren(part, part.getSections(), API.Part.SECTION,
 				API.Section.SECTION);
 	}
 

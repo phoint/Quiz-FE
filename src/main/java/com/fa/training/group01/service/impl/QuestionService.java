@@ -36,7 +36,7 @@ public class QuestionService implements IQuestionService {
 	
 	@Override
 	public void addAnswer(Question question) {
-		questionDAO.addChild(question, question.getAnswers(), API.Question.ANSWER, API.Answer.ANSWER);
+		questionDAO.addChildren(question, question.getAnswers(), API.Question.ANSWER, API.Answer.ANSWER);
 	}
 
 	@Override

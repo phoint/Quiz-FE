@@ -65,7 +65,7 @@ public class SectionService implements ISectionService {
 
 	@Override
 	public void addQuestion(Section section) {
-		sectionDAO.addChild(section, section.getQuestions(),
+		sectionDAO.addChildren(section, section.getQuestions(),
 				API.Section.QUESTION, API.Question.QUESTION);
 	}
 

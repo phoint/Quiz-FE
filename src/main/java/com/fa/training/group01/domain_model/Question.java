@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 public class Question extends GenericModel {
 	private String title;
 	private String content;
+	private int score;
+	
+	@JsonIgnore
 	private int answerIndex;
 
 	@JsonIgnore
