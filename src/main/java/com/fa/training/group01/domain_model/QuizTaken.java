@@ -15,6 +15,9 @@ public class QuizTaken extends GenericModel {
 	private int scored;
 	
 	@JsonIgnore
+	private int quizId;
+	
+	@JsonIgnore
 	private Counter counter = new Counter(-1);
 	
 	@JsonIgnore

@@ -14,6 +14,9 @@ public class API {
 	public static final String ANSWER_MODULE = "/answers";
 	public static final String QUIZ_TAKEN_MODULE = "/quiz-takens";
 	public static final String ANSWER_TAKEN_MODULE = "/ans-takens";
+	public static final String QUIZ_TAKER_MODULE = "/users";
+	public static final String QUIZ_CREATOR_MODULE = "/users";
+	
 
 	@UtilityClass
 	public static class Public {
@@ -30,6 +33,18 @@ public class API {
 
 		public static final String ACCOUNT = "/account";
 		public static final String UPDATE_PASSWORD = "/update-password";
+	}
+	
+	@UtilityClass
+	public static class QuizTaker {
+		public static final String QUIZ_TAKER = "/users/{userId}";
+		public static final String QUIZ_TAKEN = "/users/{userId}/take";
+	}
+
+	@UtilityClass
+	public static class QuizCreator {
+		public static final String QUIZ_CREATOR = "/users/{userId}";
+		public static final String QUIZ = "/users/{userId}/create";
 	}
 
 	@UtilityClass
