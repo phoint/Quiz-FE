@@ -3,7 +3,7 @@ package com.fa.training.group01.controller.admin;
 import java.io.IOException;
 import java.util.List;
 
-import com.fa.training.group01.domain_model.Excel;
+import com.fa.training.group01.domain_model.Ex.QuizEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -102,13 +102,9 @@ public class QuizController {
 
 	@PostMapping("/import")
 	@ResponseBody
-	public List<Excel> mapReapExcelDatatoDB(@RequestParam("file") MultipartFile reapExcelDataFile, Model model) throws IOException {
+	public QuizEx mapReapExcelDatatoDB(@RequestParam("file") MultipartFile reapExcelDataFile, Model model) throws IOException {
 
-		List<Excel> list = quizService.getData(reapExcelDataFile);
-//        boolean imp =  appConfig.restTemplate().postForObject(UrlConstant.Import_Excel,list.toArray(), Boolean.class);
-//        if (imp == false){
-//            model.addAttribute("errorImp","Import excel file fail");
-//        }
-		return list;
+		QuizEx quizEx = quizService.getData(reapExcelDataFile);
+		return quizEx;
 	}
 }

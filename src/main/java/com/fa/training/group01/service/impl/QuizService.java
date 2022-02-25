@@ -1,14 +1,11 @@
 package com.fa.training.group01.service.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.fa.training.group01.domain_model.Excel;
+import com.fa.training.group01.domain_model.Ex.QuizEx;
 import com.fa.training.group01.util.Exmapper;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -71,16 +68,11 @@ public class QuizService implements IQuizService {
 	}
 
 	@Override
-	public List<Excel> getData(MultipartFile reapExcelDataFile) throws IOException {
+	public QuizEx getData(MultipartFile reapExcelDataFile) throws IOException {
 		XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
-		XSSFSheet worksheet = workbook.getSheetAt(0);
-		List<Excel> list = new ArrayList<Excel>();
-		for(int i = 1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
-			XSSFRow row = worksheet.getRow(i);
-			Excel ex = Exmapper.mapEx(new Excel(),row);
-			list.add(ex);
-		}
-		return  list;
+		QuizEx quizEx = Exmapper.mapEx(workbook);
+
+		return quizEx;
 	}
 
 

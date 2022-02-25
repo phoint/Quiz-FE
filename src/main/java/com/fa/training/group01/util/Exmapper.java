@@ -1,22 +1,51 @@
 package com.fa.training.group01.util;
 
-import com.fa.training.group01.domain_model.Excel;
-import org.apache.poi.ss.usermodel.CellType;
+import com.fa.training.group01.domain_model.Ex.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Exmapper {
 
-    public static final Excel mapEx(Excel model, XSSFRow row ){
-        model.setQTitle(row.getCell(1).getStringCellValue().isEmpty()==true?null:row.getCell(1).getStringCellValue());
-        model.setQContent(row.getCell(2).getStringCellValue().isEmpty()==true?null:row.getCell(2).getStringCellValue());
-        model.setOption1(row.getCell(3).getStringCellValue().isEmpty()==true?null:row.getCell(3).getStringCellValue());
-        model.setOption2(row.getCell(4).getStringCellValue().isEmpty()==true?null:row.getCell(4).getStringCellValue());
-        model.setOption3(row.getCell(5).getStringCellValue().isEmpty()==true?null:row.getCell(5).getStringCellValue());
-        model.setOption4(row.getCell(6).getStringCellValue().isEmpty()==true?null:row.getCell(6).getStringCellValue());
-        model.setOption5(row.getCell(7).getStringCellValue().isEmpty()==true?null:row.getCell(7).getStringCellValue());
-        model.setCorrect_ans(row.getCell(8).getCellType().equals(CellType.NUMERIC)?String.valueOf(row.getCell(8).getNumericCellValue()):row.getCell(8).getStringCellValue());
-        model.setLinkImg(row.getCell(9).getStringCellValue().isEmpty()==true?null:row.getCell(9).getStringCellValue());
-        model.setTime(row.getCell(10).getStringCellValue().isEmpty()==true?null:row.getCell(10).getStringCellValue());
-        return model;
+        public static final QuizEx mapEx(XSSFWorkbook workbook){
+        XSSFSheet Quiz = workbook.getSheetAt(0);
+        XSSFSheet Quest = workbook.getSheetAt(1);
+        QuizEx quizEx = new QuizEx();
+        List<PartEx> parts = new ArrayList<>();
+        List<SectionEx> sections = new ArrayList<>();
+
+        for(int i = 1;i<Quest.getPhysicalNumberOfRows() ;i++) {
+            XSSFRow row = Quest.getRow(i);
+            //Quest
+            List<QuestionEx> questions = new ArrayList<>();
+            List<AnswerEx> answers = new ArrayList<>();
+            answers.add(new AnswerEx(row.getCell(3).getStringCellValue(),false));
+            answers.add(new AnswerEx(row.getCell(4).getStringCellValue(),false));
+            answers.add(new AnswerEx(row.getCell(5).getStringCellValue(),false));
+            answers.add(new AnswerEx(row.getCell(6).getStringCellValue(),false));
+            answers.add(new AnswerEx(row.getCell(7).getStringCellValue().isEmpty()==true?null:
+                    row.getCell(7).getStringCellValue(),false));
+            questions.add(new QuestionEx(row.getCell(0).getStringCellValue(),
+                    row.getCell(1).getStringCellValue(),
+                    (int)row.getCell(2).getNumericCellValue(),answers));
+            //Section
+            for(int j = 1;j<Quiz.getPhysicalNumberOfRows() ;j++) {
+                XSSFRow rowq = Quiz.getRow(j);
+                sections.add(new SectionEx(rowq.getCell(3).getStringCellValue(),questions));
+            }
+        }
+        //Part
+        for(int j = 1;j<Quiz.getPhysicalNumberOfRows();j++) {
+            XSSFRow rowq = Quiz.getRow(j);
+            parts.add(new PartEx(rowq.getCell(2).getStringCellValue(),sections));
+            quizEx.setTitle(rowq.getCell(0).getStringCellValue());
+            quizEx.setContent(rowq.getCell(1).getStringCellValue());
+            quizEx.setParts(parts);
+        }
+
+       return quizEx;
     }
 }
