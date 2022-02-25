@@ -59,14 +59,10 @@ public class AnswerTakenService implements IAnswerTakenService {
 	}
 
 	Answer findAnswer(Integer answerTakenId) {
-		Answer answer = new Answer();
-		if (answerTakenId != null) {
-			answer = answerDAO.findParent(answerTakenId, API.AnswerTaken.ANSWER_TAKEN,
-					new ParameterizedTypeReference<EntityModel<Answer>>() {
-					});
-
-		}
-		return answer;
+		Answer answer = answerDAO.findParent(answerTakenId, API.AnswerTaken.ANSWER_TAKEN,
+				new ParameterizedTypeReference<EntityModel<Answer>>() {
+				});
+		return answer == null ? new Answer() : answer;
 	}
 
 	Question findQuestion(int answerTakenId) {

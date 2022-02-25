@@ -8,11 +8,11 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 
-import com.fa.training.group01.dao.IAnswerDAO;
 import com.fa.training.group01.dao.IAnswerTakenDAO;
+import com.fa.training.group01.dao.IQuizDAO;
 import com.fa.training.group01.dao.IQuizTakenDAO;
 import com.fa.training.group01.domain_model.AnswerTaken;
-import com.fa.training.group01.domain_model.GenericModel;
+import com.fa.training.group01.domain_model.Quiz;
 import com.fa.training.group01.domain_model.QuizTaken;
 import com.fa.training.group01.service.IAnswerTakenService;
 import com.fa.training.group01.service.IQuizTakenService;
@@ -29,6 +29,9 @@ public class QuizTakenService implements IQuizTakenService {
 
 	@Autowired
 	private IAnswerTakenService answerTakenService;
+
+	@Autowired
+	private IQuizDAO quizDAO;
 
 	@Override
 	public QuizTaken save(QuizTaken quizTaken) {
@@ -56,6 +59,10 @@ public class QuizTakenService implements IQuizTakenService {
 		List<AnswerTaken> answerTakens = answerTakenDAO.findAllByParent(id, API.QuizTaken.ANSWER_TAKEN,
 				new ParameterizedTypeReference<CollectionModel<AnswerTaken>>() {
 				});
+		Quiz quiz = quizDAO.findParent(id, API.QuizTaken.QUIZ, new ParameterizedTypeReference<EntityModel<Quiz>>() {
+		});
+
+		quizTaken.setQuizId(quiz.getId());
 
 		for (AnswerTaken answerTaken : answerTakens) {
 			answerTakenService.findInfo(answerTaken);
