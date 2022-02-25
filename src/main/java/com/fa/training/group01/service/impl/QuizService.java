@@ -1,6 +1,11 @@
 package com.fa.training.group01.service.impl;
 
+import java.io.IOException;
 import java.util.List;
+
+import com.fa.training.group01.domain_model.Ex.QuizEx;
+import com.fa.training.group01.util.Exmapper;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -20,6 +25,7 @@ import com.fa.training.group01.domain_model.Quiz;
 import com.fa.training.group01.domain_model.Section;
 import com.fa.training.group01.service.IQuizService;
 import com.fa.training.group01.util.API;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class QuizService implements IQuizService {
@@ -128,5 +134,14 @@ public class QuizService implements IQuizService {
 
 		return (questions == null || questions.isEmpty()) ? 0 : questions.size();
 	}
+
+	@Override
+	public QuizEx getData(MultipartFile reapExcelDataFile) throws IOException {
+		XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
+		QuizEx quizEx = Exmapper.mapEx(workbook);
+
+		return quizEx;
+	}
+
 
 }

@@ -1,9 +1,11 @@
 package com.fa.training.group01.service;
 
-import java.net.URI;
+import java.io.IOException;
 import java.util.List;
 
+import com.fa.training.group01.domain_model.Ex.QuizEx;
 import com.fa.training.group01.domain_model.Quiz;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface IQuizService {
 	Quiz save(Quiz quiz);
@@ -19,4 +21,6 @@ public interface IQuizService {
 	Quiz findFullQuiz(int id);
 	
 	int countQuestion(int quizId); 
+
+	QuizEx getData(MultipartFile reapExcelDataFile) throws IOException;
 }
