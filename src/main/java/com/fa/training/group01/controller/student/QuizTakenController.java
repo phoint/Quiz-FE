@@ -16,30 +16,37 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fa.training.group01.domain_model.AnswerTaken;
 import com.fa.training.group01.domain_model.Quiz;
 import com.fa.training.group01.domain_model.QuizTaken;
+import com.fa.training.group01.domain_model.QuizTaker;
+import com.fa.training.group01.model.CurrentUser;
 import com.fa.training.group01.model.QuizDone;
 import com.fa.training.group01.model.UserChoice;
+import com.fa.training.group01.security.CustomUserDetails;
 import com.fa.training.group01.service.IAnswerTakenService;
 import com.fa.training.group01.service.IQuestionService;
 import com.fa.training.group01.service.IQuizService;
 import com.fa.training.group01.service.IQuizTakenService;
+import com.fa.training.group01.service.IQuizTakerService;
 
 @Controller
-@RequestMapping(value = "quiz")
+@RequestMapping(value = "/quiz")
 public class QuizTakenController {
 
 	@Autowired
-	IQuizService quizService;
+	private IQuizService quizService;
 
 	@Autowired
-	IQuestionService questionService;
+	private IQuestionService questionService;
 
 	@Autowired
-	IQuizTakenService quizTakenService;
+	private IQuizTakenService quizTakenService;
+	
+	@Autowired
+	private IQuizTakerService quizTakerService;
 
 	@Autowired
-	IAnswerTakenService answerTakenService;
+	private IAnswerTakenService answerTakenService;
 
-	@GetMapping(value = "do-quiz", params = { "id" })
+	@GetMapping(value = "/do-quiz", params = { "id" })
 	public String getQuizPage(@RequestParam("id") int quizId, ModelMap model) {
 		Quiz theQuiz = quizService.findFullQuiz(quizId);
 		QuizDone quizDone = new QuizDone();
@@ -51,11 +58,12 @@ public class QuizTakenController {
 		return "student/take-quiz";
 	}
 
-	@PostMapping(value = "do-quiz", params = { "id" })
+	@PostMapping(value = "/do-quiz", params = { "id" })
 	public String submitQuiz(@ModelAttribute("quizDone") QuizDone quizDone, @RequestParam("id") int quizId,
-			RedirectAttributes rdrAttr) {
+			@CurrentUser CustomUserDetails userDetail, RedirectAttributes rdrAttr) {
 		System.out.println("Quiz Done: " + quizDone);
 		QuizTaken quizTaken = quizTakenService.save(new QuizTaken());
+		QuizTaker quizTaker = quizTakerService.findById(userDetail.getId());
 
 		List<AnswerTaken> answerTakens = new ArrayList<AnswerTaken>();
 
@@ -73,25 +81,27 @@ public class QuizTakenController {
 				answerTaken = answerTakenService.save(new AnswerTaken());
 				answerTakenService.addInfo(answerTaken, userChoice.getQuestionId(), null);
 				answerTakens.add(answerTaken);
-				
+
 			}
 			System.out.println(answerTaken);
 		}
 
 		quizTaken.setAnswerTaken(answerTakens);
+		quizTaker.getQuizTaken().add(quizTaken);
 		quizTakenService.addAnswerTaken(quizTaken);
 		quizTakenService.addQuiz(quizTaken, quizId);
+		quizTakerService.addQuizTaken(quizTaker);
 
-		rdrAttr.addAttribute("taken", quizTaken.getId()).addFlashAttribute("id", quizId);
+		rdrAttr.addAttribute("taken", quizTaken.getId());
 		return "redirect:/quiz/result";
 	}
 
-	@RequestMapping(value = "result", params = { "taken"})
+	@RequestMapping(value = "/result", params = { "taken" })
 	public String showResult(@RequestParam("taken") int takenId, ModelMap model) {
-//		Quiz quiz = quizService.findFullQuiz(quizId);
-//		QuizTaken quizTaken = quizTakenService.findById(takenId);
-		Quiz quiz = quizService.findFullQuiz(2);
-		QuizTaken quizTaken = quizTakenService.findById(31);
+		QuizTaken quizTaken = quizTakenService.findById(takenId);
+		Quiz quiz = quizService.findFullQuiz(quizTaken.getQuizId());
+//		Quiz quiz = quizService.findFullQuiz(2);
+//		QuizTaken quizTaken = quizTakenService.findById(31);
 		quizTaken = quizTakenService.calculateScore(quizTaken);
 
 		model.addAttribute("quizTaken", quizTaken).addAttribute("quiz", quiz);

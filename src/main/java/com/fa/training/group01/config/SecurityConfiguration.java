@@ -22,7 +22,7 @@ import com.fa.training.group01.util.UrlUtil;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS = { UrlUtil.Public.PathName.HOME, UrlUtil.Public.PathName.LOGIN,
-			UrlUtil.Public.PathName.RESET_PASSWORD };
+			UrlUtil.Public.PathName.RESET_PASSWORD, "/home" };
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -43,17 +43,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().antMatchers("/user/**")
-//				.hasAnyRole(Role.RoleName.STUDENT).antMatchers(Role.RoleName.ADMIN).hasAnyRole(Role.ADMIN.getOnlyName())
-//				.anyRequest().authenticated().and().formLogin().disable().logout()
-//				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
-//				.addLogoutHandler(authLogoutHandler).deleteCookies("remember-me", "JSESSIONID").permitAll().and()
-//				.rememberMe().key("uniqueAndSecret").and().csrf().disable().cors();
-
-		http.authorizeRequests().anyRequest().permitAll().and().formLogin().disable().logout()
+		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().antMatchers("/user/**")
+				.hasAnyRole(Role.RoleName.STUDENT).antMatchers(Role.RoleName.ADMIN).hasAnyRole(Role.ADMIN.getOnlyName())
+				.anyRequest().authenticated().and().formLogin().disable().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
-				.deleteCookies("remember-me", "JSESSIONID").permitAll().and().rememberMe().key("uniqueAndSecret").and()
-				.csrf().disable().cors();
+				.addLogoutHandler(authLogoutHandler).deleteCookies("remember-me", "JSESSIONID").permitAll().and()
+				.rememberMe().key("uniqueAndSecret").and().csrf().disable().cors();
+
+//		http.authorizeRequests().anyRequest().permitAll().and().formLogin().disable().logout()
+//				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+//				.deleteCookies("remember-me", "JSESSIONID").permitAll().and().rememberMe().key("uniqueAndSecret").and()
+//				.csrf().disable().cors();
 
 	}
 
