@@ -54,49 +54,45 @@
       <div class="row" id="main-container">
         <div class="col-8">
           <div class="box-for p-5">
-            <h1 class="font-weight-bold display-4" th:text="${quiz.title}">Exam
+            <h1 class="font-weight-bold display-4" th:utext="${quiz.title}">Exam
               name</h1>
 
             <div class="mt-2 font-weight-bold text-justify border p-3">
-              <h3 class="font-weight-bold" th:text="${quiz.content}">Lorem
+              <h3 class="font-weight-bold" th:utext="${quiz.content}">Lorem
                 ipsum, dolor sit amet consectetur adipisicing elit.
                 Consequuntur, aspernatur.</h3>
             </div>
             <form method="post" th:action="@{/quiz/do-quiz(id = ${quiz.id})}"
               th:object="${quizDone}"
               th:with="quesCount = ${quizDone.counter.get()}">
-              <div class="items" th:each="part,ip : ${quiz.parts}">
-                <div>
+              <div class="items">
+                <div th:each="part,ip : ${quiz.parts}">
                   <div class="small-box p-3 font-weight-bold"
                     th:text="'#' + ${ip.count}">Part 1</div>
                   <h3 th:text="${part.content}"></h3>
                   <div th:each="section : ${part.sections}">
-                    <p th:text="${section.content}"></p>
-                    <div th:each="question: ${section.questions}">
-                      <div
+                    <div>
+                      <div th:utext="${section.content}"></div>
+                      <div th:each="question : ${section.questions}"
                         th:with="quesCount = ${quizDone.counter.incrementAndGet()}">
                         <input type="hidden"
                           th:attr="name='choices['+${quesCount}+'].questionId'"
                           th:value="__${question.id}__">
-                        <p class="my-3 font-weight-bold">
-                          <b
-                            th:text="${question.content}">Question 1</b>
-                        </p>
-                        <ul th:each="answer : ${question.answers}">
-<!--                             th:field="*{answers[__${quesCount}__]}" -->
-                          <li><input type="radio"
-                            th:field="*{choices[__${quesCount}__].answerIds}"
-                            th:value="${answer.id}" th:id="'ans' + ${answer.id}">
+                        <div class="my-3 font-weight-bold"
+                          th:utext="${question.content}"></div>
+                        <ul>
+                          <li th:each="answer : ${question.answers}">
+                          <input
+                            type="radio"
+                            th:attr="name='choices['+ ${quesCount}+'].answerIds'"
+                            th:value="${answer.id}" th:id="'ans' + ${answer.id}" />
                             <label th:for="'ans' + ${answer.id}"
                             th:text="${answer.content}" class="mx-2"> A</label></li>
                         </ul>
                       </div>
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
               <div class="d-flex justify-content-center">
                 <div class="btn-group mr-1">

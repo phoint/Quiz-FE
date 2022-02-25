@@ -50,99 +50,7 @@
         </a>
       </div>
     </div>
-
-    <!-- custom index -->
-    <div class="container-fluid m-0 pt-5 p-0">
-      <div class="text-center">
-        <h1 class="font-weight-bold">Sản Phẩm Nổi Bật</h1>
-        <h4>Sản phẩm tốt nhất dành cho khách hàng</h4>
-      </div>
-      <div
-        class="body-content col-md-12 col-lg-12 col-sm-12 p-5 show-off-product d-flex">
-        <!-- left -->
-        <div class="left col-md-3 col-lg-3 col-sm-3 col-md-3 p-2 text-center">
-          <div class="col-md-12 col-lg-12 col-sm-12 mb-3 cart-image p-5"
-            height="400">
-            <img height="200"
-              class="image-show-off p-4 col-lg-12 col-md-12 col-sm-12"
-              src="images/index-img/2-removebg-preview.png">
-            <h3>Samsung Galaxy S 10 Plus</h3>
-            <div class="btn hidden-button">
-              <button class="btn btn-detail hvr-hover">Xem chi tiết</button>
-            </div>
-          </div>
-          <div class="col-md-12 col-lg-12 col-sm-12 mb-3 p-5 cart-image">
-            <img height="200" class="image-show-off p-4 col-lg-12 col-md-12"
-              src="images/index-img/3-removebg-preview.png">
-            <h3>Huawei Mate 20</h3>
-            <div class="btn hidden-button">
-              <button class="btn btn-detail hvr-hover">Xem chi tiết</button>
-            </div>
-          </div>
-        </div>
-        <!-- center -->
-        <div class="col-md-6 col-lg-6 col-sm-6 text-center">
-          <div
-            class="col-md-12 col-sm-12 col-lg-12 pr-5 pb-5 mb-3 mt-2 pt-4 cart-image center">
-            <img height="550"
-              class="image-show-off center p-5 col-sm-12 col-md-12"
-              src="images/index-img/1-removebg.png">
-            <h2 class="p-3">
-              Samsung Galaxy Note 10 Plus
-              </h3>
-              <div class="btn hidden-button p-5">
-                <button class="btn btn-detail hvr-hover">Xem chi tiết</button>
-              </div>
-          </div>
-        </div>
-        <!-- right -->
-        <div class="d-block col-lg-3 col-sm-3 col-md-3 p-2 text-center">
-          <div class="col-md-6 col-lg-12 col-sm-6 mb-3 p-5 cart-image">
-            <img height="200" class="image-show-off p-4"
-              src="images/index-img/4-removebg-preview.png">
-            <h3>Oppo Reno 2</h3>
-            <div class="btn hidden-button">
-              <button class="btn btn-detail hvr-hover">Xem chi tiết</button>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-12 col-sm-6 mb-3 p-5 cart-image">
-            <img height="200" class="image-show-off p-4"
-              src="images/index-img/5-removebg-preview.png">
-            <h3>Samsung Galaxy Note 10</h3>
-            <div class="btn hidden-button">
-              <button class="btn btn-detail hvr-hover">Xem chi tiết</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-    <!-- end custom index -->
     <!-- End Slider -->
-
-    <div class="box-add-products">
-      <div class="container text-center">
-        <h2 class="pb-2">Chương Trình Khuyễn Mãi Mới Nhất Tại
-          Cửa Hàng</h2>
-        <h5 class="pb-5">*Dành cho khách hàng đăng kí tài khoản
-          và thực hiện mua hàng trên website</h5>
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="offer-box-products">
-              <img class="img-fluid" src="images/index-img/dl1.jfif" alt="" />
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="offer-box-products">
-              <img class="img-fluid" src="images/index-img/dl2.jfif" alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Start Products  -->
     <div class="products-box">
@@ -169,31 +77,21 @@
         </div>
 
         <div class="row special-list">
-          <div class="col-lg-3 col-md-6 special-grid best-seller">
+          <div th:each="quiz : ${quizzes}" class="col-lg-3 col-md-6 special-grid best-seller">
             <div class="products-single fix">
               <div class="box-img-hover">
-                <div class="type-lb">
-                  <p class="sale">Sale</p>
-                </div>
-                <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
-                <div class="mask-icon">
-                  <ul>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="View"><i
-                        class="fas fa-eye"></i></a></li>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="Compare"><i
-                        class="fas fa-sync-alt"></i></a></li>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="Add to Wishlist"><i
-                        class="far fa-heart"></i></a></li>
-                  </ul>
-                  <a class="cart" href="#">Add to Cart</a>
-                </div>
+                <img th:src="@{/resources/images/img-pro-01.jpg}"
+                  class="img-fluid" alt="Image">
               </div>
               <div class="why-text">
-                <h4>Lorem ipsum dolor sit amet</h4>
-                <h5>$7.79</h5>
+                <h4 th:text="${quiz.title}"></h4>
+                <div class="d-flex flex-row justify-content-between">
+                  <h5><a th:href="${#mvc.url('QTC#getQuizPage').arg(0,'__${quiz.id}__').build()}">Take</a></h5> <h5><a class="cart" href="#"
+                    data-toggle="tooltip" data-placement="right"
+                    title="Add to Wishlist">
+                      <i class="far fa-heart"></i>
+                    </a></h5>
+                </div>
               </div>
             </div>
           </div>
@@ -204,7 +102,8 @@
                 <div class="type-lb">
                   <p class="new">New</p>
                 </div>
-                <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
+                <img th:src="@{/resources/images/img-pro-02.jpg}"
+                  class="img-fluid" alt="Image">
                 <div class="mask-icon">
                   <ul>
                     <li><a href="#" data-toggle="tooltip"
@@ -233,7 +132,8 @@
                 <div class="type-lb">
                   <p class="sale">Sale</p>
                 </div>
-                <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
+                <img th:src="@{/resources/images/img-pro-03.jpg}"
+                  class="img-fluid" alt="Image">
                 <div class="mask-icon">
                   <ul>
                     <li><a href="#" data-toggle="tooltip"
@@ -262,7 +162,8 @@
                 <div class="type-lb">
                   <p class="sale">Sale</p>
                 </div>
-                <img src="images/img-pro-04.jpg" class="img-fluid" alt="Image">
+                <img th:src="@{/resources/images/img-pro-04.jpg}"
+                  class="img-fluid" alt="Image">
                 <div class="mask-icon">
                   <ul>
                     <li><a href="#" data-toggle="tooltip"
@@ -369,94 +270,6 @@
       </div>
     </div>
     <!-- End Blog  -->
-
-
-    <!-- Start Instagram Feed  -->
-    <div class="instagram-box">
-      <div class="main-instagram owl-carousel owl-theme">
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-01.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-02.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-03.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-04.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-05.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-06.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-07.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-08.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-09.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="ins-inner-box">
-            <img src="images/instagram-img-05.jpg" alt="" />
-            <div class="hov-in">
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Instagram Feed  -->
   </th:block>
 </body>
 </html>
