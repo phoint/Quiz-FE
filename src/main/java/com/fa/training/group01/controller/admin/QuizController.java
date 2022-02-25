@@ -1,19 +1,18 @@
 package com.fa.training.group01.controller.admin;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.fa.training.group01.domain_model.Excel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fa.training.group01.domain_model.Part;
@@ -95,4 +94,21 @@ public class QuizController {
 //	public String showPartManagementForm() {
 //		return "redirect:/admin/quizzes";
 //	}
+
+	@GetMapping({ "/exImp" })
+	public String exImp(Model model) {
+		return "admin/excel-admin";
+	}
+
+	@PostMapping("/import")
+	@ResponseBody
+	public List<Excel> mapReapExcelDatatoDB(@RequestParam("file") MultipartFile reapExcelDataFile, Model model) throws IOException {
+
+		List<Excel> list = quizService.getData(reapExcelDataFile);
+//        boolean imp =  appConfig.restTemplate().postForObject(UrlConstant.Import_Excel,list.toArray(), Boolean.class);
+//        if (imp == false){
+//            model.addAttribute("errorImp","Import excel file fail");
+//        }
+		return list;
+	}
 }
