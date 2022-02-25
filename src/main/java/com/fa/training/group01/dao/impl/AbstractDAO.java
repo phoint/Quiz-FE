@@ -15,6 +15,7 @@ import org.springframework.hateoas.server.core.TypeReferences.EntityModelType;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -56,7 +57,7 @@ public class AbstractDAO<T extends GenericModel, G extends GenericModel> impleme
 	}
 
 	@Override
-	public <G extends GenericModel> void addChildren(T object, List<G> childList, String apiParent, String apiChild) {
+	public void addChildren(T object, List<G> childList, String apiParent, String apiChild) {
 		Link uriParent = Link.of(API.HOST + apiParent);
 		Link uriChild = Link.of(API.HOST + apiChild);
 
@@ -74,7 +75,7 @@ public class AbstractDAO<T extends GenericModel, G extends GenericModel> impleme
 
 		header.remove("Content-type");
 	}
-	
+
 	@Override
 	public void addChildren(T object, Integer[] childIdList, String apiParent, String apiChild) {
 		Link uriParent = Link.of(API.HOST + apiParent);
@@ -93,9 +94,9 @@ public class AbstractDAO<T extends GenericModel, G extends GenericModel> impleme
 		template.exchange(uriParent.expand(object.getId()).getHref(), HttpMethod.PUT, request, String.class);
 
 		header.remove("Content-type");
-		
+
 	}
-	
+
 	@Override
 	public void addChildren(int parentId, Integer[] childIdList, String apiParent, String apiChild) {
 		Link uriParent = Link.of(API.HOST + apiParent);
@@ -114,7 +115,7 @@ public class AbstractDAO<T extends GenericModel, G extends GenericModel> impleme
 		template.exchange(uriParent.expand(parentId).getHref(), HttpMethod.PUT, request, String.class);
 
 		header.remove("Content-type");
-		
+
 	}
 
 	@Override
@@ -132,7 +133,7 @@ public class AbstractDAO<T extends GenericModel, G extends GenericModel> impleme
 
 		header.remove("Content-type");
 	}
-	
+
 	@Override
 	public void addChild(T parent, int childId, String apiParent, String apiChild) {
 		Link uriParent = Link.of(API.HOST + apiParent);
@@ -147,9 +148,9 @@ public class AbstractDAO<T extends GenericModel, G extends GenericModel> impleme
 		template.exchange(uriParent.expand(parent.getId()).getHref(), HttpMethod.PUT, request, String.class);
 
 		header.remove("Content-type");
-		
+
 	}
-	
+
 	@Override
 	public void addChild(int parentId, int childId, String apiParent, String apiChild) {
 		Link uriParent = Link.of(API.HOST + apiParent);
@@ -164,7 +165,7 @@ public class AbstractDAO<T extends GenericModel, G extends GenericModel> impleme
 		template.exchange(uriParent.expand(parentId).getHref(), HttpMethod.PUT, request, String.class);
 
 		header.remove("Content-type");
-		
+
 	}
 
 	@Override
@@ -187,7 +188,7 @@ public class AbstractDAO<T extends GenericModel, G extends GenericModel> impleme
 	}
 
 	@Override
-	public List<T> findAllByParent(int parentId, String apiModule,
+	public <T> List<T> findAllByParent(int parentId, String apiModule,
 			ParameterizedTypeReference<CollectionModel<T>> resType) {
 		Link uri = Link.of(API.HOST + apiModule);
 
@@ -197,14 +198,13 @@ public class AbstractDAO<T extends GenericModel, G extends GenericModel> impleme
 		List<T> objs = exchange.getBody().getContent().stream().collect(Collectors.toList());
 		return objs;
 	}
-	
+
 	@Override
 	public T findParent(int childId, String apiModule, ParameterizedTypeReference<EntityModel<T>> resType) {
 		Link uri = Link.of(API.HOST + apiModule);
 
 		ResponseEntity<EntityModel<T>> exchange = template.exchange(uri.getHref(), HttpMethod.GET, null, resType,
 				childId);
-
-		return exchange.getBody().getContent();
+		return exchange.getStatusCode() == HttpStatus.NOT_FOUND ? null : exchange.getBody().getContent();
 	}
 }
