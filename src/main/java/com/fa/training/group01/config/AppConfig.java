@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.EntityModel;
@@ -28,8 +29,10 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.DefaultUriBuilderFactory;
@@ -40,6 +43,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 import com.cloudinary.Cloudinary;
+import com.fa.training.group01.interceptor.AccountInterceptor;
 import com.fa.training.group01.util.API;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -56,6 +60,8 @@ public class AppConfig implements WebMvcConfigurer {
 	private ApplicationContext applicationContext;
 	@Autowired
 	private ResponseErrorHandler responseErrorHandler;
+	@Autowired
+	private AccountInterceptor accountInterceptor;
 
 	@Bean
 	public SpringResourceTemplateResolver templateResolver() {
@@ -102,6 +108,7 @@ public class AppConfig implements WebMvcConfigurer {
 
 	// define bean for RestTemplate ... this is used to make client REST calls
 	@Bean
+	@Primary
 	public RestTemplate restTemplate() {
 		RestTemplate restTemplate = new RestTemplate();
 		// SET Default URL
@@ -123,7 +130,7 @@ public class AppConfig implements WebMvcConfigurer {
 	public ObjectMapper objectMapper() {
 		return new ObjectMapper();
 	}
-	
+
 	@Bean
 	public HttpHeaders getHeader() {
 		return new HttpHeaders();
@@ -158,5 +165,16 @@ public class AppConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(accountInterceptor);
+	}
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	    multipartResolver.setMaxUploadSize(1024*1024*100);
+	    return multipartResolver;
 	}
 }

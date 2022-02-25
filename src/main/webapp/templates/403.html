@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- Basic -->
+<head>
+<th:block th:insert="~{layout/student-layout :: meta}"></th:block>
+<title>Access Denied</title>
+<th:block th:insert="~{layout/student-layout :: link}"></th:block>
+<th:block layout:fragment="css">
+	<style>
+body, html {
+	height: 100%;
+}
+
+.card-header {
+	background-color: #b0b435;
+	color: white;
+}
+
+.small-part {
+	height: 25vh;
+}
+
+.big-part {
+	height: 50vh;
+}
+
+.big-part h1 {
+	color: #b0b435 !important;
+}
+</style>
+</th:block>
+</head>
+
+<body>
+	 <div class="container-fluid p-0">
+        <div class="small-part">
+			<div class="h-50" style="background-color: #b0b435;"></div>
+		</div>
+		<div class="container big-part">
+			<div class="justify-content-center align-items-center">
+				<h1 class="text-center h1 display-1">403</h1>
+                <h5 class="text-center display-2">Forbidden</h5>
+                <p class="text-center">Access to this resource on the server is denied</p>
+			</div>
+		</div>
+		<div class="small-part p-0">
+			<div class="h-50"></div>
+			<div class="h-50" style="background-color: #b0b435;"></div>
+		</div>
+    </div>
+	<th:block th:insert="~{layout/student-layout :: script}"></th:block>
+	<script th:src="@{/resources/js/my-js/reset-password.js}"></script>
+</body>
+
+</html>

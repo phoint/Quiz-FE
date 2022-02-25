@@ -1,9 +1,12 @@
 package com.fa.training.group01.config;
 
+import javax.servlet.Filter;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class QuizAppDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
+public class QuizAppDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return null;
@@ -19,10 +22,5 @@ public class QuizAppDispatcherServletInitializer extends AbstractAnnotationConfi
 		return new String[] { "/" };
 	}
 
+
 }
-
-
-
-
-
-

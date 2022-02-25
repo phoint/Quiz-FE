@@ -14,8 +14,15 @@ public enum Role {
 		this.name = "ROLE_" + name;
 	}
 
-	public String getOnlyName() {
-		return name.substring(4);
+	public static Role getRole(String roleName) {
+		if (roleName == null)
+			return null;
+		for (Role role : Role.values()) {
+			if (role.name.equals(roleName)) {
+				return role;
+			}
+		}
+		return null;
 	}
 
 	@JsonCreator

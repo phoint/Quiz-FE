@@ -11,6 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fa.training.group01.domain_model.Role;
@@ -22,7 +25,8 @@ import com.fa.training.group01.util.UrlUtil;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS = { UrlUtil.Public.PathName.HOME, UrlUtil.Public.PathName.LOGIN,
-			UrlUtil.Public.PathName.RESET_PASSWORD, "/home" };
+			UrlUtil.Public.PathName.RESET_PASSWORD, UrlUtil.Public.PathName.ACCESS_DENIED,
+			UrlUtil.Public.PathName.REGISTER };
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -44,11 +48,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().antMatchers("/user/**")
-				.hasAnyRole(Role.RoleName.STUDENT).antMatchers(Role.RoleName.ADMIN).hasAnyRole(Role.ADMIN.getOnlyName())
-				.anyRequest().authenticated().and().formLogin().disable().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+				.hasAnyRole(Role.RoleName.STUDENT, Role.RoleName.ADMIN).antMatchers("/admin/**")
+				.hasAnyRole(Role.RoleName.ADMIN).anyRequest().authenticated().and().formLogin().loginPage("/").and()
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
 				.addLogoutHandler(authLogoutHandler).deleteCookies("remember-me", "JSESSIONID").permitAll().and()
-				.rememberMe().key("uniqueAndSecret").and().csrf().disable().cors();
+				.exceptionHandling().accessDeniedPage(UrlUtil.Public.PathName.ACCESS_DENIED).and().rememberMe().key("uniqueAndSecret").and().csrf()
+				.disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 
 //		http.authorizeRequests().anyRequest().permitAll().and().formLogin().disable().logout()
 //				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")

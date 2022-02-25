@@ -11,8 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fa.training.group01.domain_model.User;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public class CustomUserDetails implements UserDetails {
 	private User user;
 	private AuthenciationToken token;

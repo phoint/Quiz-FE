@@ -22,8 +22,8 @@ boolean isSuccess: is a success message */
   }
   $("#register-form").submit(function (e) {
     e.preventDefault();
-    var form = $(this);
-    var formMessage = form.find(".form-message");
+    const form = $(this);
+    let formMessage = form.find(".form-message");
     var submitBtn = $(this).find(":submit");
     // all error elements of the form
     var errorEles = $(form.find(".error"));

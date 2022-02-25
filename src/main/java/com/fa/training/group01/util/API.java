@@ -29,8 +29,11 @@ public class API {
 	public static class User {
 		public static class AdminArea {
 			public static final String ACCOUNT_LIST = "/list";
+			public static final String GET_USER = "/get/{id}";
+			public static final String UPDATE_USER = "/update";
 		}
 
+		public static final String UPDATE_PROFILE = "/update-profile";
 		public static final String ACCOUNT = "/account";
 		public static final String UPDATE_PASSWORD = "/update-password";
 	}
@@ -74,13 +77,13 @@ public class API {
 		public static final String ANSWER = "/questions/{questionId}/answers";
 		public static final String QUESTION_TAKEN = "/questions/{questionId}/ans-takens";
 	}
-	
+
 	@UtilityClass
 	public static class Answer {
 		public static final String ANSWER = "/answers/{answerId}";
 		public static final String ANSWER_TAKEN = "/answers/{answerId}/ans-takens";
 	}
-	
+
 	@UtilityClass
 	public static class QuizTaken {
 		public static final String TAKEN = "/quiz-takens/{quizTakenId}";
@@ -94,7 +97,5 @@ public class API {
 		public static final String ANSWER_TAKEN = "/ans-takens/{ansTakenId}/answer";
 		public static final String QUESTION_TAKEN = "/ans-takens/{ansTakenId}/question";
 	}
-	
-	
-	
+
 }

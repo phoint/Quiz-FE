@@ -50,6 +50,9 @@ public class HomeController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String index() {
+		restTemplate.getInterceptors().forEach(System.out::println);
+//		if (SecurityContextHolder.getContext().getAuthentication() != null)
+//			SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(System.out::println);
 		return "student/index";
 	}
 
@@ -87,6 +90,12 @@ public class HomeController {
 	public String showHome() {
 		
 		return "student/home";
+	}
+
+	@RequestMapping(value = UrlUtil.Public.PathName.ACCESS_DENIED, method = RequestMethod.GET)
+	public ModelAndView accessDeniedPage() {
+		ModelAndView mav = new ModelAndView("403");
+		return mav;
 	}
 
 }

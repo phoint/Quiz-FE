@@ -47,11 +47,12 @@ public class QuizTakenController {
 	private IAnswerTakenService answerTakenService;
 
 	@GetMapping(value = "/do-quiz", params = { "id" })
-	public String getQuizPage(@RequestParam("id") int quizId, ModelMap model) {
+	public String getQuizPage(@RequestParam("id") int quizId, ModelMap model,
+			@CurrentUser CustomUserDetails userDetails) {
+		
 		Quiz theQuiz = quizService.findFullQuiz(quizId);
 		QuizDone quizDone = new QuizDone();
 		quizDone.createHolder(quizService.countQuestion(quizId));
-
 		model.addAttribute("quiz", theQuiz);
 		model.addAttribute("quizDone", quizDone);
 
