@@ -33,7 +33,7 @@ public class UrlUtil {
 
 	public static final class StudentArea {
 		public enum User {
-			PROFILE(PathName.PROFILE), UPDATE_PASSWORD(PathName.UPDATE_PASSWORD);
+			PROFILE(PathName.PROFILE), UPDATE_PASSWORD(PathName.UPDATE_PASSWORD),UPDATE_PROFILE(PathName.UPDATE_PROFILE);
 
 			public static final String PATH = "/user";
 			public final String path;
@@ -44,6 +44,7 @@ public class UrlUtil {
 
 			public static final class PathName {
 				public static final String PROFILE = "";
+				public static final String UPDATE_PROFILE="/update-profile";
 				public static final String UPDATE_PASSWORD = "/update-password";
 			}
 		}

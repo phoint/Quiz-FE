@@ -30,6 +30,7 @@ public class API {
 			public static final String UPDATE_USER = "/update";
 		}
 
+		public static final String UPDATE_PROFILE = "/update-profile";
 		public static final String ACCOUNT = "/account";
 		public static final String UPDATE_PASSWORD = "/update-password";
 	}
@@ -67,7 +68,7 @@ public class API {
 		public static final String ANSWER = "/answers/{answerId}";
 		public static final String ANSWER_TAKEN = "/answers/{answerId}/ans-takens";
 	}
-	
+
 	@UtilityClass
 	public static class QuizTaken {
 		public static final String TAKEN = "/quiz-takens/{quizTakenId}";

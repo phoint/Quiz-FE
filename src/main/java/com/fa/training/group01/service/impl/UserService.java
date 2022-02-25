@@ -5,21 +5,29 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fa.training.group01.domain_model.User;
 import com.fa.training.group01.payload.UpdatePasswordRequest;
+import com.fa.training.group01.payload.UpdateUserProfileRequest;
 import com.fa.training.group01.payload.UpdateUserRequest;
 import com.fa.training.group01.payload.UserPageRequest;
 import com.fa.training.group01.payload.jpa.EntityPageResponse;
 import com.fa.training.group01.security.AuthenciationToken;
 import com.fa.training.group01.service.IUserService;
 import com.fa.training.group01.util.API;
+import com.fa.training.group01.util.FileHelper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -132,6 +140,41 @@ public class UserService implements IUserService {
 		try {
 			return restTemplate.postForEntity(API.ADMIN_AREA_PATH + API.USER_MODULE + API.User.AdminArea.UPDATE_USER,
 					updateUserRequest, String.class);
+		} catch (Exception e) {
+			System.err.println(e);
+			return null;
+		}
+	}
+
+	@Override
+	public ResponseEntity<String> updateProfile(UpdateUserProfileRequest updateUserProfileRequest) {
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+			MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+
+			ByteArrayResource bar = new ByteArrayResource(updateUserProfileRequest.getAvatar().getBytes()) {
+				@Override
+				public String getFilename() {
+					return updateUserProfileRequest.getAvatar().getName();
+				}
+			};
+			body.add(UpdateUserProfileRequest.Fields.avatar, bar);
+			body.add(UpdateUserProfileRequest.Fields.name, updateUserProfileRequest.getName());
+			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+			return restTemplate.postForEntity(API.USER_MODULE + API.User.UPDATE_PROFILE, requestEntity, String.class);
+		} catch (Exception e) {
+			System.err.println(e);
+			return null;
+		}
+	}
+
+	@Override
+	public User findCurrentUser() {
+		try {
+			ResponseEntity<User> userResponse = restTemplate.getForEntity(API.HOST + API.USER_MODULE + API.User.ACCOUNT,
+					User.class);
+			return userResponse.getBody();
 		} catch (Exception e) {
 			System.err.println(e);
 			return null;

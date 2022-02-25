@@ -16,8 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fa.training.group01.domain_model.AnswerTaken;
 import com.fa.training.group01.domain_model.Quiz;
 import com.fa.training.group01.domain_model.QuizTaken;
+import com.fa.training.group01.model.CurrentUser;
 import com.fa.training.group01.model.QuizDone;
 import com.fa.training.group01.model.UserChoice;
+import com.fa.training.group01.security.CustomUserDetails;
 import com.fa.training.group01.service.IAnswerTakenService;
 import com.fa.training.group01.service.IQuestionService;
 import com.fa.training.group01.service.IQuizService;
@@ -40,11 +42,12 @@ public class QuizTakenController {
 	IAnswerTakenService answerTakenService;
 
 	@GetMapping(value = "do-quiz", params = { "id" })
-	public String getQuizPage(@RequestParam("id") int quizId, ModelMap model) {
+	public String getQuizPage(@RequestParam("id") int quizId, ModelMap model,
+			@CurrentUser CustomUserDetails userDetails) {
+		
 		Quiz theQuiz = quizService.findFullQuiz(quizId);
 		QuizDone quizDone = new QuizDone();
 		quizDone.createHolder(quizService.countQuestion(quizId));
-
 		model.addAttribute("quiz", theQuiz);
 		model.addAttribute("quizDone", quizDone);
 
@@ -73,7 +76,7 @@ public class QuizTakenController {
 				answerTaken = answerTakenService.save(new AnswerTaken());
 				answerTakenService.addInfo(answerTaken, userChoice.getQuestionId(), null);
 				answerTakens.add(answerTaken);
-				
+
 			}
 			System.out.println(answerTaken);
 		}
@@ -86,7 +89,7 @@ public class QuizTakenController {
 		return "redirect:/quiz/result";
 	}
 
-	@RequestMapping(value = "result", params = { "taken"})
+	@RequestMapping(value = "result", params = { "taken" })
 	public String showResult(@RequestParam("taken") int takenId, ModelMap model) {
 //		Quiz quiz = quizService.findFullQuiz(quizId);
 //		QuizTaken quizTaken = quizTakenService.findById(takenId);

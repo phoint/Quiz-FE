@@ -102,6 +102,7 @@
 	<script th:src="@{/resources/js/form-validator.min.js}"></script>
 	<script th:src="@{/resources/js/my-js/slider-home-page.js}"></script>
 	<script th:src="@{/resources/js/jquery.serialize-object.min.js}"></script>
+	<script th:src="@{/resources/js/custom.js}"></script>
 	<th:block sec:authorize="isAnonymous()">
 		<script th:src="@{/resources/js/my-js/register.js}"></script>
 		<script th:src="@{/resources/js/my-js/login.js}"></script>
@@ -109,7 +110,6 @@
 	</th:block>
 	<th:block layout:fragment="scripts">
 	</th:block>
-	<script th:src="@{/resources/js/custom.js}"></script>
 </body>
 
 </html>

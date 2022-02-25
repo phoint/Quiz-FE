@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fa.training.group01.domain_model.User;
 import com.fa.training.group01.model.CurrentUser;
 import com.fa.training.group01.payload.UpdatePasswordRequest;
+import com.fa.training.group01.payload.UpdateUserProfileRequest;
 import com.fa.training.group01.security.CustomUserDetails;
 import com.fa.training.group01.service.IUserService;
 import com.fa.training.group01.util.UrlUtil;
@@ -57,6 +59,17 @@ public class UserController {
 		}
 		if (responseEntity.getStatusCode().is2xxSuccessful()) {
 			return ResponseEntity.status(HttpStatus.OK).body(responseEntity.getBody());
+		}
+		return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body(null);
+	}
+
+	@RequestMapping(value = UrlUtil.StudentArea.User.PathName.UPDATE_PROFILE,method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<?> updateProfile(@ModelAttribute UpdateUserProfileRequest updateUserProfileRequest) {
+		ResponseEntity<String> responseEntity = userService.updateProfile(updateUserProfileRequest);
+		System.out.println(responseEntity);
+		if (responseEntity != null) {
+			return responseEntity;
 		}
 		return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body(null);
 	}
