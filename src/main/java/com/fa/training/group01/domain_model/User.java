@@ -8,6 +8,7 @@ public class User extends Model {
 	private String email;
 	private String name;
 	private String password;
+	private String avatar;
 	private Role role;
 	private boolean active;
 	private String keyToken;

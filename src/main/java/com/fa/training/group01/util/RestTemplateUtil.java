@@ -24,6 +24,7 @@ public class RestTemplateUtil {
 			restTemplate.getInterceptors().add(bearerAuthRequestInterceptor);
 		}
 		bearerAuthRequestInterceptor.setToken(authenciationToken.getAccessToken());
+		System.out.println(bearerAuthRequestInterceptor.getToken());
 	}
 
 	public static void removeBearerAuth(RestTemplate restTemplate) {

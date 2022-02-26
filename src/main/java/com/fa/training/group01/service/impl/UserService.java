@@ -152,14 +152,8 @@ public class UserService implements IUserService {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 			MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-
-			ByteArrayResource bar = new ByteArrayResource(updateUserProfileRequest.getAvatar().getBytes()) {
-				@Override
-				public String getFilename() {
-					return updateUserProfileRequest.getAvatar().getName();
-				}
-			};
-			body.add(UpdateUserProfileRequest.Fields.avatar, bar);
+			body.add(UpdateUserProfileRequest.Fields.avatar,
+					FileHelper.convertToFileSystemResource(updateUserProfileRequest.getAvatar()));
 			body.add(UpdateUserProfileRequest.Fields.name, updateUserProfileRequest.getName());
 			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 			return restTemplate.postForEntity(API.USER_MODULE + API.User.UPDATE_PROFILE, requestEntity, String.class);

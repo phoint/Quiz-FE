@@ -58,7 +58,6 @@ public class AuthenciationHelper {
 	public static void logout(HttpServletRequest request, HttpServletResponse response)  {
 		SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
 		securityContextLogoutHandler.setClearAuthentication(true);
-		
 		new SecurityContextLogoutHandler().logout(request, response,
 				SecurityContextHolder.getContext().getAuthentication());
 	}

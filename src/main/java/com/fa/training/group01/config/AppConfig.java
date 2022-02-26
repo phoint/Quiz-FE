@@ -25,6 +25,7 @@ import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -120,7 +121,6 @@ public class AppConfig implements WebMvcConfigurer {
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 		converter.setObjectMapper(objectMapper());
 		restTemplate.getMessageConverters().add(converter);
-
 		restTemplate.setErrorHandler(responseErrorHandler);
 
 		return restTemplate;
@@ -174,6 +174,7 @@ public class AppConfig implements WebMvcConfigurer {
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	    multipartResolver.setDefaultEncoding(StandardCharsets.UTF_8.name());
 	    multipartResolver.setMaxUploadSize(1024*1024*100);
 	    return multipartResolver;
 	}

@@ -37,8 +37,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = UrlUtil.StudentArea.User.PathName.UPDATE_PASSWORD, method = RequestMethod.GET)
-	public ModelAndView updatePasswordPage() {
+	public ModelAndView updatePasswordPage(@CurrentUser CustomUserDetails currentUser) {
 		ModelAndView mav = new ModelAndView();
+		User user = userService.findCurrentUser();
+		mav.addObject("user", user);
 		mav.setViewName("student/update-password");
 		return mav;
 	}
@@ -66,8 +68,9 @@ public class UserController {
 	@RequestMapping(value = UrlUtil.StudentArea.User.PathName.UPDATE_PROFILE,method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> updateProfile(@ModelAttribute UpdateUserProfileRequest updateUserProfileRequest) {
+		System.out.println(updateUserProfileRequest.getAvatar().getSize());
 		ResponseEntity<String> responseEntity = userService.updateProfile(updateUserProfileRequest);
-		System.out.println(responseEntity);
+		System.out.println(responseEntity);	
 		if (responseEntity != null) {
 			return responseEntity;
 		}
