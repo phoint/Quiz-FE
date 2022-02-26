@@ -1,12 +1,19 @@
 package com.fa.training.group01.domain_model;
 
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class Topic implements Serializable {
-    private Integer id;
-    private String topic_name;
-    private String description;
+@EqualsAndHashCode(callSuper = false)
+public class Topic extends GenericModel {
+	private String name;
+	private String description;
+
+	@JsonIgnore
+	private List<Quiz> quizzes = new ArrayList<Quiz>();
 }

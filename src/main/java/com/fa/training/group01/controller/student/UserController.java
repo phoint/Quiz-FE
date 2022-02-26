@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fa.training.group01.domain_model.User;
 import com.fa.training.group01.model.CurrentUser;
 import com.fa.training.group01.payload.UpdatePasswordRequest;
+import com.fa.training.group01.payload.UpdateUserProfileRequest;
 import com.fa.training.group01.security.CustomUserDetails;
 import com.fa.training.group01.service.IUserService;
 import com.fa.training.group01.util.UrlUtil;
@@ -35,8 +37,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = UrlUtil.StudentArea.User.PathName.UPDATE_PASSWORD, method = RequestMethod.GET)
-	public ModelAndView updatePasswordPage() {
+	public ModelAndView updatePasswordPage(@CurrentUser CustomUserDetails currentUser) {
 		ModelAndView mav = new ModelAndView();
+		User user = userService.findCurrentUser();
+		mav.addObject("user", user);
 		mav.setViewName("student/update-password");
 		return mav;
 	}
@@ -45,6 +49,10 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
 		ResponseEntity<String> responseEntity = userService.updatePassword(updatePasswordRequest);
+
+		if (responseEntity == null) {
+			return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body(null);
+		}
 		if (responseEntity.getStatusCode().equals(HttpStatus.UNPROCESSABLE_ENTITY)) {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -53,6 +61,18 @@ public class UserController {
 		}
 		if (responseEntity.getStatusCode().is2xxSuccessful()) {
 			return ResponseEntity.status(HttpStatus.OK).body(responseEntity.getBody());
+		}
+		return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body(null);
+	}
+
+	@RequestMapping(value = UrlUtil.StudentArea.User.PathName.UPDATE_PROFILE,method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<?> updateProfile(@ModelAttribute UpdateUserProfileRequest updateUserProfileRequest) {
+		System.out.println(updateUserProfileRequest.getAvatar().getSize());
+		ResponseEntity<String> responseEntity = userService.updateProfile(updateUserProfileRequest);
+		System.out.println(responseEntity);	
+		if (responseEntity != null) {
+			return responseEntity;
 		}
 		return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body(null);
 	}

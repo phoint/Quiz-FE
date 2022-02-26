@@ -1,6 +1,9 @@
 package com.fa.training.group01.controller.student;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,11 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fa.training.group01.domain_model.Quiz;
+import com.fa.training.group01.domain_model.Topic;
 import com.fa.training.group01.domain_model.User;
 import com.fa.training.group01.payload.LoginRequest;
 import com.fa.training.group01.security.AuthenciationToken;
 import com.fa.training.group01.security.CustomUserDetails;
 import com.fa.training.group01.service.IAuthService;
+import com.fa.training.group01.service.IQuizService;
+import com.fa.training.group01.service.ITopicService;
 import com.fa.training.group01.service.IUserService;
 import com.fa.training.group01.util.RestTemplateUtil;
 import com.fa.training.group01.util.UrlUtil;
@@ -26,14 +33,36 @@ public class HomeController {
 	@Autowired
 	private RestTemplate restTemplate;
 	@Autowired
+	@Qualifier(value = "hypermediaRestTemplate")
+	private RestTemplate template;
+	
+	@Autowired
 	private IAuthService authService;
 	@Autowired
 	private IUserService userService;
 
 	@Autowired
+	private IQuizService quizService;
+	
+	@Autowired
+	private ITopicService topicService;
+	
+	@ModelAttribute("quizzes")
+	public List<Quiz> populateQuiz() {
+		return quizService.findAll();
+	}
+	
+	@ModelAttribute("topics")
+	public List<Topic> populateTopic() {
+		return topicService.findAll();
+	}
+	
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String index() {
+		restTemplate.getInterceptors().forEach(System.out::println);
+//		if (SecurityContextHolder.getContext().getAuthentication() != null)
+//			SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(System.out::println);
 		return "student/index";
 	}
 
@@ -42,7 +71,9 @@ public class HomeController {
 	public String login(@ModelAttribute LoginRequest loginRequest) {
 		try {
 			AuthenciationToken authenciationToken = authService.getAuthToken(loginRequest);
+			System.out.println(authenciationToken);
 			RestTemplateUtil.addBeaerAuth(restTemplate, authenciationToken);
+			RestTemplateUtil.addBeaerAuth(template, authenciationToken);
 			User user = userService.getByAuthenciation(authenciationToken);
 			CustomUserDetails customUserDetails = new CustomUserDetails(user, authenciationToken);
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
@@ -63,6 +94,18 @@ public class HomeController {
 			return mav;
 		}
 		mav.setViewName("student/reset-password");
+		return mav;
+	}
+	
+	@RequestMapping(value="/home")
+	public String showHome() {
+		
+		return "student/home";
+	}
+
+	@RequestMapping(value = UrlUtil.Public.PathName.ACCESS_DENIED, method = RequestMethod.GET)
+	public ModelAndView accessDeniedPage() {
+		ModelAndView mav = new ModelAndView("403");
 		return mav;
 	}
 

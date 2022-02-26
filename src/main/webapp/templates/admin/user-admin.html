@@ -3,15 +3,18 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	xmlns="http://www.w3.org/1999/html"
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html"
 	layout:decorate="~{/layout/admin-layout.html}">
-<head>
-<title>Quản lý tài khoản</title>
+
+<head >
+	<title>Quản lý tài khoản</title>
+	<th:block layout:fragment="scripts">
+		<script th:src="@{/resources/admin/js/my-js/admin-user.js}"></script>
+	</th:block>
 </head>
-<body class="hold-transition sidebar-mini">
+
+<body class="hold-transition sidebar-mini" th:with="isAdminUserPage=true">
 	<th:block layout:fragment="main">
 		<div class="content">
 			<div class="container-fluid">
@@ -26,24 +29,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<div class="card">
 							<div class="card-header">
 								<div class="clearfix">
-									<button type="button"
-										class="btn btn-sm card card-body m-0 p-2 shadow float-left"
+									<!-- <button type="button" class="btn btn-sm card card-body m-0 p-2 shadow float-left"
 										data-toggle="modal" data-target="#createModal">Create
-										New</button>
+										New</button> -->
+
 									<div class="float-right">
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<span class="input-group-text">Search</span>
+										<form id="search-form" th:action="@{${url}}" method="get"
+											th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text">By Email</span>
+												</div>
+												<input name="email" type="text" class="form-control">
+												<input name="sortBy" type="hidden" class="form-control">
+												<div class="input-group-append">
+													<button type="submit"
+														class="btn btn-outline-secondary">Search</button>
+												</div>
 											</div>
-											<input type="text" class="form-control">
-										</div>
+										</form>
 									</div>
 								</div>
 							</div>
 							<div class="card-body shadow">
 								<div class="show-item table">
-									<table id="example"
-										class="display table table-hover table-striped nowrap"
+									<table id="example" class="display table table-hover table-striped nowrap"
 										style="width: 100%;">
 										<thead>
 											<tr class="text-light btn-primary">
@@ -56,17 +66,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>Tiger Nixon</td>
-												<td>Tiger Nixon</td>
-												<td>Edinburgh</td>
-												<td>61</td>
-												<td>2011/04/25</td>
-												<td><a class="btn btn-outline-primary"
-													href="javascript:void(0)" data-toggle="modal"
-													data-target="#editModal">Update</a> <a
-													class="btn btn-danger"
-													onclick="return confirm('Are you sure?');" href="#">Delete</a>
+											<tr th:each="user:${page.content}">
+												<td th:text="${user.id}">Tiger Nixon</td>
+												<td th:text="${user.email}"></td>
+												<td th:text="${user.name}">Edinburgh</td>
+												<td th:text="${user.active}"></td>
+												<td th:text="${user.role.name}">61</td>
+												<td><a class="btn btn-outline-primary update-user-btn"
+														th:attr="data-id=${user.id}"
+														href="javascript:void(0)">Update</a>
 												</td>
 											</tr>
 										</tbody>
@@ -76,17 +84,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<div class="card-footer bg-white d-flex justify-content-end">
 								<nav aria-label="Page navigation example">
 									<ul class="pagination">
-										<li class="page-item"><a class="page-link" href="#"
-											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										<li th:if="${page.first==false}" class="page-item"><a class="page-link"
+												th:href="@{${url}(pageIndex=${page.number})}" aria-label="Previous">
+												<span aria-hidden="true">&laquo;</span>
 												<span class="sr-only">Previous</span>
-										</a></li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#"
-											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+											</a></li>
+										<li class="page-item" th:classappend="${item}==(${page.number}+1) ? active:''  "
+											th:each="item: ${#numbers.sequence(1,page.totalPages) }"><a th:text=${item}
+												class="page-link" th:href="@{${url}(pageIndex=${item})}">1</a></li>
+										<li th:if="${page.last==false}" class="page-item"><a class="page-link"
+												th:href="@{${url}(pageIndex=${page.number}+2)}" aria-label="Next"> <span
+													aria-hidden="true">&raquo;</span>
 												<span class="sr-only">Next</span>
-										</a></li>
+											</a></li>
 									</ul>
 								</nav>
 							</div>
@@ -100,10 +110,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- /.content -->
 	</th:block>
 	<th:block layout:fragment="additional-fragments">
-		<div
-			th:replace="fragments/admin/user-admin/create-user-modal :: create-user-modal"></div>
-		<div
-			th:replace="fragments/admin/user-admin/edit-user-modal :: edit-user-modal"></div>
+		<div th:replace="fragments/admin/user-admin/create-user-modal :: create-user-modal"></div>
+		<div th:replace="fragments/admin/user-admin/edit-user-modal :: edit-user-modal"></div>
 	</th:block>
 </body>
 

@@ -1,5 +1,6 @@
 <!-- The Modal Edit User -->
-<div  th:fragment="edit-user-modal" class="modal" id="editModal" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="edit-user-modal" class="modal" id="editModal"
+	xmlns:th="http://www.thymeleaf.org">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<!-- Modal Header -->
@@ -9,39 +10,50 @@
 			</div>
 			<!-- Modal body -->
 			<div class="modal-body">
-				<form action="/action_page.php" class="needs-validation" novalidate>
+				<form id="edit-user-form">
+					<input type="hidden" name="id">
 					<div class="form-group">
-						<label for="uname">Email:</label> <input type="text"
-							class="form-control" id="email" placeholder="Enter email"
-							name="email" required>
-						<div class="valid-feedback">Valid.</div>
-						<div class="invalid-feedback">Please fill out this field.</div>
+						<label for="uname">Email:</label> <input name="email" type="text"
+							class="form-control" placeholder="Enter email" value="3" disabled
+							>
+						<p class="text-danger"></p>
 					</div>
 					<div class="form-group">
-						<label for="pwd">Full Name:</label> <input type="password"
-							class="form-control" id="fname" placeholder="Enter full name"
-							name="fname" required>
-						<div class="valid-feedback">Valid.</div>
-						<div class="invalid-feedback">Please fill out this field.</div>
+						<label for="pwd">Full Name:</label> <input name="name"
+							type="password" class="form-control"
+							placeholder="Enter full name" disabled >
+						<p class="text-danger"></p>
 					</div>
 					<div class="form-group">
 						<label for="pwd">Password:</label> <input type="password"
-							class="form-control" id="pswd" placeholder="Enter password"
-							name="pswd" required>
-						<div class="valid-feedback">Valid.</div>
-						<div class="invalid-feedback">Please fill out this field.</div>
+							class="form-control" placeholder="Enter password" name="password"
+							>
+						<p class="text-danger"></p>
 					</div>
-					<div class="form-group form-inline">
-						<label for="gender">Role:</label> <select
-							class="form-control mx-2" name="role" id="role" required>
-							<option disabled class="text-secondary">Select Role</option>
-							<option value="Normal">ROLE_ADMIN</option>
-							<option value="Lock">ROLE_STUDENT</option>
-						</select>
+					<div class="row">
+						<div class="col form-group">
+							<label for="gender">Role:</label> <select class="form-control"
+								name="role" required>
+								<option disabled class="text-secondary">Select Role</option>
+								<option value="ROLE_ADMIN">ROLE_ADMIN</option>
+								<option value="ROLE_STUDENT">ROLE_STUDENT</option>
+							</select>
+							<p class="text-danger"></p>
+						</div>
+						<div class="col form-group">
+							<label for="gender">Active:</label> <select class="form-control"
+								name="active" required>
+								<option disabled class="text-secondary">Select Status</option>
+								<option value="true">ACTIVE</option>
+								<option value="false">UNACTIVE</option>
+							</select>
+							<p class="text-danger"></p>
+						</div>
 					</div>
 					<!-- Modal footer -->
 					<div
 						class="modal-footer d-flex justify-content-between align-baseline">
+						<p class="form-message"></p>
 						<button type="reset" class="btn btn-danger" data-dismiss="modal">Close</button>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layout/student-layout.html}">
+<head>
+<title>Take Quiz</title>
+<th:block layout:fragment="css">
+  <!--header_custom CSS-->
+  <style>
+.container-area {
+	background-color: rgb(249, 249, 249);
+}
+
+.box-for {
+	padding: 10px 0px;
+	border: 1px solid #EEE;
+	transition: all 0.2s ease 0s;
+	box-shadow: none;
+	background-color: #FFF;
+}
+
+.small-box {
+	color: white;
+	background: #b0b435;
+	margin: 0px;
+	display: inline-block;
+	border-radius: 0px;
+}
+
+.btn-important {
+	background-color: #B46335;
+}
+
+.bg-primary-custom {
+	background: #b0b435;
+}
+
+.btn-circle {
+	color: white !important;
+	text-align: center;
+	width: 35px;
+	height: 35px;
+	border-radius: 50% !important;
+}
+</style>
+</th:block>
+</head>
+
+<body th:with="boxTitle='TÃ i khoáº£n cá»§a tÃ´i',isUserPage=true">
+  <th:block layout:fragment="main">
+    <main class="container-fluid">
+      <div
+        th:replace="fragments/student/account/account-head-box :: account-head-box"></div>
+      <div class="row" id="main-container">
+        <div class="col-8">
+          <div class="box-for p-5">
+            <h1 class="font-weight-bold display-4" th:utext="${quiz.title}">Exam
+              name</h1>
+
+            <div class="mt-2 font-weight-bold text-justify border p-3">
+              <h3 class="font-weight-bold" th:utext="${quiz.content}">Lorem
+                ipsum, dolor sit amet consectetur adipisicing elit.
+                Consequuntur, aspernatur.</h3>
+            </div>
+            <form method="post" th:action="@{/quiz/do-quiz(id = ${quiz.id})}"
+              th:object="${quizDone}"
+              th:with="quesCount = ${quizDone.counter.get()}">
+              <div class="items">
+                <div th:each="part,ip : ${quiz.parts}">
+                  <div class="small-box p-3 font-weight-bold"
+                    th:text="'#' + ${ip.count}">Part 1</div>
+                  <h3 th:text="${part.content}"></h3>
+                  <div th:each="section : ${part.sections}">
+                    <div>
+                      <div th:utext="${section.content}"></div>
+                      <div th:each="question : ${section.questions}"
+                        th:with="quesCount = ${quizDone.counter.incrementAndGet()}">
+                        <input type="hidden"
+                          th:attr="name='choices['+${quesCount}+'].questionId'"
+                          th:value="__${question.id}__">
+                        <div class="my-3 font-weight-bold"
+                          th:utext="${question.content}"></div>
+                        <ul>
+                          <li th:each="answer : ${question.answers}">
+                          <input
+                            type="radio"
+                            th:attr="name='choices['+ ${quesCount}+'].answerIds'"
+                            th:value="${answer.id}" th:id="'ans' + ${answer.id}" />
+                            <label th:for="'ans' + ${answer.id}"
+                            th:text="${answer.content}" class="mx-2"> A</label></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div class="btn-group mr-1">
+                  <button type="button"
+                    class="btn hvr-hover text-light previousPage">Prev</button>
+                </div>
+                <div class="btn-group mr-1">
+                  <button type="button"
+                    class="btn hvr-hover text-light nextPage">Next</button>
+                </div>
+                <div class="btn-group">
+                  <button type="submit"
+                    class="btn btn-important hvr-hover text-light">
+                    Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-4" id="box-siderbar">
+          <div class="box-for p-5 box-siderbar sidebar__inner pager">
+            <div id="getting-started"
+              class="text-center bg-primary-custom p-1 font-weight-bold text-dark h3">
+            </div>
+            <ul class="row mt-3 pageNumbers">
+              <!--   <li class="col-2 align-items-center"><a data-page="1" href="javascript:void(0);"
+                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
+                            </li>
+                            <li class="col-2 align-items-center"><a data-page="2" href="javascript:void(0);"
+                                    class="btn btn-circle hvr-hover text-center p-1">10</a>
+                            </li>
+                            <li class="col-2 align-items-center"><a
+                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
+                            </li>
+                            <li class="col-2 align-items-center"><a
+                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
+                            </li>
+                            <li class="col-2 align-items-center"><a
+                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
+                            </li>
+                            <li class="col-2 align-items-center"><a
+                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
+                            </li>
+                            <li class="col-2 align-items-center"><a
+                                    class="btn btn-circle hvr-hover text-center p-1">1</a>
+                            </li>
+                            <li class="col-2 align-items-center"><a
+                                    class="btn btn-circle hvr-hover text-center p-1">100</a>
+                            </li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </th:block>
+
+  <th:block layout:fragment="scripts">
+    <!-- ALL PLUGINS -->
+    <script th:src="@{/resources/js/contact-form-script.js}"></script>
+    <script th:src="@{/resources/js/sticky-sidebar/jquery.sticky-sidebar.js}"></script>
+    <script th:src="@{/resources/js/jquery-countdown/jquery.countdown.js}"></script>
+    <script th:src="@{/resources/js/paginga.jquery.js}"></script>
+    <script>
+					$(document).ready(function() {
+						const date = new Date();
+						date.setSeconds(date.getSeconds() + 10);
+						var stickySidebar = $.fn.stickySidebar.noConflict(); // Returns $.fn.stickySidebar assigned value.
+						$.fn.stickySidebar = stickySidebar;
+						// 				$('input').iCheck({
+						// 					checkboxClass : 'icheckbox_minimal-green',
+						// 					radioClass : 'iradio_minimal-green',
+						// 					increaseArea : '20%'
+						// 				});
+						$('#box-siderbar').stickySidebar({
+							containerSelector : '#main-container',
+							innerWrapperSelector : '.sidebar__inner',
+							topSpacing : 150,
+							bottomSpacing : 0
+						});
+						// 				$('#getting-started').countdown(date, function(event) {
+						// 					$(this).html(event.strftime('%H:%M:%S'));
+						// 				}).on('finish.countdown', function() {
+						// 					alert('finish');
+						// 				});
+						$('#main-container').paginga({
+							itemsPerPage : 1,
+							itemsContainer : '.items',
+							item : '> div',
+							page : 1,
+							nextPage : ".nextPage",
+							previousPage : ".previousPage",
+							pageNumbers : ".pageNumbers",
+							scrollToTop : {
+								offset : 100,
+								speed : 100,
+							},
+						});
+					});
+				</script>
+  </th:block>
+</body>
+</html>

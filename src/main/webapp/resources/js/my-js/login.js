@@ -1,9 +1,9 @@
 $(document).ready(function () {
-  var form = $("#login-form");
-  var formMessage = form.find(".form-message");
+  const form = $("#login-form");
+  let formMessage = form.find(".form-message");
   $(form).submit(function (e) {
     e.preventDefault();
-    var formMessage = $(".form-message");
+    let formMessage = form.find(".form-message");
     var submitBtn = $(this).find(".login-btn");
     var formObject=$(form).serializeObject();
     formObject.accessToken='';
@@ -89,8 +89,7 @@ $(document).ready(function () {
         },
         { scope: "email,public_profile", return_scopes: true }
       );
-    },
-    false);
+    }, false);
   async function loginFacebook(accessToken) {
     var submitBtn = $(form).find(".login-btn");
     submitBtn.prop("disabled", true);

@@ -37,17 +37,17 @@
 					<ul class="nav nav-treeview">
 
 						<li class="nav-item"><a th:href="@{/admin/start}"
-							class="nav-link active"> <i class="far fa-circle nav-icon"></i>
+							class="nav-link" th:classappend="${isAdminPage} ? active : ''"> <i class="far fa-circle nav-icon"></i>
 								<p>Admin Page</p>
 						</a></li>
 
 						<li class="nav-item"><a th:href="@{/admin/user}"
-							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+							class="nav-link" th:classappend="${isAdminUserPage} ? active : ''"> <i class="far fa-circle nav-icon"></i>
 								<p>Users Page</p>
 						</a></li>
 
 						<li class="nav-item"><a th:href="@{/admin/quiz}"
-							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+							class="nav-link" th:classappend="${isAdminQuizPage} ? active : ''"> <i class="far fa-circle nav-icon"></i>
 								<p>Topic Page</p>
 						</a></li>
 

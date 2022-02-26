@@ -32,27 +32,25 @@ public class QuestionController {
 
 	@Autowired
 	IQuestionService questionService;
-	
+
 	@Autowired
 	IAnswerService answerService;
-	
 
 	@RequestMapping(value = "/new-question", params = { "addQuestion" })
-	public String addQuestion(@ModelAttribute("question") Question question,
-			BindingResult bindingResult, @RequestParam("partId") int partId,
-			RedirectAttributes rdrAttr, ModelMap model) {
+	public String addQuestion(@ModelAttribute("question") Question question, BindingResult bindingResult,
+			@RequestParam("partId") int partId, RedirectAttributes rdrAttr, ModelMap model) {
 		System.out.println(question);
 		System.out.println(question.getId());
 		System.out.println(question.getSectionId());
 		Section section = sectionService.findById(question.getSectionId());
 		Question newQuestion = questionService.save(question);
-		
-		question.getAnswers().get(question.getAnswerIndex()).setCorrect(true); 
+
+		question.getAnswers().get(question.getAnswerIndex()).setCorrect(true);
 		for (Answer answer : question.getAnswers()) {
 			newQuestion.getAnswers().add(answerService.save(answer));
 		}
 		questionService.addAnswer(newQuestion);
-		
+
 		System.out.println(section);
 		section.getQuestions().add(newQuestion);
 		System.out.println(section);
@@ -60,6 +58,26 @@ public class QuestionController {
 
 		System.out.println(newQuestion);
 		System.out.println(newQuestion.getId());
+		rdrAttr.addAttribute("id", partId);
+		return "redirect:/admin/edit-part";
+	}
+
+	@PostMapping(value = "/edit-question")
+	public String editQuestion(@ModelAttribute("question") Question question, BindingResult bindingResult,
+			@RequestParam("partId") int partId, RedirectAttributes rdrAttr, ModelMap model) {
+		Question newQuestion = questionService.update(question);
+
+		for (Answer answer : question.getAnswers()) {
+			answer.setCorrect(false);
+		}
+		question.getAnswers().get(question.getAnswerIndex()).setCorrect(true);
+		for (Answer answer : question.getAnswers()) {
+			answerService.update(answer);
+		}
+
+		System.out.println(newQuestion);
+		System.out.println(newQuestion.getId());
+		model.clear();
 		rdrAttr.addAttribute("id", partId);
 		return "redirect:/admin/edit-part";
 	}

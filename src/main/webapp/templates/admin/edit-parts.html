@@ -27,22 +27,19 @@
                   </div>
                   <div class="row">
                     <div class="col-12">
-                      <button class="border-0 btn btn-light"
-                        name="addSection" type="submit">
-                        <i class="ion-android-add-circle"></i> New
-                        Section
+                      <button class="border-0 btn btn-light" name="addSection"
+                        type="submit">
+                        <i class="ion-android-add-circle"></i> New Section
                       </button>
                     </div>
                     <div class="col-12" id="part-info">
                       <small>Section-</small>
                       <div th:each="section,sectionStat : *{sections}"
                         class="d-flex justify-content-center flex-wrap">
-                        <div
-                          class="card card-outline card-teal w-100 answer">
+                        <div class="card card-outline card-teal w-100 answer">
                           <div class="card-header">
                             <div class="card-tools">
-                              <button type="button"
-                                class="btn btn-tool btn-sm"
+                              <button type="button" class="btn btn-tool btn-sm"
                                 data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                               </button>
@@ -73,15 +70,13 @@
                               <i class="ion-android-add-circle"></i> New
                               Question
                             </button>
-                            <div
-                              class="card card-info card-outline w-100"
+                            <div class="card card-info card-outline w-100"
                               th:each="ques,i : ${section.questions}">
                               <div class="card-header">
                                 <div class="card-title"
                                   th:utext="${ques.content}"></div>
                                 <div class="card-tools">
-                                  <a href="#"
-                                    class="btn btn-tool btn-link"
+                                  <a href="#" class="btn btn-tool btn-link"
                                     th:text="'#' + ${i.count}">#</a> <a
                                     data-toggle="modal" type="button"
                                     th:attr="data-target='#editQuestion'+${ques.id}"
@@ -96,8 +91,7 @@
                               </div>
                               <div class="card-body">
                                 <ul>
-                                  <li
-                                    th:each="answer : ${ques.answers}"
+                                  <li th:each="answer : ${ques.answers}"
                                     th:utext="${answer.content}" />
                                 </ul>
                               </div>
@@ -109,8 +103,7 @@
                     <div class="col-12 d-flex justify-content-end">
                       <div>
                         <button class="btn btn-sm bg-teal">Cancel</button>
-                        <button type="submit"
-                          class="btn btn-sm bg-primary">
+                        <button type="submit" class="btn btn-sm bg-primary">
                           <i class="ion-ios-download"></i> Save
                         </button>
                       </div>
@@ -131,30 +124,14 @@
       th:replace="fragments/admin/modal/create-question :: create-question (part = ${part}, question = ${question})"></div>
     <!-- End Create Question Modal -->
   </th:block>
-  <!-- REQUIRED SCRIPTS -->
-  <!-- jQuery -->
-  <script th:src="@{/resources/admin/plugins/jquery/jquery.min.js}"></script>
-  <!-- Bootstrap 4 -->
-  <script
-    th:src="@{/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  <!-- AdminLTE App -->
-  <script th:src="@{/resources/admin/dist/js/adminlte.min.js}"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script th:src="@{/resources/admin/dist/js/demo.js}"></script>
-  <!-- Summernote -->
-  <script
-    th:src="@{/resources/admin/plugins/summernote/summernote-bs4.min.js}"></script>
-  <script>
-			$(function() {
-				// Summernote
-				$('.textarea').summernote()
-			})
-		</script>
-  <!-- ToolTip -->
-  <script>
-			$(document).ready(function() {
-				$('[data-toggle="tooltip"]').tooltip();
-			});
-		</script>
+  <th:block layout:fragment="scripts">
+    <!-- REQUIRED SCRIPTS --> 
+    <!-- Summernote -->
+    <script
+      th:src="@{/resources/admin/plugins/summernote/summernote-bs4.min.js}"></script>
+
+    <!-- Custom js  -->
+    <script th:src="@{/resources/js/my-js/edit-part.js}"></script>
+  </th:block>
 </body>
 </html>

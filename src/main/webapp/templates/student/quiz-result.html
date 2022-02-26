@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layout/student-layout.html}">
+<head>
+<title>Take Quiz</title>
+<th:block layout:fragment="css">
+  <!--header_custom CSS-->
+  <style>
+.container-area {
+	background-color: rgb(249, 249, 249);
+}
+
+.box-for {
+	padding: 10px 0px;
+	border: 1px solid #EEE;
+	transition: all 0.2s ease 0s;
+	box-shadow: none;
+	background-color: #FFF;
+}
+
+.small-box {
+	color: white;
+	background: #b0b435;
+	margin: 0px;
+	display: inline-block;
+	border-radius: 0px;
+}
+
+.btn-important {
+	background-color: #B46335;
+}
+
+.bg-primary-custom {
+	background: #b0b435;
+}
+
+.btn-circle {
+	color: white !important;
+	text-align: center;
+	width: 35px;
+	height: 35px;
+	border-radius: 50% !important;
+}
+</style>
+</th:block>
+</head>
+
+<body th:with="boxTitle='TÃ i khoáº£n cá»§a tÃ´i',isUserPage=true">
+  <th:block layout:fragment="main">
+    <main class="container-fluid">
+      <div
+        th:replace="fragments/student/account/account-head-box :: account-head-box"></div>
+      <div class="row" id="main-container">
+        <div class="col-8">
+          <div class="box-for p-5">
+            <h1 class="font-weight-bold display-4" th:text="${quiz.title}">Exam
+              name</h1>
+
+            <div class="mt-2 font-weight-bold text-justify border p-3">
+              <h3 class="font-weight-bold" th:utext="${quiz.content}">Lorem
+                ipsum, dolor sit amet consectetur adipisicing elit.
+                Consequuntur, aspernatur.</h3>
+            </div>
+            <!--             <form method="post" th:action="@{/quiz/do-quiz(id = ${quiz.id})}" -->
+            <!--               th:object="${quizDone}" -->
+            <!--               th:with="quesCount = ${quizDone.counter.get()}"> -->
+            <div th:object="${quizTaken}">
+              <div th:each="part,ip : ${quiz.parts}">
+                <div>
+                  <h3 th:text="${part.content}"></h3>
+                </div>
+                <div th:each="section : ${part.sections}">
+                  <p th:text="${section.content}"></p>
+                  <div th:each="question: ${section.questions}"
+                    th:with="correctAns=0">
+                    <div class="mb-5">
+                      <p class="my-3 font-weight-bold">
+                        <b th:utext="${question.content}">Question 1</b><small th:text="' (' +${question.score} + ' point(s))'"></small>
+                      </p>
+                      <div th:each="ansTaken : *{answerTaken}" th:if="(${ansTaken.question.id} == ${question.id})">
+                          <ul th:each="answer : ${question.answers}">
+                            <li class="mx-2"><span
+                              th:utext="${answer.content}"></span><span
+                              th:if="(${answer.id} == ${ansTaken.answer.id})"
+                              th:text="${answer.correct} ? ' - Correct':' - Incorrect'">Correct</span>
+                            </li>
+                          </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--             <div class="d-flex justify-content-center"> -->
+            <!--               <div class="btn-group mr-1"> -->
+            <!--                 <button type="button" -->
+            <!--                   class="btn hvr-hover text-light previousPage">Prev</button> -->
+            <!--               </div> -->
+            <!--               <div class="btn-group mr-1"> -->
+            <!--                 <button type="button" class="btn hvr-hover text-light nextPage">Next</button> -->
+            <!--               </div> -->
+            <!--               <div class="btn-group"> -->
+            <!--                 <button type="submit" -->
+            <!--                   class="btn btn-important hvr-hover text-light"> -->
+            <!--                   Submit</button> -->
+            <!--               </div> -->
+            <!--             </div> -->
+            <!--             </form> -->
+          </div>
+        </div>
+        <div class="col-4" id="box-siderbar">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Result</h5>
+              <p class="card-text"
+                th:text="'Scored: ' + ${quizTaken.scored} + '/' + ${quizTaken.maxScore}">Some
+                quick example text to build on the card title and make up the
+                bulk of the card's content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </th:block>
+
+  <th:block layout:fragment="scripts">
+    <!-- ALL PLUGINS -->
+    <script th:src="@{/resources/js/contact-form-script.js}"></script>
+    <script th:src="@{/resources/js/sticky-sidebar/jquery.sticky-sidebar.js}"></script>
+    <script th:src="@{/resources/js/jquery-countdown/jquery.countdown.js}"></script>
+    <script th:src="@{/resources/js/paginga.jquery.js}"></script>
+    <script th:src="@{/resources/js/my-js/quizzes.js}"></script>
+  </th:block>
+</body>
+</html>

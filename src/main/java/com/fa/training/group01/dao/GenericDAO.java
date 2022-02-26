@@ -21,6 +21,15 @@ public interface GenericDAO<T extends GenericModel,G extends GenericModel> {
 
 	<T> List<T> findAllByParent(int parentId, String apiModule, ParameterizedTypeReference<CollectionModel<T>> resType);
 	
-	<G extends GenericModel> void addChild(T object, List<G> childList, String apiParent, String apiChild);
+	T findParent(int childId, String apiModule, ParameterizedTypeReference<EntityModel<T>> resType);
+	
+	void addChildren(T object, List<G> childList, String apiParent, String apiChild);
+	void addChildren(T object, Integer[] childIdList, String apiParent, String apiChild);
+	void addChildren(int parentId, Integer[] childIdList, String apiParent, String apiChild);
+	
+	
+	<G extends GenericModel> void addChild(T parent, G child, String apiParent, String apiChild);
+	void addChild(T parent, int childId, String apiParent, String apiChild);
+	void addChild(int parentId, int childId, String apiParent, String apiChild);
 	
 }

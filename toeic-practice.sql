@@ -28,6 +28,7 @@ CREATE TABLE tbl_user
 	name varchar(50) NULL,
 	password varchar(60) NOT NULL,
 	role_id int NOT NULL CONSTRAINT FK_user_role FOREIGN KEY REFERENCES tbl_role(id),
+	active bit NOT NULL CONSTRAINT df_is_active DEFAULT(1),
 	created_at smalldatetime NOT NULL CONSTRAINT df_user_created_at DEFAULT getdate(),
 	updated_at smalldatetime NULL
 )
@@ -148,7 +149,7 @@ CREATE TABLE tbl_question
 	id int IDENTITY(1,1) PRIMARY KEY,
 	quiz_id int NULL CONSTRAINT FK_in_quiz FOREIGN KEY REFERENCES tbl_quiz(id),
 	active bit NOT NULL CONSTRAINT df_question_active DEFAULT (1),
-	score smallint NOT NULL,
+	score smallint NOT NULL CONSTRAINT df_question_score DEFAULT(1),
 	created_at smalldatetime NOT NULL CONSTRAINT df_question_created_at DEFAULT getdate(),
 	updated_at smalldatetime NULL,
 	title varchar(75) NULL,
@@ -228,8 +229,8 @@ GO
 CREATE TABLE tbl_quiz_taken
 (
 	id int IDENTITY(1,1) PRIMARY KEY,
-	user_id int NOT NULL CONSTRAINT FK_quiz_taken_by FOREIGN KEY REFERENCES tbl_user(id),
-	quiz_id int NOT NULL CONSTRAINT FK_taken_quiz FOREIGN KEY REFERENCES tbl_quiz(id),
+	user_id int NULL CONSTRAINT FK_quiz_taken_by FOREIGN KEY REFERENCES tbl_user(id),
+	quiz_id int NULL CONSTRAINT FK_taken_quiz FOREIGN KEY REFERENCES tbl_quiz(id),
 	scored smallint NOT NULL CONSTRAINT df_min_score DEFAULT (0),
 	created_at smalldatetime NOT NULL CONSTRAINT df_quiz_taken_at DEFAULT getdate()
 )
@@ -243,7 +244,7 @@ CREATE TABLE tbl_answer_taken
 (
 	id int IDENTITY(1,1) PRIMARY KEY,
 	quiz_taken_id int NULL CONSTRAINT FK_quiz_taken_id FOREIGN KEY REFERENCES tbl_quiz_taken(id),
-	question_id int NOT NULL CONSTRAINT FK_answer_of FOREIGN KEY REFERENCES tbl_question(id),
+	question_id int NULL CONSTRAINT FK_answer_of FOREIGN KEY REFERENCES tbl_question(id),
 	answer_id int NULL CONSTRAINT FK_answer_taken FOREIGN KEY REFERENCES tbl_answer(id),
 	created_at smalldatetime NOT NULL CONSTRAINT df_answer_taken_at DEFAULT getdate()
 )
@@ -259,4 +260,4 @@ VALUES
 	(2, 22, 86),
 	(2, 23, 90),
 	(2, 24, 96),
-	(2, 25, 99)
+	(2, 25, 99) 
