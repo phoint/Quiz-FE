@@ -131,43 +131,7 @@
     <script th:src="@{/resources/js/sticky-sidebar/jquery.sticky-sidebar.js}"></script>
     <script th:src="@{/resources/js/jquery-countdown/jquery.countdown.js}"></script>
     <script th:src="@{/resources/js/paginga.jquery.js}"></script>
-    <script>
-					$(document).ready(function() {
-						const date = new Date();
-						date.setSeconds(date.getSeconds() + 10);
-						var stickySidebar = $.fn.stickySidebar.noConflict(); // Returns $.fn.stickySidebar assigned value.
-						$.fn.stickySidebar = stickySidebar;
-						// 				$('input').iCheck({
-						// 					checkboxClass : 'icheckbox_minimal-green',
-						// 					radioClass : 'iradio_minimal-green',
-						// 					increaseArea : '20%'
-						// 				});
-						$('#box-siderbar').stickySidebar({
-							containerSelector : '#main-container',
-							innerWrapperSelector : '.sidebar__inner',
-							topSpacing : 150,
-							bottomSpacing : 0
-						});
-						// 				$('#getting-started').countdown(date, function(event) {
-						// 					$(this).html(event.strftime('%H:%M:%S'));
-						// 				}).on('finish.countdown', function() {
-						// 					alert('finish');
-						// 				});
-						$('#main-container').paginga({
-							itemsPerPage : 1,
-							itemsContainer : '.items',
-							item : '> div',
-							page : 1,
-							nextPage : ".nextPage",
-							previousPage : ".previousPage",
-							pageNumbers : ".pageNumbers",
-							scrollToTop : {
-								offset : 100,
-								speed : 100,
-							},
-						});
-					});
-				</script>
+    <script th:src="@{/resources/js/my-js/quizzes.js}"></script>
   </th:block>
 </body>
 </html>

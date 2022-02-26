@@ -15,8 +15,7 @@
           <div class="col-lg-12">
             <button type="button"
               class="btn btn-sm card card-body m-0 p-2 shadow"
-              data-toggle="modal" data-target="#createModal">Create
-              New</button>
+              data-toggle="modal" data-target="#createModal">Create New</button>
           </div>
           <!-- Table -->
           <div class="col-lg-12">
@@ -35,20 +34,17 @@
                     <tbody>
                       <tr>
                         <td>Tiger Nixon</td>
-                        <td><a class="btn btn-outline-primary"
-                          href="#" data-toggle="modal"
-                          data-target="#editModal">Update</a>| <a
-                          class="btn btn-danger"
-                          onclick="return confirm('Are you sure?');"
-                          href="#">Delete</a></td>
+                        <td><a class="btn btn-outline-primary" href="#"
+                          data-toggle="modal" data-target="#editModal">Update</a>|
+                          <a class="btn btn-danger"
+                          onclick="return confirm('Are you sure?');" href="#">Delete</a></td>
                       </tr>
                       <tr th:each="quiz : ${quizzes}">
                         <td th:text="${quiz.title}"></td>
                         <td><a class="btn btn-outline-primary"
                           th:href="@{/admin/edit-quiz(id=${quiz.id})}">Edit</a>|
                           <a class="btn btn-danger"
-                          onclick="return confirm('Are you sure?');"
-                          href="#">Delete</a></td>
+                          onclick="return confirm('Are you sure?');" href="#">Delete</a></td>
                       </tr>
                     </tbody>
                     <tfoot>
@@ -75,6 +71,24 @@
     <!-- The Modal Edit Quiz -->
     <div th:replace="fragments/admin/modal/edit-quiz :: edit-quiz"></div>
     <!-- End Modal Edit Quiz -->
+  </th:block>
+  <th:block layout:fragment="scripts">
+    <!-- Tables -->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script
+      src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+    <script
+      src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script>
+		$(document).ready(function() {
+			var table = $('#example').DataTable({
+				rowReorder : {
+					selector : 'td:nth-child(2)'
+				},
+				responsive : true
+			});
+		});
+	</script>
   </th:block>
 </body>
 </html>

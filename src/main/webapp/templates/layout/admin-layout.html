@@ -72,53 +72,7 @@
 	<script th:src="@{/resources/admin/dist/js/adminlte.min.js}"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script th:src="@{/resources/admin/dist/js/demo.js}"></script>
-	<!-- Tables -->
-	<!-- <script
-		src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
-	<!-- <script
-		src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script> -->
-	<!-- <script
-		src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script> -->
-	<script>
-		$(document).ready(function () {
-			$(document).ready(function () {
-				$(document).ready(function () {
-					var table = $('#example').DataTable({
-						rowReorder: {
-							selector: 'td:nth-child(2)'
-						},
-						responsive: true
-					});
-				});
-			});
-		}
-	</script>
-	<!-- Summernote -->
-	<script th:src="@{/resources/admin/plugins/summernote/summernote-bs4.min.js}"></script>
-	<script>
-			(function () {
-				// Summernote
-				$('.textarea').summernote()
-			})
-	</script>
-	<!-- ToolTip -->
-	<script>
-			$(document).ready(function () {
-				$('[data-toggle="tooltip"]').tooltip();
-			});
-	</script>
-	<!-- Pass input Attribute to create question modal -->
-	<script>
-		$('#createQuestion').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
-			var sectionId = button.data('whatever') // Extract info from data-* attributes
-			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-			var modal = $(this)
-			modal.find('.modal-title').text('Create new question in Section ' + sectionId)
-			modal.find('.modal-body #section-id').val(sectionId)
-		});
-	</script>
+	
 	<th:block layout:fragment="scripts"></th:block>
 </body>
 
