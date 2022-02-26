@@ -15,7 +15,7 @@
 </th:block>
 </head>
 
-<body th:with="boxTitle='Tài khoản cá nhân',isUserPage=true">
+<body th:with="boxTitle='Tài khoản cá nhân',isUserPage=true,isMyProfilePage=true">
 	<th:block layout:fragment="main">
 		<main class="container-fluid">
 			<div
@@ -48,7 +48,7 @@
 											<div class="form-group mb-3">
 												<label>Họ tên người dùng: </label> <input type="text"
 													class="form-control" name="name" placeholder="Họ và tên"
-													required value="">
+													 th:value="${user.name}">
 												<div class="text-danger"></div>
 											</div>
 										</div>

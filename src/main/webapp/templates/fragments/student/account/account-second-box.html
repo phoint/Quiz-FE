@@ -5,7 +5,7 @@
 		<div class="card d-flex flex-md-row w-100 mb-2">
 			<div class="profile-card p-2">
 				<img class="profile-img"
-					th:src="@{/resources/images/quiz-list/undraw_online_test_gba7.png}"
+					th:src="@{(${user.avatar}!=null and ${!#strings.isEmpty(user.avatar)}) ? ${user.avatar}:'/resources/images/quiz-list/undraw_online_test_gba7.png'  }"
 					alt="">
 			</div>
 			<div class="pt-2 ">
@@ -19,7 +19,7 @@
 						<i class="fas fa-list"></i> 3 Quiz attempts
 					</p>
 				</div>
-				<p>Last attempt:</p>
+				<p>Last attempt: </p>
 			</div>
 		</div>
 	</div>

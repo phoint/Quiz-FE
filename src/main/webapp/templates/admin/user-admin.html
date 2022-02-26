@@ -29,9 +29,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<div class="card">
 							<div class="card-header">
 								<div class="clearfix">
-									<button type="button" class="btn btn-sm card card-body m-0 p-2 shadow float-left"
+									<!-- <button type="button" class="btn btn-sm card card-body m-0 p-2 shadow float-left"
 										data-toggle="modal" data-target="#createModal">Create
-										New</button>
+										New</button> -->
 
 									<div class="float-right">
 										<form id="search-form" th:action="@{${url}}" method="get"
@@ -74,8 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												<td th:text="${user.role.name}">61</td>
 												<td><a class="btn btn-outline-primary update-user-btn"
 														th:attr="data-id=${user.id}"
-														href="javascript:void(0)">Update</a> <a class="btn btn-danger"
-														onclick="return confirm('Are you sure?');" href="#">Delete</a>
+														href="javascript:void(0)">Update</a>
 												</td>
 											</tr>
 										</tbody>

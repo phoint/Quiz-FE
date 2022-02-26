@@ -36,20 +36,23 @@ public class AccountInterceptor implements HandlerInterceptor {
 					.queryParam("email", userDetails.getUsername()).toUriString();
 			ResponseEntity<String> textResponse = restTemplate.getForEntity(url, String.class);
 			if (!StringUtils.hasText(textResponse.getBody())) {
-				AuthenciationHelper.logout(request, response);
-				RestTemplateUtil.removeBearerAuth(restTemplate);
+				logout(request,response);
 				response.sendRedirect(request.getContextPath());
 				return false;
 			}
 			ActiveAndRoleUser activeAndRoleUser = objectMapper.readValue(textResponse.getBody(),
 					ActiveAndRoleUser.class);
 			if (!activeAndRoleUser.isActive()) {
-				AuthenciationHelper.logout(request, response);
+				logout(request,response);
 				response.sendRedirect(request.getContextPath());
 				return false;
 			}
 			AuthenciationHelper.setAuthority(activeAndRoleUser.getRole());
 		}
 		return true;
+	}
+	private void logout(HttpServletRequest request, HttpServletResponse response) {
+		AuthenciationHelper.logout(request, response);
+		RestTemplateUtil.removeBearerAuth(restTemplate);
 	}
 }

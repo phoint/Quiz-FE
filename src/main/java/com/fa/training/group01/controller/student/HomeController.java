@@ -71,6 +71,7 @@ public class HomeController {
 	public String login(@ModelAttribute LoginRequest loginRequest) {
 		try {
 			AuthenciationToken authenciationToken = authService.getAuthToken(loginRequest);
+			System.out.println(authenciationToken);
 			RestTemplateUtil.addBeaerAuth(restTemplate, authenciationToken);
 			RestTemplateUtil.addBeaerAuth(template, authenciationToken);
 			User user = userService.getByAuthenciation(authenciationToken);
