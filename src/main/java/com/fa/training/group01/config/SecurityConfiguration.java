@@ -26,7 +26,7 @@ import com.fa.training.group01.util.UrlUtil;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS = { UrlUtil.Public.PathName.HOME, UrlUtil.Public.PathName.LOGIN,
 			UrlUtil.Public.PathName.RESET_PASSWORD, UrlUtil.Public.PathName.ACCESS_DENIED,
-			UrlUtil.Public.PathName.REGISTER };
+			UrlUtil.Public.PathName.REGISTER, "/home" };
 
 	@Autowired
 	private UserDetailsService userDetailsService;

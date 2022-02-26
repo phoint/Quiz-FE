@@ -1,6 +1,6 @@
 package com.fa.training.group01.domain_model;
 
-<<<<<<< HEAD
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,17 +15,5 @@ public class Topic extends GenericModel {
 	private String description;
 
 	@JsonIgnore
-	private List<Quiz> quizzes;
-
-=======
-import lombok.Data;
-
-import java.io.Serializable;
-
-@Data
-public class Topic implements Serializable {
-    private Integer id;
-    private String topic_name;
-    private String description;
->>>>>>> 9c11c62820a734a992e402cd8d6f76a052eb4481
+	private List<Quiz> quizzes = new ArrayList<Quiz>();
 }

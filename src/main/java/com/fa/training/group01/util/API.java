@@ -7,15 +7,16 @@ public class API {
 	public static final String HOST = "http://localhost:9090";
 	public static final String ADMIN_AREA_PATH = "/admin";
 	public static final String USER_MODULE = "/user";
-	public static final String QUIZ_MODULE = "/quizzes";
-	public static final String PART_MODULE = "/parts";
-	public static final String SECTION_MODULE = "/sections";
-	public static final String QUESTION_MODULE = "/questions";
-	public static final String ANSWER_MODULE = "/answers";
-	public static final String QUIZ_TAKEN_MODULE = "/quiz-takens";
-	public static final String ANSWER_TAKEN_MODULE = "/ans-takens";
-	public static final String QUIZ_TAKER_MODULE = "/users";
-	public static final String QUIZ_CREATOR_MODULE = "/users";
+	public static final String TOPIC_MODULE = "/api/topics";
+	public static final String QUIZ_MODULE = "/api/quizzes";
+	public static final String PART_MODULE = "/api/parts";
+	public static final String SECTION_MODULE = "/api/sections";
+	public static final String QUESTION_MODULE = "/api/questions";
+	public static final String ANSWER_MODULE = "/api/answers";
+	public static final String QUIZ_TAKEN_MODULE = "/api/quiz-takens";
+	public static final String ANSWER_TAKEN_MODULE = "/api/ans-takens";
+	public static final String QUIZ_TAKER_MODULE = "/api/users";
+	public static final String QUIZ_CREATOR_MODULE = "/api/users";
 	
 
 	@UtilityClass
@@ -40,62 +41,68 @@ public class API {
 	
 	@UtilityClass
 	public static class QuizTaker {
-		public static final String QUIZ_TAKER = "/users/{userId}";
-		public static final String QUIZ_TAKEN = "/users/{userId}/take";
+		public static final String QUIZ_TAKER = "/api/users/{userId}";
+		public static final String QUIZ_TAKEN = "/api/users/{userId}/take";
 	}
 
 	@UtilityClass
 	public static class QuizCreator {
-		public static final String QUIZ_CREATOR = "/users/{userId}";
-		public static final String QUIZ = "/users/{userId}/create";
+		public static final String QUIZ_CREATOR = "/api/users/{userId}";
+		public static final String QUIZ = "/api/users/{userId}/create";
 	}
 
 	@UtilityClass
+	public static class Topic {
+		public static final String TOPIC = "/api/topics/{topicId}";
+		public static final String Quiz = "/api/topics/{topicId}/quizzes";
+	}
+	
+	@UtilityClass
 	public static class Quiz {
-		public static final String QUIZ = "/quizzes/{quizId}";
-		public static final String PART = "/quizzes/{quizId}/parts";
-		public static final String QUESTION = "/quizzes/{quizId}/questions";
-		public static final String QUIZ_TAKEN = "/quizzes/{quizId}/quiz-takens";
+		public static final String QUIZ = "/api/quizzes/{quizId}";
+		public static final String PART = "/api/quizzes/{quizId}/parts";
+		public static final String QUESTION = "/api/quizzes/{quizId}/questions";
+		public static final String QUIZ_TAKEN = "/api/quizzes/{quizId}/quiz-takens";
 	}
 
 	@UtilityClass
 	public static class Part {
-		public static final String PART = "/parts/{partId}";
-		public static final String SECTION = "/parts/{partId}/sections";
+		public static final String PART = "/api/parts/{partId}";
+		public static final String SECTION = "/api/parts/{partId}/sections";
 		public static final String REL = "parts";
 	}
 
 	@UtilityClass
 	public static class Section {
-		public static final String SECTION = "/sections/{sectionId}";
-		public static final String QUESTION = "/sections/{sectionId}/questions";
+		public static final String SECTION = "/api/sections/{sectionId}";
+		public static final String QUESTION = "/api/sections/{sectionId}/questions";
 	}
 
 	@UtilityClass
 	public static class Question {
-		public static final String QUESTION = "/questions/{questionId}";
-		public static final String ANSWER = "/questions/{questionId}/answers";
-		public static final String QUESTION_TAKEN = "/questions/{questionId}/ans-takens";
+		public static final String QUESTION = "/api/questions/{questionId}";
+		public static final String ANSWER = "/api/questions/{questionId}/answers";
+		public static final String QUESTION_TAKEN = "/api/questions/{questionId}/ans-takens";
 	}
 
 	@UtilityClass
 	public static class Answer {
-		public static final String ANSWER = "/answers/{answerId}";
-		public static final String ANSWER_TAKEN = "/answers/{answerId}/ans-takens";
+		public static final String ANSWER = "/api/answers/{answerId}";
+		public static final String ANSWER_TAKEN = "/api/answers/{answerId}/ans-takens";
 	}
 
 	@UtilityClass
 	public static class QuizTaken {
-		public static final String TAKEN = "/quiz-takens/{quizTakenId}";
-		public static final String ANSWER_TAKEN = "/quiz-takens/{quizTakenId}/ans-takens";
-		public static final String QUIZ = "/quiz-takens/{quizTakenId}/quiz";
+		public static final String TAKEN = "/api/quiz-takens/{quizTakenId}";
+		public static final String ANSWER_TAKEN = "/api/quiz-takens/{quizTakenId}/ans-takens";
+		public static final String QUIZ = "/api/quiz-takens/{quizTakenId}/quiz";
 	}
 
 	@UtilityClass
 	public static class AnswerTaken {
-		public static final String TAKEN = "/ans-takens/{ansTakenId}";
-		public static final String ANSWER_TAKEN = "/ans-takens/{ansTakenId}/answer";
-		public static final String QUESTION_TAKEN = "/ans-takens/{ansTakenId}/question";
+		public static final String TAKEN = "/api/ans-takens/{ansTakenId}";
+		public static final String ANSWER_TAKEN = "/api/ans-takens/{ansTakenId}/answer";
+		public static final String QUESTION_TAKEN = "/api/ans-takens/{ansTakenId}/question";
 	}
 
 }

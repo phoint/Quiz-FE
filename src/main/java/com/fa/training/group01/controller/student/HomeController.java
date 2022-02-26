@@ -16,12 +16,14 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fa.training.group01.domain_model.Quiz;
+import com.fa.training.group01.domain_model.Topic;
 import com.fa.training.group01.domain_model.User;
 import com.fa.training.group01.payload.LoginRequest;
 import com.fa.training.group01.security.AuthenciationToken;
 import com.fa.training.group01.security.CustomUserDetails;
 import com.fa.training.group01.service.IAuthService;
 import com.fa.training.group01.service.IQuizService;
+import com.fa.training.group01.service.ITopicService;
 import com.fa.training.group01.service.IUserService;
 import com.fa.training.group01.util.RestTemplateUtil;
 import com.fa.training.group01.util.UrlUtil;
@@ -42,9 +44,17 @@ public class HomeController {
 	@Autowired
 	private IQuizService quizService;
 	
+	@Autowired
+	private ITopicService topicService;
+	
 	@ModelAttribute("quizzes")
 	public List<Quiz> populateQuiz() {
 		return quizService.findAll();
+	}
+	
+	@ModelAttribute("topics")
+	public List<Topic> populateTopic() {
+		return topicService.findAll();
 	}
 	
 

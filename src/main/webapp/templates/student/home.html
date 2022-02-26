@@ -69,15 +69,18 @@
             <div class="special-menu text-center">
               <div class="button-group filter-button-group">
                 <button class="active" data-filter="*">All</button>
-                <button data-filter=".top-featured">Top featured</button>
-                <button data-filter=".best-seller">Best seller</button>
+                <button th:each="topic : ${topics}"
+                  th:attr="data-filter='.' + ${topic.name}"
+                  th:text="${topic.name}">Top featured</button>
               </div>
             </div>
           </div>
         </div>
 
         <div class="row special-list">
-          <div th:each="quiz : ${quizzes}" class="col-lg-3 col-md-6 special-grid best-seller">
+          <div th:each="quiz : ${quizzes}"
+            th:attrappend="class=${quiz.topic == null} ? '' : ' ' + ${quiz.topic.name}"
+            class="col-lg-3 col-md-6 special-grid">
             <div class="products-single fix">
               <div class="box-img-hover">
                 <img th:src="@{/resources/images/img-pro-01.jpg}"
@@ -86,102 +89,17 @@
               <div class="why-text">
                 <h4 th:text="${quiz.title}"></h4>
                 <div class="d-flex flex-row justify-content-between">
-                  <h5><a th:href="${#mvc.url('QTC#getQuizPage').arg(0,'__${quiz.id}__').build()}">Take</a></h5> <h5><a class="cart" href="#"
-                    data-toggle="tooltip" data-placement="right"
-                    title="Add to Wishlist">
-                      <i class="far fa-heart"></i>
-                    </a></h5>
+                  <h5>
+                    <a
+                      th:href="${#mvc.url('QTC#getQuizPage').arg(0,'__${quiz.id}__').build()}">Take</a>
+                  </h5>
+                  <h5>
+                    <a class="cart" href="#" data-toggle="tooltip"
+                      data-placement="right" title="Add to Wishlist"> <i
+                      class="far fa-heart"></i>
+                    </a>
+                  </h5>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 special-grid top-featured">
-            <div class="products-single fix">
-              <div class="box-img-hover">
-                <div class="type-lb">
-                  <p class="new">New</p>
-                </div>
-                <img th:src="@{/resources/images/img-pro-02.jpg}"
-                  class="img-fluid" alt="Image">
-                <div class="mask-icon">
-                  <ul>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="View"><i
-                        class="fas fa-eye"></i></a></li>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="Compare"><i
-                        class="fas fa-sync-alt"></i></a></li>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="Add to Wishlist"><i
-                        class="far fa-heart"></i></a></li>
-                  </ul>
-                  <a class="cart" href="#">Add to Cart</a>
-                </div>
-              </div>
-              <div class="why-text">
-                <h4>Lorem ipsum dolor sit amet</h4>
-                <h5>$9.79</h5>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 special-grid top-featured">
-            <div class="products-single fix">
-              <div class="box-img-hover">
-                <div class="type-lb">
-                  <p class="sale">Sale</p>
-                </div>
-                <img th:src="@{/resources/images/img-pro-03.jpg}"
-                  class="img-fluid" alt="Image">
-                <div class="mask-icon">
-                  <ul>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="View"><i
-                        class="fas fa-eye"></i></a></li>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="Compare"><i
-                        class="fas fa-sync-alt"></i></a></li>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="Add to Wishlist"><i
-                        class="far fa-heart"></i></a></li>
-                  </ul>
-                  <a class="cart" href="#">Add to Cart</a>
-                </div>
-              </div>
-              <div class="why-text">
-                <h4>Lorem ipsum dolor sit amet</h4>
-                <h5>$10.79</h5>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 special-grid best-seller">
-            <div class="products-single fix">
-              <div class="box-img-hover">
-                <div class="type-lb">
-                  <p class="sale">Sale</p>
-                </div>
-                <img th:src="@{/resources/images/img-pro-04.jpg}"
-                  class="img-fluid" alt="Image">
-                <div class="mask-icon">
-                  <ul>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="View"><i
-                        class="fas fa-eye"></i></a></li>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="Compare"><i
-                        class="fas fa-sync-alt"></i></a></li>
-                    <li><a href="#" data-toggle="tooltip"
-                      data-placement="right" title="Add to Wishlist"><i
-                        class="far fa-heart"></i></a></li>
-                  </ul>
-                  <a class="cart" href="#">Add to Cart</a>
-                </div>
-              </div>
-              <div class="why-text">
-                <h4>Lorem ipsum dolor sit amet</h4>
-                <h5>$15.79</h5>
               </div>
             </div>
           </div>
