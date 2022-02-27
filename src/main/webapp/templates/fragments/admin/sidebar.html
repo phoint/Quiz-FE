@@ -46,23 +46,15 @@
 								<p>Users Page</p>
 						</a></li>
 
-						<li class="nav-item"><a th:href="@{/admin/quiz}"
+						<li class="nav-item"><a th:href="@{/admin/quizzes}"
 							class="nav-link" th:classappend="${isAdminQuizPage} ? active : ''"> <i class="far fa-circle nav-icon"></i>
-								<p>Topic Page</p>
-						</a></li>
-
-						<li class="nav-item"><a th:href="@{/admin/topic}"
-												class="nav-link"> <i class="far fa-circle nav-icon"></i>
 							<p>Quiz Page</p>
 						</a></li>
+						<li class="nav-item"><a th:href="@{/admin/topic}" th:classappend="${isAdminTopicPage} ? active : ''"
+												class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<p>Topic Page</p>
+						</a></li>
 					</ul>
-				<li class="nav-item"><a href="#" class="nav-link"
-					data-toggle="modal" data-target="#createModal"> <i
-						class="nav-icon fas fa-th"></i>
-						<p>
-							Quiz <span class="right badge badge-danger">New</span>
-						</p>
-				</a></li>
 			</ul>
 		</nav>
 		<!-- /.sidebar-menu -->
