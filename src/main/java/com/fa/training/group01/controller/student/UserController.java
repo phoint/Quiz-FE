@@ -68,9 +68,7 @@ public class UserController {
 	@RequestMapping(value = UrlUtil.StudentArea.User.PathName.UPDATE_PROFILE,method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> updateProfile(@ModelAttribute UpdateUserProfileRequest updateUserProfileRequest) {
-		System.out.println(updateUserProfileRequest.getAvatar().getSize());
 		ResponseEntity<String> responseEntity = userService.updateProfile(updateUserProfileRequest);
-		System.out.println(responseEntity);	
 		if (responseEntity != null) {
 			return responseEntity;
 		}

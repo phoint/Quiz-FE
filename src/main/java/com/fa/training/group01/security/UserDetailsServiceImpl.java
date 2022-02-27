@@ -41,7 +41,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			AuthenciationToken authenciationToken = authService.getAuthToken(loginRequest);
 			RestTemplateUtil.addBeaerAuth(restTemplate, authenciationToken);
 			User user = userService.getByAuthenciation(authenciationToken);
-			System.out.println("alo");
 			return new CustomUserDetails(user, authenciationToken);
 		} catch (Exception e) {
 			System.err.println(e);

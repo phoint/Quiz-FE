@@ -99,7 +99,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/home")
 	public String showHome() {
-		
+			
 		return "student/home";
 	}
 
