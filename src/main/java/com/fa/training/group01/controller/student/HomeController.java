@@ -60,10 +60,10 @@ public class HomeController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String index() {
-		restTemplate.getInterceptors().forEach(System.out::println);
+//		restTemplate.getInterceptors().forEach(System.out::println);
 //		if (SecurityContextHolder.getContext().getAuthentication() != null)
 //			SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(System.out::println);
-		return "student/index";
+		return "student/home";
 	}
 
 	@RequestMapping(value = UrlUtil.Public.PathName.LOGIN, method = RequestMethod.POST)
@@ -99,7 +99,6 @@ public class HomeController {
 	
 	@RequestMapping(value="/home")
 	public String showHome() {
-			
 		return "student/home";
 	}
 

@@ -4,288 +4,241 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns="http://www.w3.org/1999/html">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns="http://www.w3.org/1999/html"
+	layout:decorate="~{/layout/admin-layout.html}">
+<head>
+<title>Quản lý topic</title>
+</head>
 
-<div th:replace="admin/fragments/start-frag :: start-head"></div>
 
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<body class="hold-transition sidebar-mini" th:with="isAdminTopicPage=true">
+	<!-- Main content -->
+	<th:block layout:fragment="main">
+		<div class="content">
+			<div class="container-fluid">
+				<h3 class="bg-warning" style="color: #ff0000; text-align: center;"
+					th:if="${error}" th:text="${error}"></h3>
 
-    <!-- Navbar -->
-    <div th:replace="admin/fragments/start-frag :: start-nav"></div>
-    <!-- /.navbar -->
+				<!-- The Modal Edit Topic -->
+				<div th:if="${topic}" id="edit">
+					<div class="modal-dialog">
+						<div class="modal-content">
 
-    <!-- Main Sidebar Container -->
-    <div th:replace="admin/fragments/start-frag :: start-side"></div>
+							<!-- Modal body -->
+							<div
+								class="modal-body d-flex justify-content-between align-baseline">
+								<div>
+									<h3 class="modal-title">Edit Topic</h3>
+								</div>
+								<form th:action="@{/admin/updateTopic}" th:object="${topic}"
+									method="post" class="needs-validation" novalidate>
+									<div class="form-group d-none">
+										<label for="id">Id:</label> <input type="text"
+											class="form-control" id="id" placeholder="Enter Id" name="id"
+											th:field="*{id}" required>
+										<div class="valid-feedback">Valid.</div>
+										<div class="invalid-feedback">Please fill out this
+											field.</div>
+									</div>
+									<div class="form-group">
+										<label for="topic_name">Name:</label> <input type="text"
+											class="form-control" id="topic_name"
+											placeholder="Enter topic name" name="name" th:field="*{name}"
+											required>
+										<div class="valid-feedback">Valid.</div>
+										<div class="invalid-feedback">Please fill out this
+											field.</div>
+									</div>
+									<div class="form-group">
+										<label for="description">Content:</label>
+										<textarea class="form-control" placeholder="Enter content"
+											name="description" id="description" cols="30" rows="10"
+											th:text="${topic.description}" required></textarea>
+										<div class="valid-feedback">Valid.</div>
+										<div class="invalid-feedback">Please fill out this
+											field.</div>
+									</div>
+									<!-- Modal footer -->
+									<div
+										class="modal-footer d-flex justify-content-between align-baseline">
+										<a type="reset" th:href="@{/admin/topic}"
+											class="btn btn-danger" data-dismiss="modal">Close</a>
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</div>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Topic</h1>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a th:href="@{admin/start}">Home</a></li>
-                            <li class="breadcrumb-item active">Topic Page</li>
-                        </ol>
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
+								</form>
+							</div>
 
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
+						</div>
+					</div>
+				</div>
 
-                <h3 class="bg-warning" style="color: #ff0000; text-align: center;"
-                    th:if="${error}" th:text="${error}"></h3>
+				<div class="row">
+					<!-- Pop-up Create -->
+					<div class="col-lg-12">
+						<button type="button"
+							class="btn btn-sm card card-body m-0 p-2 shadow"
+							data-toggle="modal" data-target="#createModal">Create
+							New</button>
+						<!-- The Modal Create User -->
+						<div class="modal" id="createModal">
+							<div class="modal-dialog">
+								<div class="modal-content">
 
-                <!-- The Modal Edit Topic -->
-                <div th:if="${topic}" id="edit">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+									<!-- Modal Header -->
+									<div class="modal-header">
+										<h3 class="modal-title">Create Topic</h3>
+										<button type="button" class="close" data-dismiss="modal">x</button>
+									</div>
 
-                            <!-- Modal body -->
-                            <div
-                                    class="modal-body d-flex justify-content-between align-baseline">
-                                <div>
-                                    <h3 class="modal-title">Edit Topic</h3>
-                                </div>
-                                <form th:action="@{/admin/updateTopic}" th:object="${topic}"
-                                      method="post" class="needs-validation" novalidate>
-                                    <div class="form-group d-none">
-                                        <label for="id">Id:</label> <input type="text"
-                                                                           class="form-control" id="id" placeholder="Enter Id"
-                                                                           name="id" th:field="*{id}" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this
-                                            field.</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="topic_name">Name:</label> <input type="text"
-                                                                                     class="form-control" id="topic_name"
-                                                                                     placeholder="Enter topic name" name="topic_name"
-                                                                                     th:field="*{topic_name}" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this
-                                            field.</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">Content:</label>
-                                        <textarea class="form-control" placeholder="Enter content"
-                                                  name="description" id="description" cols="30" rows="10"
-                                                  th:text="${topic.description}" required></textarea>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this
-                                            field.</div>
-                                    </div>
-                                    <!-- Modal footer -->
-                                    <div
-                                            class="modal-footer d-flex justify-content-between align-baseline">
-                                        <a type="reset" th:href="@{/admin/topic}" class="btn btn-danger"
-                                           data-dismiss="modal">Close</a>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
+									<!-- Modal body -->
+									<div class="modal-body">
+										<form th:action="@{'/admin/insertTopic'}"
+											th:object="${newTopic}" method="post"
+											class="needs-validation" novalidate>
+											<div class="form-group">
+												<label for="topic_name">Name:</label> <input type="text"
+													class="form-control" id="topic_name"
+													placeholder="Enter email" th:field="*{name}" required>
+												<div class="valid-feedback">Valid.</div>
+												<div class="invalid-feedback">Please fill out this
+													field.</div>
+											</div>
+											<div class="form-group">
+												<label for="description">Content:</label>
+												<textarea class="form-control" placeholder="Enter content"
+													name="description" id="description" cols="30" rows="10"
+													th:field="*{description}" required></textarea>
+												<div class="valid-feedback">Valid.</div>
+												<div class="invalid-feedback">Please fill out this
+													field.</div>
+											</div>
 
-                                </form>
-                            </div>
+											<!-- Modal footer -->
+											<div
+												class="modal-footer d-flex justify-content-between align-baseline">
+												<button type="reset" class="btn btn-danger"
+													data-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
 
-                        </div>
-                    </div>
-                </div>
+										</form>
+									</div>
 
-                <div class="row">
-                    <!-- Pop-up Create -->
-                    <div class="col-lg-12">
-                        <button type="button"
-                                class="btn btn-sm card card-body m-0 p-2 shadow"
-                                data-toggle="modal" data-target="#createModal">Create
-                            New</button>
-                        <!-- The Modal Create User -->
-                        <div class="modal" id="createModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Table -->
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-body shadow">
 
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h3 class="modal-title">Create Topic</h3>
-                                        <button type="button" class="close" data-dismiss="modal">x</button>
-                                    </div>
+								<div class="show-item table">
+									<table id="example"
+										class="display table table-hover table-striped nowrap"
+										style="width: 100%;">
+										<thead>
+											<tr class="text-light btn-primary">
+												<th></th>
+												<th>Name</th>
+												<th>Description</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="t,iter : ${listTopic}">
+												<td th:text="${iter.index + 1}">Tiger Nixon</td>
+												<td th:text="${t.name}">System Architect</td>
+												<td th:text="${t.description}">Edinburgh</td>
+												<td><a class="btn btn-outline-primary"
+													th:href="@{'/admin/editTopic/'+${t.id}}"> Update </a> | <a
+													class="btn btn-danger"
+													onclick="return confirm('Are you sure?');"
+													th:href="@{'/admin/deleteTopic?id='+${t.id}}">Delete</a></td>
+											</tr>
+										</tbody>
+										<tfoot>
+											<tr>
+												<th></th>
+												<th>Name</th>
+												<th>Description</th>
+												<th></th>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
 
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <form th:action="@{'/admin/insertTopic'}"
-                                              th:object="${newTopic}" method="post"
-                                              class="needs-validation" novalidate>
-                                            <div class="form-group">
-                                                <label for="topic_name">Name:</label> <input type="text"
-                                                                                             class="form-control" id="topic_name"
-                                                                                             placeholder="Enter email" name="topic_name"
-                                                                                             th:field="*{topic_name}" required>
-                                                <div class="valid-feedback">Valid.</div>
-                                                <div class="invalid-feedback">Please fill out this
-                                                    field.</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="description">Content:</label>
-                                                <textarea class="form-control" placeholder="Enter content"
-                                                          name="description" id="description" cols="30" rows="10"
-                                                          th:field="*{description}" required></textarea>
-                                                <div class="valid-feedback">Valid.</div>
-                                                <div class="invalid-feedback">Please fill out this
-                                                    field.</div>
-                                            </div>
+							</div>
+						</div>
+					</div>
 
-                                            <!-- Modal footer -->
-                                            <div
-                                                    class="modal-footer d-flex justify-content-between align-baseline">
-                                                <button type="reset" class="btn btn-danger"
-                                                        data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Table -->
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body shadow">
-
-                                <div class="show-item table">
-                                    <table id="example"
-                                           class="display table table-hover table-striped nowrap"
-                                           style="width: 100%;">
-                                        <thead>
-                                        <tr class="text-light btn-primary">
-                                            <th></th>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="t,iter : ${listTopic}">
-                                            <td th:text="${iter.index + 1}">Tiger Nixon</td>
-                                            <td th:text="${t.topic_name}">System Architect</td>
-                                            <td th:text="${t.description}">Edinburgh</td>
-                                            <td><a class="btn btn-outline-primary"
-                                                   th:href="@{'/admin/editTopic/'+${t.id}}"> Update </a> | <a
-                                                    class="btn btn-danger"
-                                                    onclick="return confirm('Are you sure?');"
-                                                    th:href="@{'/admin/deleteTopic?id='+${t.id}}">Delete</a></td>
-                                        </tr>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th></th>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th></th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-        <div class="p-3">
-            <h5>Title</h5>
-            <p>Sidebar content</p>
-        </div>
-    </aside>
-    <!-- /.control-sidebar -->
-
-    <!-- Main Footer -->
-    <div th:replace="admin/fragments/start-frag :: start-footer"></div>
-
-</div>
-<!-- The Modal Create Quiz -->
-<div th:replace="admin/fragments/start-frag :: create-quiz"></div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script th:src="@{/resources/admin/plugins/jquery/jquery.min.js}"></script>
-<!-- Bootstrap 4 -->
-<script
-        th:src="@{/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<!-- AdminLTE App -->
-<script th:src="@{/resources/admin/dist/js/adminlte.min.js}"></script>
-<!-- Tables -->
-<script
-        src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script
-        src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
-<script
-        src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $(document).ready(function() {
-            var table = $('#example').DataTable({
-                rowReorder : {
-                    selector : 'td:nth-child(2)'
-                },
-                responsive : true
-            });
-        });
-    });
-</script>
-<!-- form-validation -->
-<script>
-    // Disable form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load',
-            function() {
-                // Get the forms we want to add validation styles to
-                var forms = document
-                    .getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms,
-                    function(form) {
-                        form.addEventListener('submit', function(
-                            event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-            }, false);
-    })();
-</script>
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
+		</div>
+		<!-- /.content -->
+	</th:block>
+	<th:block layout:fragment="scripts">
+		<script
+			src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+		<script
+			src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$(document).ready(function() {
+					var table = $('#example').DataTable({
+						rowReorder : {
+							selector : 'td:nth-child(2)'
+						},
+						responsive : true
+					});
+				});
+			});
+		</script>
+		<!-- form-validation -->
+		<script>
+			// Disable form submissions if there are invalid fields
+			(function() {
+				'use strict';
+				window
+						.addEventListener(
+								'load',
+								function() {
+									// Get the forms we want to add validation styles to
+									var forms = document
+											.getElementsByClassName('needs-validation');
+									// Loop over them and prevent submission
+									var validation = Array.prototype.filter
+											.call(
+													forms,
+													function(form) {
+														form
+																.addEventListener(
+																		'submit',
+																		function(
+																				event) {
+																			if (form
+																					.checkValidity() === false) {
+																				event
+																						.preventDefault();
+																				event
+																						.stopPropagation();
+																			}
+																			form.classList
+																					.add('was-validated');
+																		},
+																		false);
+													});
+								}, false);
+			})();
+		</script>
+	</th:block>
 </body>
 
 </html>

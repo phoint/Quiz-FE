@@ -163,7 +163,6 @@ public class AppConfig implements WebMvcConfigurer {
 				Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM }));
 		converter.setObjectMapper(objectMapper());
 		restTemplate.getMessageConverters().add(converter);
-
 		RestTemplate template = configurer.registerHypermediaTypes(restTemplate);
 		template.setErrorHandler(responseErrorHandler);
 		return template;

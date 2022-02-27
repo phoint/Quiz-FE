@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,9 @@ public class AccountInterceptor implements HandlerInterceptor {
 	private RestTemplate restTemplate;
 	@Autowired
 	private ObjectMapper objectMapper;
+	@Autowired
+	@Qualifier(value = "hypermediaRestTemplate")
+	private RestTemplate template; 
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -54,5 +58,6 @@ public class AccountInterceptor implements HandlerInterceptor {
 	private void logout(HttpServletRequest request, HttpServletResponse response) {
 		AuthenciationHelper.logout(request, response);
 		RestTemplateUtil.removeBearerAuth(restTemplate);
+		RestTemplateUtil.removeBearerAuth(template);
 	}
 }
