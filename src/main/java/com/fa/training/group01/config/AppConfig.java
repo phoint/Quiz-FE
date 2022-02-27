@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType
 import org.springframework.hateoas.config.HypermediaRestTemplateConfigurer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -155,7 +157,14 @@ public class AppConfig implements WebMvcConfigurer {
 	@Bean
 	@Autowired
 	RestTemplate hypermediaRestTemplate(HypermediaRestTemplateConfigurer configurer) {
-		RestTemplate template = configurer.registerHypermediaTypes(new RestTemplate());
+		RestTemplate restTemplate = new RestTemplate();
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setSupportedMediaTypes(
+				Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM }));
+		converter.setObjectMapper(objectMapper());
+		restTemplate.getMessageConverters().add(converter);
+
+		RestTemplate template = configurer.registerHypermediaTypes(restTemplate);
 		template.setErrorHandler(responseErrorHandler);
 		return template;
 	}
@@ -171,11 +180,12 @@ public class AppConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(accountInterceptor);
 	}
+
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
-	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-	    multipartResolver.setDefaultEncoding(StandardCharsets.UTF_8.name());
-	    multipartResolver.setMaxUploadSize(1024*1024*100);
-	    return multipartResolver;
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setDefaultEncoding(StandardCharsets.UTF_8.name());
+		multipartResolver.setMaxUploadSize(1024 * 1024 * 100);
+		return multipartResolver;
 	}
 }
